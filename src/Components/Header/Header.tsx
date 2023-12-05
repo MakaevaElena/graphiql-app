@@ -1,5 +1,4 @@
-// import { Link } from 'react-router-dom';
-import styles from './style.module.scss';
+// import styles from './style.module.scss';
 
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
@@ -41,7 +40,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <AppBar position="static" className={styles.navigation} sx={{ backgroundColor: '#1a1a1a' }}>
+    <AppBar position="static" sx={{ backgroundColor: '#1a1a1a' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -100,11 +99,7 @@ const Header: React.FC = () => {
                       fontFamily: 'menlo',
                     }}
                   >
-                    <Link
-                      key={i + 1}
-                      to={`/${page}`}
-                      className={styles[`navigation-button ${page}`]}
-                    >
+                    <Link key={i + 1} to={`/${page}`}>
                       <div key={page} id={`${page}`}>
                         {page}
                       </div>
@@ -142,7 +137,7 @@ const Header: React.FC = () => {
                   display: 'block',
                 }}
               >
-                <Link key={i + 1} to={`/${page}`} className={styles[`navigation-button ${page}`]}>
+                <Link key={i + 1} to={`/${page}`}>
                   <div key={page} id={`${page}`}>
                     {page}
                   </div>
