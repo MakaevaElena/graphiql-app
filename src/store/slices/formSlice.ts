@@ -2,14 +2,12 @@ import { createSlice } from '@reduxjs/toolkit';
 import { LoginFormState } from '../../store/types';
 
 const initialState: LoginFormState = {
-  data: [
-    {
-      name: '',
-      email: '',
-      password: '',
-      password_repeat: '',
-    },
-  ],
+  data: {
+    name: '',
+    email: '',
+    password: '',
+    password_repeat: '',
+  },
 };
 
 const dataSlice = createSlice({
@@ -17,7 +15,7 @@ const dataSlice = createSlice({
   initialState,
   reducers: {
     setData: (state, action) => {
-      state.data.push(action.payload);
+      state.data = action.payload;
     },
   },
 });

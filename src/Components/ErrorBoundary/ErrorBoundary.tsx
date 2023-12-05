@@ -1,25 +1,24 @@
-import React, { ErrorInfo, ReactNode } from 'react';
+import React, { ErrorInfo } from 'react';
+import { IErrorBoundaryProps, IErrorBoundaryState } from './ErrorBoundary.types';
 
-interface Props {
-  children?: ReactNode;
-  fallback?: ReactNode;
+enum Message {
+  DEFAULT_ERROR = 'Sorry.. there was an error',
 }
 
-interface State {
-  hasError: boolean;
-}
-
-export default class ErrorBoundary extends React.Component<Props, State> {
-  public state: State = {
+export default class ErrorBoundary extends React.Component<
+  IErrorBoundaryProps,
+  IErrorBoundaryState
+> {
+  public state: IErrorBoundaryState = {
     hasError: false,
   };
 
-  constructor(props: object) {
+  constructor(props: IErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false };
   }
 
-  public static getDerivedStateFromError(): State {
+  public static getDerivedStateFromError(): IErrorBoundaryState {
     return { hasError: true };
   }
 
@@ -27,18 +26,13 @@ export default class ErrorBoundary extends React.Component<Props, State> {
     console.error('ErrorBoundary Uncaught error:', error, errorInfo);
   }
 
-  private reload() {
-    window.location.reload();
-  }
-
   public render() {
     if (this.state.hasError) {
-      return (
+      return this.props.fallback ? (
+        this.props.fallback
+      ) : (
         <>
-          <h1>Sorry.. there was an error</h1>
-          <button className="reload-button" onClick={this.reload}>
-            Reload
-          </button>
+          <h1>{Message.DEFAULT_ERROR}</h1>
         </>
       );
     }

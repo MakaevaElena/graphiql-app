@@ -1,4 +1,4 @@
-import GraphiQLPage from '../../pages/GraphiQLPage/GraphiQLPage';
+import EditorPage from '../../pages/EditorPage/EditorPage';
 import WelcomePage from '../../pages/WelcomePage/WelcomePage';
 import styles from './App.module.css';
 import { Route, Routes } from 'react-router-dom';
@@ -15,7 +15,7 @@ function App() {
           <Route path="/" element={<WelcomePage />} />
           <Route path="/Welcome" element={<WelcomePage />} />
           <Route path={`/Login/`} element={<LoginPage />} />
-          <Route path={`/GraphiQL/`} element={<GraphiQLPage />} />
+          <Route path={`/Editor/`} element={<EditorPage />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>

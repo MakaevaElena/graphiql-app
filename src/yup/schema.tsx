@@ -1,16 +1,24 @@
 import * as yup from 'yup';
 
+const CHECK_NAME = /^[A-ZА-Я][a-zа-я]*$/;
+const CHECK_EMAIL = /[a-z0-9]+[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/;
+const CHECK_PASSWORD =
+  /(?=(.*[0-9]))(?=.*[@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}/;
+
 export const schema = yup
   .object()
   .shape({
     name: yup
       .string()
-      .matches(/^[A-ZА-Я][a-zа-я]*$/)
+      .matches(CHECK_NAME)
+      .test('name length', 'name is too short', (name) => {
+        if (name) return name?.length > 2;
+      })
       .required('required'),
     email: yup
       .string()
       .email('email format need to be xxx@xx.xx')
-      .matches(/[a-z0-9]+[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/)
+      .matches(CHECK_EMAIL)
       .required('email required'),
     password: yup
       .string()
@@ -21,10 +29,7 @@ export const schema = yup
         'password format',
         'should match, display the password strength: 1 number, 1 uppercased letter, 1 lowercased letter, 1 special character',
         (password) => {
-          if (password)
-            return /(?=(.*[0-9]))(?=.*[@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}/gm.test(
-              password
-            );
+          if (password) return CHECK_PASSWORD.test(password);
         }
       )
       .defined()

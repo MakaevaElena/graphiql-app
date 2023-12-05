@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './style.module.scss';
 
-const GraphiQLPage: React.FC = () => {
+const EditorPage: React.FC = () => {
   return (
     <>
       <h2 className={styles.tytle}>GraphiQL</h2>
@@ -10,4 +10,4 @@ const GraphiQLPage: React.FC = () => {
   );
 };
 
-export default GraphiQLPage;
+export default EditorPage;

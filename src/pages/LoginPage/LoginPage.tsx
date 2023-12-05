@@ -52,7 +52,7 @@ const LoginPage: React.FC = () => {
             </div>
             {errors.name && (
               <p className={styles['error-message']} role="alert">
-                {'validate for first uppercased letter and no space'}
+                {'validate for first uppercased letter, length more then 2 and no space'}
               </p>
             )}
 
