@@ -1,0 +1,26 @@
+import GraphiQLPage from '../../pages/GraphiQLPage/GraphiQLPage';
+import WelcomePage from '../../pages/WelcomePage/WelcomePage';
+import styles from './App.module.css';
+import { Route, Routes } from 'react-router-dom';
+import PageNotFound from '../../pages/NotFoundPage/NotFoundPage';
+import LoginPage from '../../pages/LoginPage/LoginPage';
+import Navigation from '../Header/Header';
+
+function App() {
+  return (
+    <div className={styles['container']}>
+      <Navigation />
+      <div className={styles['content']}>
+        <Routes>
+          <Route path="/" element={<WelcomePage />} />
+          <Route path="/Welcome" element={<WelcomePage />} />
+          <Route path={`/Login/`} element={<LoginPage />} />
+          <Route path={`/GraphiQL/`} element={<GraphiQLPage />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </div>
+    </div>
+  );
+}
+
+export default App;
