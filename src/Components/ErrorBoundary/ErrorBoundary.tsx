@@ -1,9 +1,9 @@
 import React, { ErrorInfo } from 'react';
-import { IErrorBoundaryProps, IErrorBoundaryState } from './ErrorBoundary.types';
-
-enum Message {
-  DEFAULT_ERROR = 'Sorry.. there was an error',
-}
+import {
+  IErrorBoundaryProps,
+  IErrorBoundaryState,
+} from './ErrorBoundary.types';
+import errorMessages from '../../assets/errorMessages.json';
 
 export default class ErrorBoundary extends React.Component<
   IErrorBoundaryProps,
@@ -32,7 +32,7 @@ export default class ErrorBoundary extends React.Component<
         this.props.fallback
       ) : (
         <>
-          <h1>{Message.DEFAULT_ERROR}</h1>
+          <h1>{errorMessages.ERROR_MESSAGE.en}</h1>
         </>
       );
     }

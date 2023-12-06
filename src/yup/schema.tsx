@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+import errorMessages from '../assets/errorMessages.json';
 
 const CHECK_NAME = /^[A-ZА-Я][a-zа-я]*$/;
 const CHECK_EMAIL = /[a-z0-9]+[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/;
@@ -11,32 +12,36 @@ export const schema = yup
     name: yup
       .string()
       .matches(CHECK_NAME)
-      .test('name length', 'name is too short', (name) => {
+      .test('name length', errorMessages.CHECK_NAME_LENGTH.en, (name) => {
         if (name) return name?.length > 2;
       })
       .required('required'),
     email: yup
       .string()
-      .email('email format need to be xxx@xx.xx')
+      .email(errorMessages.CHECK_EMAIL_FORMAT.en)
       .matches(CHECK_EMAIL)
-      .required('email required'),
+      .required(errorMessages.CHECK_EMAIL_REQUIRED.en),
     password: yup
       .string()
-      .test('is strong password', 'password in not strong', (password) => {
-        if (password) return password?.length > 8;
-      })
+      .test(
+        'is strong password',
+        errorMessages.CHECK_PASSWORD_STRONG.en,
+        (password) => {
+          if (password) return password?.length > 8;
+        }
+      )
       .test(
         'password format',
-        'should match, display the password strength: 1 number, 1 uppercased letter, 1 lowercased letter, 1 special character',
+        errorMessages.CHECK_PASSWORD_FORMAT.en,
         (password) => {
           if (password) return CHECK_PASSWORD.test(password);
         }
       )
       .defined()
-      .required('password required'),
-    password_repeat: yup
+      .required(errorMessages.CHECK_PASSWORD_REQUIRED),
+    passwordRepeat: yup
       .string()
-      .oneOf([yup.ref('password')], 'passwords not match')
-      .required('password_repeat required'),
+      .oneOf([yup.ref('password')], errorMessages.CHECK_PASSWORD_MATCH)
+      .required(errorMessages.CHECK_PASSWORD_REQUIRED),
   })
   .required();

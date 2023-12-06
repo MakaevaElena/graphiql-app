@@ -4,12 +4,12 @@ import styles from './App.module.css';
 import { Route, Routes } from 'react-router-dom';
 import PageNotFound from '../../pages/NotFoundPage/NotFoundPage';
 import LoginPage from '../../pages/LoginPage/LoginPage';
-import Navigation from '../Header/Header';
+import Header from '../Header/Header';
 
 function App() {
   return (
     <div className={styles['container']}>
-      <Navigation />
+      <Header />
       <div className={styles['content']}>
         <Routes>
           <Route path="/" element={<WelcomePage />} />

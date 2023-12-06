@@ -6,7 +6,7 @@ const initialState: LoginFormState = {
     name: '',
     email: '',
     password: '',
-    password_repeat: '',
+    passwordRepeat: '',
   },
 };
 

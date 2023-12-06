@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../../yup/schema';
 import { setData } from '../../store/slices/formSlice';
 import { Form } from '../../common-types/common-types';
+import errorMessages from '../../assets/errorMessages.json';
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const LoginPage: React.FC = () => {
   });
 
   const onSubmit: SubmitHandler<Form> = async (data) => {
-    const { name, email, password, password_repeat } = data;
+    const { name, email, password, passwordRepeat } = data;
 
     if (data)
       dispatch(
@@ -29,7 +30,7 @@ const LoginPage: React.FC = () => {
           name,
           email,
           password,
-          password_repeat,
+          passwordRepeat,
         })
       );
 
@@ -52,7 +53,7 @@ const LoginPage: React.FC = () => {
             </div>
             {errors.name && (
               <p className={styles['error-message']} role="alert">
-                {'validate for first uppercased letter, length more then 2 and no space'}
+                {errorMessages.CHECK_NAME_FIRST_LETTER.en}
               </p>
             )}
 
@@ -77,12 +78,16 @@ const LoginPage: React.FC = () => {
             )}
 
             <div className={styles['form-row']}>
-              <label htmlFor="password_repeat">repeat password</label>
-              <input type="password" {...register('password_repeat')} id="password_repeat" />
+              <label htmlFor="passwordRepeat">repeat password</label>
+              <input
+                type="password"
+                {...register('passwordRepeat')}
+                id="passwordRepeat"
+              />
             </div>
-            {errors.password_repeat && (
+            {errors.passwordRepeat && (
               <p className={styles['error-message']} role="alert">
-                {'both passwords should match'}
+                {errorMessages.CHECK_PASSWORD_MATCH.en}
               </p>
             )}
 

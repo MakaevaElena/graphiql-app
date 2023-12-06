@@ -1,3 +1,3 @@
 export type LoginFormState = {
-  data: { name: string; email: string; password: string; password_repeat: string };
+  data: { name: string; email: string; password: string; passwordRepeat: string };
 };
