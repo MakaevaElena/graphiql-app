@@ -16,7 +16,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
-  const pages = ['Welcome', 'Login', 'GraphiQL'];
+  const pages = ['Welcome', 'Login', 'Editor'];
   const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
