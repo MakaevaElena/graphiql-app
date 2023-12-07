@@ -15,9 +15,11 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Link } from 'react-router-dom';
 import Switch from '@mui/material/Switch';
-import { UIStrings } from '../../assets/UIStrings.tsx';
+import UIStrings from '../../assets/UIStrings.json';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import { ChangeOnScrollProps, MUIHeaderProps } from './MUIHeader.types.ts';
+import Language from '../../enum/language';
+import { useDataContext } from '../../DataContext/useDataContext';
 
 const ScrollHandler = (props: ChangeOnScrollProps) => {
   const trigger = useScrollTrigger({
@@ -39,13 +41,11 @@ const ChangeOnScroll = (props: ChangeOnScrollProps) => {
   return <ScrollHandler {...props}>{props.children}</ScrollHandler>;
 };
 
-const MUIHeader: React.FC<MUIHeaderProps> = ({
-  pages,
-  isLogin,
-  lang,
-  setLang,
-}) => {
+const MUIHeader: React.FC<MUIHeaderProps> = ({ isLogin }) => {
   isLogin = false;
+
+  const { language, pageName, setLanguage } = useDataContext();
+  const pages = Object.values(pageName);
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -67,7 +67,7 @@ const MUIHeader: React.FC<MUIHeaderProps> = ({
   };
 
   const changeLang = () => {
-    setLang(!lang);
+    setLanguage(language === Language.En ? Language.Ru : Language.En);
   };
 
   return (
@@ -217,7 +217,7 @@ const MUIHeader: React.FC<MUIHeaderProps> = ({
                     fontFamily: 'menlo',
                   }}
                 >
-                  {UIStrings.RusLang[+lang]}
+                  {UIStrings.RuLanguage[language]}
                 </Typography>
 
                 <Switch
@@ -234,7 +234,7 @@ const MUIHeader: React.FC<MUIHeaderProps> = ({
                     fontFamily: 'menlo',
                   }}
                 >
-                  {UIStrings.EngLang[+lang]}
+                  {UIStrings.EnLanguage[language]}
                 </Typography>
               </Box>
 
