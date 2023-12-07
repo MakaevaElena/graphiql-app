@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { LoginFormState } from '../../store/types';
+import { LoginFormState } from '../store.types';
 
 const initialState: LoginFormState = {
   data: {

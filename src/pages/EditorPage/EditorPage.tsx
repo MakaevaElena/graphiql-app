@@ -5,7 +5,9 @@ const EditorPage: React.FC = () => {
   return (
     <>
       <h2 className={styles.tytle}>GraphiQL</h2>
-      <div className={styles.graphiql__container}></div>
+      <div className={styles.graphiql__container}>
+        <div className={styles['test-div']}></div>
+      </div>
     </>
   );
 };
