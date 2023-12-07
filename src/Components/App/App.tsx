@@ -14,7 +14,6 @@ function App() {
   return (
     <Context.Provider value={{ lang, setLang }}>
       <div className={styles['container']}>
-        <h2 className={styles['title-header']}>Up&Go Team</h2>
         <Header />
         <div className={styles['content']}>
           <Routes>
