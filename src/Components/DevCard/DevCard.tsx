@@ -1,4 +1,4 @@
-import { Avatar, Box, Link, Typography } from '@mui/material';
+import { Avatar, Box, Link, Typography, useMediaQuery } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
 type DevCardProps = {
@@ -18,10 +18,13 @@ function DevCard({
   gitHub,
   contribution,
 }: DevCardProps) {
+  const MobileM = useMediaQuery('(min-width:600px)');
+
   return (
     <Box
       sx={{
         display: 'flex',
+        flexDirection: MobileM ? 'row' : 'column',
         gap: 2,
         p: 2,
         borderRadius: 4,
@@ -35,12 +38,25 @@ function DevCard({
       <Avatar
         alt="Dev Name"
         src={imgSrc}
-        sx={{ width: 100, height: 100, borderRadius: 4 }}
+        sx={{
+          width: 120,
+          height: 120,
+          borderRadius: 4,
+          alignSelf: MobileM ? 'flex-start' : 'center',
+        }}
       />
-      <Box sx={{ pt: 1 }}>
-        <Typography variant="h5" sx={{ fontStyle: 'normal' }}>
-          {name}
-        </Typography>
+      <Box sx={{ pt: 1, display: 'flex', flexDirection: 'column', gap: 1 }}>
+        <Box sx={{ display: 'flex', gap: 1, alignItems: 'end' }}>
+          <Typography
+            variant="h5"
+            sx={{ fontStyle: 'normal', lineHeight: 1.5 }}
+          >
+            {name}
+          </Typography>
+          <Link href={gitHub} target="_blank">
+            <GitHubIcon sx={{ color: '#eee' }} />
+          </Link>
+        </Box>
         <Typography sx={{ fontStyle: 'normal' }}>{bio}</Typography>
         <Typography sx={{ fontStyle: 'normal' }}>
           Location: {location}
@@ -48,9 +64,6 @@ function DevCard({
         <Typography sx={{ fontStyle: 'normal' }}>
           Contribution: {contribution}
         </Typography>
-        <Link href={gitHub} target="_blank">
-          <GitHubIcon sx={{ color: '#eee' }} />
-        </Link>
       </Box>
     </Box>
   );
