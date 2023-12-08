@@ -3,8 +3,5 @@ export interface ChangeOnScrollProps {
 }
 
 export type MUIHeaderProps = {
-  pages: string[];
   isLogin: boolean;
-  lang: boolean;
-  setLang: (c: boolean) => void;
 };

@@ -39,7 +39,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <>
-      <h2 className={styles['tytle']}>Login Page</h2>
+      <h2 className={styles['title']}>Login Page</h2>
       <div className={styles['form__container']}>
         <div className={styles['form']}>
           <form onSubmit={handleSubmit(onSubmit)}>

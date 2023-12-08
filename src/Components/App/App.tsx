@@ -6,26 +6,44 @@ import PageNotFound from '../../pages/NotFoundPage/NotFoundPage';
 import LoginPage from '../../pages/LoginPage/LoginPage';
 import Header from '../Header/Header';
 import { useState } from 'react';
-import Context from '../../context/context';
+import Language from '../../enum/language';
+import { DataContextProvider } from '../../DataContext/DataContextProvider';
+import UIStrings from '../../assets/UIStrings.json';
 
 function App() {
-  const [lang, setLang] = useState(true);
+  const [language, setLanguage] = useState(Language.En);
+
+  const switchLanguage = (language: Language) => {
+    setLanguage(language);
+  };
+
+  const pageName = {
+    welcome: UIStrings.Welcome[language],
+    login: UIStrings.Login[language],
+    editor: UIStrings.Editor[language],
+  };
 
   return (
-    <Context.Provider value={{ lang, setLang }}>
+    <DataContextProvider
+      value={{
+        language: language,
+        setLanguage: switchLanguage,
+        pageName: pageName,
+      }}
+    >
       <div className={styles['container']}>
         <Header />
         <div className={styles['content']}>
           <Routes>
             <Route path="/" element={<WelcomePage />} />
-            <Route path="/Welcome" element={<WelcomePage />} />
-            <Route path={`/Login/`} element={<LoginPage />} />
-            <Route path={`/Editor/`} element={<EditorPage />} />
+            <Route path={`/${pageName.welcome}`} element={<WelcomePage />} />
+            <Route path={`/${pageName.login}`} element={<LoginPage />} />
+            <Route path={`/${pageName.editor}`} element={<EditorPage />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </div>
       </div>
-    </Context.Provider>
+    </DataContextProvider>
   );
 }
 

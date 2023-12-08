@@ -5,7 +5,7 @@ import errorMessages from '../../assets/errorMessages.json';
 const NotFoundPage: React.FC = () => {
   return (
     <>
-      <h2 className={styles.tytle}>{errorMessages.ERROR_404.en}</h2>
+      <h2 className={styles.title}>{errorMessages.ERROR_404.en}</h2>
       <div className={styles['not-found-page__container']}></div>
     </>
   );
