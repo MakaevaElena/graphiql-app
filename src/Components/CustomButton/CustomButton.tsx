@@ -13,9 +13,10 @@ function CustomButton({
   startIcon,
   title,
   onClick,
+  sx,
 }: CustomButtonPros) {
   return (
-    <Button variant={variant} startIcon={startIcon} onClick={onClick}>
+    <Button variant={variant} startIcon={startIcon} onClick={onClick} sx={sx}>
       {title}
     </Button>
   );

@@ -1,18 +1,20 @@
 import { render, screen } from '@testing-library/react';
+import { vi } from 'vitest';
 import WelcomePage from './WelcomePage';
+
+const mockedUsedNavigate = vi.fn();
+
+vi.mock('react-router-dom', () => ({
+  ...vi.importActual('react-router-dom'),
+  useNavigate: () => mockedUsedNavigate,
+}));
 
 describe('WelcomePage', () => {
   test('renders welcome message', () => {
     render(<WelcomePage />);
-    const welcomeMessage = screen.getByText(/Welcome to GraphiQL/i);
+    const welcomeMessage = screen.getByText('Welcome to GraphiQL');
     expect(welcomeMessage).toBeInTheDocument();
   });
-
-  // test('renders developer cards', () => {
-  //   render(<WelcomePage />);
-  //   const devCards = screen.getAllByTestId('dev');
-  //   expect(devCards.length).toBe(3);
-  // });
 
   test('renders Rolling Scopes School logo', () => {
     render(<WelcomePage />);
