@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import PageNotFound from '../../pages/NotFoundPage/NotFoundPage';
 import LoginPage from '../../pages/LoginPage/LoginPage';
 import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>
+      <Footer />
     </div>
   );
 }
