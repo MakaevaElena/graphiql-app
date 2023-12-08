@@ -9,6 +9,7 @@ import { useState } from 'react';
 import Language from '../../enum/language';
 import { DataContextProvider } from '../../DataContext/DataContextProvider';
 import UIStrings from '../../assets/UIStrings.json';
+import Athority from '../Athority/Athority';
 
 function App() {
   const [language, setLanguage] = useState(Language.En);
@@ -23,12 +24,15 @@ function App() {
     editor: UIStrings.Editor[language],
   };
 
+  const athority = new Athority();
+
   return (
     <DataContextProvider
       value={{
         language: language,
         setLanguage: switchLanguage,
         pageName: pageName,
+        athority,
       }}
     >
       <div className={styles['container']}>

@@ -3,5 +3,5 @@ export interface ChangeOnScrollProps {
 }
 
 export type MUIHeaderProps = {
-  isLogin: boolean;
+  isLogin?: boolean;
 };
