@@ -1,4 +1,4 @@
-import Athority from '../Components/Athority/Athority';
+import Authority from '../Components/Authority/Authority';
 import Language from '../enum/language';
 
 export interface IPageName {
@@ -8,6 +8,6 @@ export interface IPageName {
 export interface IDataContext {
   language: Language;
   pageName: IPageName;
-  athority: Athority;
+  authority: Authority;
   setLanguage: (language: Language) => void;
 }

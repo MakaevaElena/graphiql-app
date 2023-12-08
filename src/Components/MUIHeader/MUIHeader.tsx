@@ -42,11 +42,11 @@ const ChangeOnScroll = (props: ChangeOnScrollProps) => {
 };
 
 const MUIHeader: React.FC<MUIHeaderProps> = () => {
-  const { language, pageName, setLanguage, athority } = useDataContext();
+  const { language, pageName, setLanguage, authority } = useDataContext();
 
   const pages = Object.values(pageName);
 
-  const isLogin = athority.isLogin();
+  const isLogin = authority.isLogin();
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null

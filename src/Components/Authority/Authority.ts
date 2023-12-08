@@ -1,4 +1,4 @@
-export default class Athority {
+export default class Authority {
   private userState = false;
 
   public setIsLogin = (isLogin: boolean) => {

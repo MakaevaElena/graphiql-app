@@ -9,7 +9,7 @@ import { useState } from 'react';
 import Language from '../../enum/language';
 import { DataContextProvider } from '../../DataContext/DataContextProvider';
 import UIStrings from '../../assets/UIStrings.json';
-import Athority from '../Athority/Athority';
+import Authority from '../Authority/Authority';
 
 function App() {
   const [language, setLanguage] = useState(Language.En);
@@ -24,7 +24,7 @@ function App() {
     editor: UIStrings.Editor[language],
   };
 
-  const athority = new Athority();
+  const authority = new Authority();
 
   return (
     <DataContextProvider
@@ -32,7 +32,7 @@ function App() {
         language: language,
         setLanguage: switchLanguage,
         pageName: pageName,
-        athority,
+        authority,
       }}
     >
       <div className={styles['container']}>
