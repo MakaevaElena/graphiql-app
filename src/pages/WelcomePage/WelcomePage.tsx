@@ -2,21 +2,40 @@ import { Box, Icon, Link, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import DevCard from '../../Components/DevCard/DevCard';
 import styles from './style.module.scss';
-import { developers } from './developers';
 import CustomButton from '../../Components/CustomButton/CustomButton';
+import CardsContent from '../../assets/CardsContent.json';
+import { useDataContext } from '../../DataContext/useDataContext';
+import UIContent from '../../assets/UIStrings.json';
 
 const WelcomePage: React.FC = () => {
   const navigator = useNavigate();
-  const isSingIn = true;
+  const { language, authority } = useDataContext();
+  const isLogin = authority.isLogin();
+
+  const devCardsContent = [
+    {
+      Ru: CardsContent.Sergey.Ru,
+      En: CardsContent.Sergey.En,
+    },
+    {
+      Ru: CardsContent.Elena.Ru,
+      En: CardsContent.Elena.En,
+    },
+    {
+      Ru: CardsContent.Valeriia.Ru,
+      En: CardsContent.Valeriia.En,
+    },
+  ];
+
   return (
     <>
       <Typography
         variant="h4"
         sx={{ color: '#eee', fontStyle: 'normal', textAlign: 'center', pb: 2 }}
       >
-        Welcome to GraphiQL
+        {UIContent.WelcomeHeading[language]}
       </Typography>
-      {isSingIn ? (
+      {isLogin ? (
         <Box
           sx={{
             display: 'flex',
@@ -35,28 +54,28 @@ const WelcomePage: React.FC = () => {
               pb: 2,
             }}
           >
-            Do you have GraphiQL account?
+            {UIContent.WelcomeTextAuth[language]}
           </Typography>
           <Box
             sx={{
               display: 'flex',
-              gap: 1,
+              gap: 20,
               justifyContent: 'center',
               alignItems: 'center',
-              pb: 1,
+              pb: 30,
+              pt: 30,
             }}
           >
             <CustomButton
               data-testid="sign-in"
               variant="contained"
-              title="Sign In"
-              sx={{ ml: 1, background: '#177486', color: '#fff' }}
+              title={UIContent.SignIn[language]}
             />
             <CustomButton
               data-testid="sign-up"
-              variant="contained"
-              title="Sign Up"
-              sx={{ ml: 1, background: '#fff', color: '#000' }}
+              variant="outlined"
+              title={UIContent.SignUp[language]}
+              color="secondary"
             />
           </Box>
         </Box>
@@ -79,7 +98,7 @@ const WelcomePage: React.FC = () => {
               pb: 2,
             }}
           >
-            Do you have GraphiQL account?
+            {UIContent.WelcomeTextNotAuth[language]}
           </Typography>
           <Box
             sx={{
@@ -93,7 +112,7 @@ const WelcomePage: React.FC = () => {
             <CustomButton
               data-testid="get-started"
               variant="contained"
-              title="get started"
+              title={UIContent.GetStarted[language]}
               sx={{ ml: 1, background: '#177486', color: '#fff' }}
               onClick={() => {
                 navigator('/editor');
@@ -119,30 +138,25 @@ const WelcomePage: React.FC = () => {
           variant="subtitle1"
           sx={{ color: '#eee', fontStyle: 'normal', textAlign: 'left' }}
         >
-          GraphiQL is an in-browser tool for writing, validating, and testing
-          GraphQL queries. Type queries into this side of the screen, and you
-          will see intelligent typeaheads aware of the current GraphQL type
-          schema and live syntax and validation errors highlighted within the
-          text.
+          {UIContent.WelcomeAbout[language]}
         </Typography>
         <Typography
           variant="subtitle1"
           sx={{ color: '#eee', fontStyle: 'normal', textAlign: 'left' }}
         >
-          This progect was created by a group of developers from the Rolling
-          Scopes Scholl.
+          {UIContent.WelcomeScholl[language]}
         </Typography>
 
-        {developers.map((dev) => (
+        {devCardsContent.map((dev) => (
           <DevCard
-            key={dev.name}
+            key={dev[language].name}
             data-testid="dev"
-            name={dev.name}
-            bio={dev.bio}
-            location={dev.location}
-            imgSrc={dev.imgSrc}
-            gitHub={dev.gitHub}
-            contribution={dev.contribution}
+            name={dev[language].name}
+            bio={dev[language].bio}
+            location={dev[language].location}
+            imgSrc={dev[language].imgSrc}
+            gitHub={dev[language].gitHub}
+            contribution={dev[language].contribution}
           />
         ))}
 
