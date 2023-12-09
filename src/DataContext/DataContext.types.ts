@@ -2,7 +2,10 @@ import Authority from '../Components/Authority/Authority';
 import Language from '../enum/language';
 
 export interface IPageName {
-  [key: string]: string;
+  [key: string]: {
+    Ru: string;
+    En: string;
+  };
 }
 
 export interface IDataContext {

@@ -13,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Switch from '@mui/material/Switch';
 import UIStrings from '../../assets/UIStrings.json';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
@@ -42,6 +42,7 @@ const ChangeOnScroll = (props: ChangeOnScrollProps) => {
 };
 
 const MUIHeader: React.FC<MUIHeaderProps> = () => {
+  const location = useLocation();
   const { language, pageName, setLanguage, authority } = useDataContext();
 
   const pages = Object.values(pageName);
@@ -66,6 +67,8 @@ const MUIHeader: React.FC<MUIHeaderProps> = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const currentPath = location.pathname;
 
   const changeLang = () => {
     setLanguage(language === Language.En ? Language.Ru : Language.En);
@@ -138,16 +141,21 @@ const MUIHeader: React.FC<MUIHeaderProps> = () => {
               >
                 {pages.map((page, i) => (
                   <MenuItem key={i} onClick={handleCloseNavMenu}>
-                    <Link to={`/${page}`}>
-                      <div id={`${page}`}>
+                    <Link to={`/${page.En}`}>
+                      <div id={`${page.En}`}>
                         <Typography
                           textAlign="center"
-                          sx={{
-                            color: 'black',
-                            fontFamily: 'menlo',
-                          }}
+                          sx={
+                            currentPath.toLowerCase() ===
+                            `/${page.En.toLowerCase()}`
+                              ? { color: '#535bf2' }
+                              : {
+                                  color: 'black',
+                                  fontFamily: 'menlo',
+                                }
+                          }
                         >
-                          {page}
+                          {page[language]}
                         </Typography>
                       </div>
                     </Link>
@@ -174,10 +182,12 @@ const MUIHeader: React.FC<MUIHeaderProps> = () => {
               GraphiQL
             </Typography>
 
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            <Box
+              sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, gap: 2 }}
+            >
               {pages.map((page, i) => (
                 <Button
-                  key={`button-${page}`}
+                  key={`button-${page.En}`}
                   onClick={handleCloseNavMenu}
                   sx={{
                     my: 2,
@@ -185,9 +195,19 @@ const MUIHeader: React.FC<MUIHeaderProps> = () => {
                     display: 'block',
                   }}
                 >
-                  <Link key={i + 1} to={`/${page}`}>
-                    <div id={`${page}`}>
-                      <Typography textAlign="center">{page} </Typography>
+                  <Link key={i + 1} to={`/${page.En.toLowerCase()}`}>
+                    <div id={`${page.En}`}>
+                      <Typography
+                        textAlign="center"
+                        sx={
+                          currentPath.toLowerCase() ===
+                          `/${page.En.toLowerCase()}`
+                            ? { borderBottom: '2px solid #535bf2' }
+                            : { color: 'white' }
+                        }
+                      >
+                        {page[language]}
+                      </Typography>
                     </div>
                   </Link>
                 </Button>

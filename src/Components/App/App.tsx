@@ -19,9 +19,18 @@ function App() {
   };
 
   const pageName = {
-    welcome: UIStrings.Welcome[language],
-    login: UIStrings.Login[language],
-    editor: UIStrings.Editor[language],
+    welcome: {
+      Ru: UIStrings.Welcome.Ru,
+      En: UIStrings.Welcome.En,
+    },
+    login: {
+      Ru: UIStrings.Login.Ru,
+      En: UIStrings.Login.En,
+    },
+    editor: {
+      Ru: UIStrings.Editor.Ru,
+      En: UIStrings.Editor.En,
+    },
   };
 
   const authority = new Authority();
@@ -29,9 +38,9 @@ function App() {
   return (
     <DataContextProvider
       value={{
-        language: language,
+        language,
         setLanguage: switchLanguage,
-        pageName: pageName,
+        pageName,
         authority,
       }}
     >
@@ -40,9 +49,9 @@ function App() {
         <div className={styles['content']}>
           <Routes>
             <Route path="/" element={<WelcomePage />} />
-            <Route path={`/${pageName.welcome}`} element={<WelcomePage />} />
-            <Route path={`/${pageName.login}`} element={<LoginPage />} />
-            <Route path={`/${pageName.editor}`} element={<EditorPage />} />
+            <Route path={`/${pageName.welcome.En}`} element={<WelcomePage />} />
+            <Route path={`/${pageName.login.En}`} element={<LoginPage />} />
+            <Route path={`/${pageName.editor.En}`} element={<EditorPage />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </div>

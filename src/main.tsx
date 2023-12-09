@@ -9,6 +9,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './ThemeProvider/ThemeProvider.tsx';
 import ErrorMessage from './Components/ErrorMessage/ErrorMessage.tsx';
+import { CssBaseline } from '@mui/material';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -16,6 +17,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <BrowserRouter>
         <Provider store={store}>
           <ThemeProvider theme={theme}>
+            <CssBaseline />
             <App />
           </ThemeProvider>
         </Provider>
