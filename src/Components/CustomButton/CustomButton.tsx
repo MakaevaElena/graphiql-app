@@ -1,22 +1,31 @@
-import { Button } from '@mui/material';
+import { Button, ButtonProps } from '@mui/material';
 
-type CustomButtonPros = {
-  variant: 'text' | 'outlined' | 'contained';
-  title: string;
-  startIcon?: JSX.Element;
-  onClick?: () => void;
-  sx?: Record<string, string | number>;
-};
+// type CustomButtonPros = {
+//   variant: 'text' | 'outlined' | 'contained';
+//   title: string;
+//   startIcon?: JSX.Element;
+//   onClick?: () => void;
+//   sx?: SxProps<Theme> | undefined;
+//   color?: 'primary' | 'secondary';
+// };
 
 function CustomButton({
-  variant,
   startIcon,
   title,
   onClick,
   sx,
-}: CustomButtonPros) {
+  color,
+  ...props
+}: ButtonProps) {
   return (
-    <Button variant={variant} startIcon={startIcon} onClick={onClick} sx={sx}>
+    <Button
+      variant="contained"
+      startIcon={startIcon}
+      onClick={onClick}
+      sx={sx}
+      color={color}
+      {...props}
+    >
       {title}
     </Button>
   );

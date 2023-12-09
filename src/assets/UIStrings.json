@@ -28,8 +28,8 @@
     "En": "Do you have GraphiQL account?"
   },
   "WelcomeTextAuth": {
-    "Ru": "С возвращением в GraphiQL",
-    "En": "Welcome back to GraphiQL"
+    "Ru": "Мы рады вашему возвращению в GraphiQL",
+    "En": "We are glad to see you again in GraphiQL"
   },
   "SignIn": {
     "Ru": "Войти",
@@ -82,5 +82,19 @@
   "WelcomeScholl": {
     "Ru": "Этот проект был создан группой студентов-разработчиков из Rolling Scopes Scholl.",
     "En": "This progect was created by a group of student developers from the Rolling Scopes Scholl."
+  },
+  "CardFields": {
+    "En": {
+      "name": "name",
+      "bio": "bio",
+      "location": "location",
+      "contribution": "contribution"
+    },
+    "Ru": {
+      "name": "имя",
+      "bio": "о себе",
+      "location": "местоположение",
+      "contribution": "вклад в проект"
+    }
   }
 }

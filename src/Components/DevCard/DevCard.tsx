@@ -1,68 +1,44 @@
 import { Avatar, Box, Link, Typography, useMediaQuery } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import { useDataContext } from '../../DataContext/useDataContext';
+import UIStrings from '../../assets/UIStrings.json';
+import { avatarStyles, cardWrapper, nameWrapper } from './styles';
+import theme from '../../ThemeProvider/ThemeProvider';
 
 type DevCardProps = {
-  name: string;
-  bio: string;
-  location: string;
-  imgSrc: string;
-  contribution: string;
-  gitHub: string;
+  props: {
+    name: string;
+    bio: string;
+    location: string;
+    imgSrc: string;
+    contribution: string;
+    gitHub: string;
+  };
 };
 
-function DevCard({
-  name,
-  bio,
-  location,
-  imgSrc,
-  gitHub,
-  contribution,
-}: DevCardProps) {
+function DevCard({ props }: DevCardProps) {
+  const { language } = useDataContext();
   const MobileM = useMediaQuery('(min-width:600px)');
+  const { name, bio, location, imgSrc, gitHub, contribution } = props;
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: MobileM ? 'row' : 'column',
-        gap: 2,
-        p: 2,
-        borderRadius: 4,
-        transition: '0.3s',
-        bgcolor: '#333',
-        '&:hover': {
-          bgcolor: '#444',
-        },
-      }}
-    >
-      <Avatar
-        alt="Dev Name"
-        src={imgSrc}
-        sx={{
-          width: 120,
-          height: 120,
-          borderRadius: 4,
-          alignSelf: MobileM ? 'flex-start' : 'center',
-        }}
-      />
-      <Box sx={{ pt: 1, display: 'flex', flexDirection: 'column', gap: 1 }}>
-        <Box sx={{ display: 'flex', gap: 1, alignItems: 'end' }}>
-          <Typography
-            variant="h5"
-            sx={{ fontStyle: 'normal', lineHeight: 1.5 }}
-          >
+    <Box sx={cardWrapper(MobileM)}>
+      <Avatar alt="Dev Name" src={imgSrc} sx={avatarStyles(MobileM)} />
+      <Box sx={{ pt: 10, display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <Box sx={nameWrapper}>
+          <Typography variant="h5" sx={{ lineHeight: 1.6 }}>
             {name}
           </Typography>
           <Link href={gitHub} target="_blank">
-            <GitHubIcon sx={{ color: '#eee' }} />
+            <GitHubIcon sx={{ color: theme.palette.text.primary }} />
           </Link>
         </Box>
-        <Typography sx={{ fontStyle: 'normal' }}>{bio}</Typography>
-        <Typography sx={{ fontStyle: 'normal' }}>
-          Location: {location}
+        <Typography>{bio}</Typography>
+        <Typography>
+          {UIStrings.CardFields[language].location}: {location}
         </Typography>
-        <Typography sx={{ fontStyle: 'normal' }}>
-          Contribution: {contribution}
+        <Typography>
+          {UIStrings.CardFields[language].contribution}: {contribution}
         </Typography>
       </Box>
     </Box>

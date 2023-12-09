@@ -6,6 +6,14 @@ import CustomButton from '../../Components/CustomButton/CustomButton';
 import CardsContent from '../../assets/CardsContent.json';
 import { useDataContext } from '../../DataContext/useDataContext';
 import UIContent from '../../assets/UIStrings.json';
+import {
+  welcomeHeading,
+  welcomeSubTitle,
+  welcomeTitle,
+  wrapperAuth,
+  wrapperButtons,
+  wrapperMainSection,
+} from './styles';
 
 const WelcomePage: React.FC = () => {
   const navigator = useNavigate();
@@ -29,43 +37,15 @@ const WelcomePage: React.FC = () => {
 
   return (
     <>
-      <Typography
-        variant="h4"
-        sx={{ color: '#eee', fontStyle: 'normal', textAlign: 'center', pb: 2 }}
-      >
+      <Typography variant="h4" sx={welcomeHeading}>
         {UIContent.WelcomeHeading[language]}
       </Typography>
-      {isLogin ? (
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Typography
-            variant="h5"
-            sx={{
-              color: '#eee',
-              fontStyle: 'normal',
-              textAlign: 'center',
-              pb: 2,
-            }}
-          >
-            {UIContent.WelcomeTextAuth[language]}
+      {!isLogin ? (
+        <Box sx={wrapperAuth}>
+          <Typography variant="h5" sx={welcomeTitle}>
+            {UIContent.WelcomeTextNotAuth[language]}
           </Typography>
-          <Box
-            sx={{
-              display: 'flex',
-              gap: 20,
-              justifyContent: 'center',
-              alignItems: 'center',
-              pb: 30,
-              pt: 30,
-            }}
-          >
+          <Box sx={wrapperButtons}>
             <CustomButton
               data-testid="sign-in"
               variant="contained"
@@ -80,40 +60,14 @@ const WelcomePage: React.FC = () => {
           </Box>
         </Box>
       ) : (
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Typography
-            variant="h5"
-            sx={{
-              color: '#eee',
-              fontStyle: 'normal',
-              textAlign: 'center',
-              pb: 2,
-            }}
-          >
-            {UIContent.WelcomeTextNotAuth[language]}
+        <Box sx={wrapperAuth}>
+          <Typography variant="h5" sx={welcomeTitle}>
+            {UIContent.WelcomeTextAuth[language]}
           </Typography>
-          <Box
-            sx={{
-              display: 'flex',
-              gap: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-              pb: 1,
-            }}
-          >
+          <Box sx={wrapperButtons}>
             <CustomButton
               data-testid="get-started"
-              variant="contained"
               title={UIContent.GetStarted[language]}
-              sx={{ ml: 1, background: '#177486', color: '#fff' }}
               onClick={() => {
                 navigator('/editor');
               }}
@@ -121,43 +75,16 @@ const WelcomePage: React.FC = () => {
           </Box>
         </Box>
       )}
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 2,
-          justifyContent: 'center',
-          alignItems: 'center',
-          borderRadius: 4,
-          border: 1,
-          borderColor: '#eee',
-          p: 1,
-        }}
-      >
-        <Typography
-          variant="subtitle1"
-          sx={{ color: '#eee', fontStyle: 'normal', textAlign: 'left' }}
-        >
+      <Box sx={wrapperMainSection}>
+        <Typography variant="subtitle1" sx={welcomeSubTitle}>
           {UIContent.WelcomeAbout[language]}
         </Typography>
-        <Typography
-          variant="subtitle1"
-          sx={{ color: '#eee', fontStyle: 'normal', textAlign: 'left' }}
-        >
+        <Typography variant="subtitle1" sx={welcomeSubTitle}>
           {UIContent.WelcomeScholl[language]}
         </Typography>
 
         {devCardsContent.map((dev) => (
-          <DevCard
-            key={dev[language].name}
-            data-testid="dev"
-            name={dev[language].name}
-            bio={dev[language].bio}
-            location={dev[language].location}
-            imgSrc={dev[language].imgSrc}
-            gitHub={dev[language].gitHub}
-            contribution={dev[language].contribution}
-          />
+          <DevCard props={dev[language]} />
         ))}
 
         <Link href="https://rs.school/react/">
