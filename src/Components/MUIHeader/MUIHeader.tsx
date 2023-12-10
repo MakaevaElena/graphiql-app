@@ -31,7 +31,6 @@ import {
   navWrapper,
   rightMenuWrapper,
   switchLangWrapper,
-  userMenu,
 } from './styles.ts';
 
 const ScrollHandler = (props: ChangeOnScrollProps) => {
@@ -65,9 +64,6 @@ const MUIHeader: React.FC<MUIHeaderProps> = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -75,10 +71,6 @@ const MUIHeader: React.FC<MUIHeaderProps> = () => {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
   };
 
   const currentPath = location.pathname;
@@ -222,23 +214,6 @@ const MUIHeader: React.FC<MUIHeaderProps> = () => {
               )}
 
               <Avatar alt="Remy Sharp" src="" />
-
-              <Menu
-                sx={userMenu}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              ></Menu>
             </Box>
           </Toolbar>
         </Container>

@@ -70,7 +70,3 @@ export const switchLangWrapper: SxProps<Theme> = {
 export const loginIcon: SxProps<Theme> = {
   color: 'white',
 };
-
-export const userMenu: SxProps<Theme> = {
-  mt: '45px',
-};
