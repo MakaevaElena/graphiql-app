@@ -26,7 +26,7 @@ const LoginPage: React.FC = () => {
   const onSubmit: SubmitHandler<Form> = async (data) => {
     const { name, email, password, passwordRepeat } = data;
 
-    if (data)
+    if (!Object.values(data).includes(undefined))
       dispatch(
         setData({
           name,

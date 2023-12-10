@@ -1,4 +1,4 @@
-export type LoginFormState = {
+export type AuthDataState = {
   data: {
     name: string;
     email: string;
