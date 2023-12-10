@@ -20,6 +20,19 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 import { ChangeOnScrollProps, MUIHeaderProps } from './MUIHeader.types.ts';
 import Language from '../../enum/language';
 import { useDataContext } from '../../DataContext/useDataContext';
+import {
+  flexRowCenter,
+  loginIcon,
+  logoIcon,
+  logoIconMobile,
+  logoTitle,
+  logoTitleMobile,
+  mobileMenuWrapper,
+  navWrapper,
+  rightMenuWrapper,
+  switchLangWrapper,
+  userMenu,
+} from './styles.ts';
 
 const ScrollHandler = (props: ChangeOnScrollProps) => {
   const trigger = useScrollTrigger({
@@ -76,41 +89,16 @@ const MUIHeader: React.FC<MUIHeaderProps> = () => {
 
   return (
     <ChangeOnScroll>
-      <AppBar
-        position="sticky"
-        sx={{
-          backgroundColor: '#1a1a1a',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        enableColorOnDark
-      >
+      <AppBar position="sticky" sx={flexRowCenter} enableColorOnDark>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <AdbIcon
-              sx={{
-                display: { xs: 'none', md: 'flex' },
-                mr: 1,
-              }}
-            />
+            <AdbIcon sx={logoIcon} />
 
-            <Typography
-              variant="h6"
-              noWrap
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'menlo',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
+            <Typography variant="h6" noWrap sx={logoTitle}>
               GraphiQL
             </Typography>
 
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <Box sx={mobileMenuWrapper}>
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -164,27 +152,12 @@ const MUIHeader: React.FC<MUIHeaderProps> = () => {
               </Menu>
             </Box>
 
-            <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-            <Typography
-              variant="h5"
-              noWrap
-              sx={{
-                mr: 2,
-                display: { xs: 'flex', md: 'none' },
-                flexGrow: 1,
-                fontFamily: 'menlo',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
+            <AdbIcon sx={logoIconMobile} />
+            <Typography variant="h5" noWrap sx={logoTitleMobile}>
               GraphiQL
             </Typography>
 
-            <Box
-              sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, gap: 2 }}
-            >
+            <Box sx={navWrapper}>
               {pages.map((page, i) => (
                 <Button
                   key={`button-${page.En}`}
@@ -214,23 +187,8 @@ const MUIHeader: React.FC<MUIHeaderProps> = () => {
               ))}
             </Box>
 
-            <Box
-              sx={{
-                flexGrow: 1,
-                display: {
-                  xs: 'flex',
-                  justifyContent: 'flex-end',
-                  gap: '2rem',
-                },
-              }}
-            >
-              <Box
-                sx={{
-                  display: { xs: 'flex' },
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
+            <Box sx={rightMenuWrapper}>
+              <Box sx={switchLangWrapper}>
                 <Typography
                   textAlign="center"
                   sx={{
@@ -248,31 +206,25 @@ const MUIHeader: React.FC<MUIHeaderProps> = () => {
                   onChange={changeLang}
                 />
 
-                <Typography
-                  textAlign="center"
-                  sx={{
-                    color: 'white',
-                    fontFamily: 'menlo',
-                  }}
-                >
+                <Typography textAlign="center">
                   {UIStrings.EnLanguage[language]}
                 </Typography>
               </Box>
 
               {!isLogin ? (
                 <IconButton>
-                  <LoginIcon sx={{ color: 'white' }} />
+                  <LoginIcon sx={loginIcon} />
                 </IconButton>
               ) : (
                 <IconButton>
-                  <LogoutIcon sx={{ color: 'white' }} />
+                  <LogoutIcon sx={loginIcon} />
                 </IconButton>
               )}
 
               <Avatar alt="Remy Sharp" src="" />
 
               <Menu
-                sx={{ mt: '45px' }}
+                sx={userMenu}
                 id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
