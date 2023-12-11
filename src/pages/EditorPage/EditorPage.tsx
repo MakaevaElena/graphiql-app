@@ -1,14 +1,33 @@
 import React from 'react';
-import styles from './style.module.scss';
+import Container from '@mui/material/Container';
+import { Box, Typography } from '@mui/material';
+import {
+  graphqlHeading,
+  // wrapperDocumentation,
+  wrapperEndpoint,
+  wrapperGraphQL,
+  wrapperHeadersEditor,
+  wrapperRequestEditor,
+  wrapperResponseSection,
+  wrapperVariablesEditor,
+} from './styles';
 
 const EditorPage: React.FC = () => {
   return (
-    <>
-      <h2 className={styles.title}>GraphiQL</h2>
-      <div className={styles.graphiql__container}>
-        <div className={styles['test-div']}></div>
-      </div>
-    </>
+    <Container maxWidth="xl">
+      <Typography variant="h4" sx={graphqlHeading}>
+        GraphiQL
+      </Typography>
+      <Box sx={wrapperGraphQL}>
+        <Box sx={wrapperEndpoint}>1 Endpoint</Box>
+        <Box sx={wrapperRequestEditor}>2 RequestEditor</Box>
+        <Box sx={wrapperResponseSection}>3 ResponseSection</Box>
+        <Box sx={wrapperVariablesEditor}>4 VariablesEditor</Box>
+        <Box sx={wrapperHeadersEditor}>5 HeadersEditor</Box>
+        {/* <Box sx={wrapperDocumentation}>6 Documentation</Box> */}
+        {/* {children} */}
+      </Box>
+    </Container>
   );
 };
 
