@@ -35,46 +35,47 @@ const WelcomePage: React.FC = () => {
     },
   ];
 
+  function handleSignIn() {}
+
+  function handleSignUp() {}
+
+  function handleGetStarted() {
+    navigator('/editor');
+  }
   return (
     <>
       <Typography variant="h4" sx={welcomeHeading}>
         {UIContent.WelcomeHeading[language]}
       </Typography>
-      {!isLogin ? (
-        <Box sx={wrapperAuth}>
-          <Typography variant="h5" sx={welcomeTitle}>
-            {UIContent.WelcomeTextNotAuth[language]}
-          </Typography>
-          <Box sx={wrapperButtons}>
-            <CustomButton
-              data-testid="sign-in"
-              variant="contained"
-              title={UIContent.SignIn[language]}
-            />
+
+      <Box sx={wrapperAuth}>
+        <Typography variant="h5" sx={welcomeTitle}>
+          {!isLogin
+            ? UIContent.WelcomeTextNotAuth[language]
+            : UIContent.WelcomeTextAuth[language]}
+        </Typography>
+        <Box sx={wrapperButtons}>
+          <CustomButton
+            data-testid="sign-in"
+            variant="contained"
+            title={
+              !isLogin
+                ? UIContent.SignIn[language]
+                : UIContent.GetStarted[language]
+            }
+            onClick={!isLogin ? handleSignIn : handleGetStarted}
+          />
+          {!isLogin && (
             <CustomButton
               data-testid="sign-up"
               variant="outlined"
               title={UIContent.SignUp[language]}
               color="secondary"
+              onClick={handleSignUp}
             />
-          </Box>
+          )}
         </Box>
-      ) : (
-        <Box sx={wrapperAuth}>
-          <Typography variant="h5" sx={welcomeTitle}>
-            {UIContent.WelcomeTextAuth[language]}
-          </Typography>
-          <Box sx={wrapperButtons}>
-            <CustomButton
-              data-testid="get-started"
-              title={UIContent.GetStarted[language]}
-              onClick={() => {
-                navigator('/editor');
-              }}
-            />
-          </Box>
-        </Box>
-      )}
+      </Box>
       <Box sx={wrapperMainSection}>
         <Typography variant="subtitle1" sx={welcomeSubTitle}>
           {UIContent.WelcomeAbout[language]}
