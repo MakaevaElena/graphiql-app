@@ -19,7 +19,7 @@ export const graphqlHeading = {
 export const wrapperGraphQL: SxProps<Theme> = {
   display: 'grid',
   gridTemplateColumns: 'repeat(8, 1fr)',
-  gridTemplateRows: 'repeat(12, 1fr)',
+  gridTemplateRows: 'repeat(9, 1fr)',
   // gridAutoRows: '8.7vh',
   gap: 10,
   border: '1px solid white',
@@ -41,25 +41,25 @@ export const wrapperDocsButton: SxProps<Theme> = {
 export const wrapperRequestEditor: SxProps<Theme> = {
   ...wrapperComponent,
   gridColumn: '1/5',
-  gridRow: '2/8',
+  gridRow: '2/7',
 };
 
 export const wrapperResponseSection: SxProps<Theme> = {
   ...wrapperComponent,
   gridColumn: '5/9',
-  gridRow: '2/8',
+  gridRow: '2/7',
 };
 
 export const wrapperVariablesEditor: SxProps<Theme> = {
   ...wrapperComponent,
   gridColumn: '1/3',
-  gridRow: '8/13',
+  gridRow: '7/10',
 };
 
 export const wrapperHeadersEditor: SxProps<Theme> = {
   ...wrapperComponent,
   gridColumn: '3/5',
-  gridRow: '8/13',
+  gridRow: '7/10',
 };
 
 export const wrapperDocumentation: SxProps<Theme> = {
@@ -69,7 +69,7 @@ export const wrapperDocumentation: SxProps<Theme> = {
   padding: '1rem',
   transform: 'translateZ(0)',
   transition: 'opacity 1s',
-  height: '80vh',
+  height: '70vh',
   top: '250px',
   right: '0',
   background: '#bbb9b9',

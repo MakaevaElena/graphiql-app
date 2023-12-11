@@ -16,6 +16,11 @@ import {
 } from './styles';
 import { setDocsIsOpen } from '../../store/slices/UISlice';
 import Documentation from '../../Components/Documentation/Documentation';
+import HeadersEditor from '../../Components/HeadersEditor/HeadersEditor';
+import VariablesEditor from '../../Components/VariablesEditor/VariablesEditor';
+import ResponseSection from '../../Components/ResponseSection/ResponseSection';
+import RequestEditor from '../../Components/RequestEditor/RequestEditor';
+import Endpoint from '../../Components/Endpoint/Endpoint';
 
 // const currentPath = location.pathname;
 
@@ -33,18 +38,26 @@ const EditorPage: React.FC = () => {
         GraphiQL
       </Typography>
       <Box sx={wrapperGraphQL}>
-        <Box sx={wrapperEndpoint}>1 Endpoint</Box>
+        <Box sx={wrapperEndpoint}>
+          <Endpoint />
+        </Box>
         <Box sx={wrapperDocsButton}>
           <Button onClick={handleDocsMenu}>
-            {/* <Link to={`/editor/docs`}> */}
             <Typography>6 Docs menu</Typography>
-            {/* </Link> */}
           </Button>
         </Box>
-        <Box sx={wrapperRequestEditor}>2 RequestEditor</Box>
-        <Box sx={wrapperResponseSection}>3 ResponseSection</Box>
-        <Box sx={wrapperVariablesEditor}>4 VariablesEditor</Box>
-        <Box sx={wrapperHeadersEditor}>5 HeadersEditor</Box>
+        <Box sx={wrapperRequestEditor}>
+          <RequestEditor />
+        </Box>
+        <Box sx={wrapperResponseSection}>
+          <ResponseSection />
+        </Box>
+        <Box sx={wrapperVariablesEditor}>
+          <VariablesEditor />
+        </Box>
+        <Box sx={wrapperHeadersEditor}>
+          <HeadersEditor />
+        </Box>
         <Box sx={wrapperDocumentation}>{docsIsOpen && <Documentation />}</Box>
       </Box>
     </Container>
