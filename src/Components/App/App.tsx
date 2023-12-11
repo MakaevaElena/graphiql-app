@@ -51,7 +51,14 @@ function App() {
             <Route path="/" element={<WelcomePage />} />
             <Route path={`/${pageName.welcome.En}`} element={<WelcomePage />} />
             <Route path={`/${pageName.login.En}`} element={<LoginPage />} />
+
             <Route path={`/${pageName.editor.En}`} element={<EditorPage />} />
+            {/* <Route
+                path={`/${pageName.editor.En}/docs`}
+                element={<Documentation />}
+              /> */}
+            {/* </Route> */}
+
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </div>
