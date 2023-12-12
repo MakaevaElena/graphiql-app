@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom';
+import { createRoot } from 'react-dom/client';
 
-import { unmountComponentAtNode } from 'react-dom';
+// import { unmountComponentAtNode } from 'react-dom';
 
 let container: Element | null;
 beforeEach(() => {
@@ -10,7 +11,9 @@ beforeEach(() => {
 
 afterEach(() => {
   if (container) {
-    unmountComponentAtNode(container);
+    // unmountComponentAtNode(container);
+    const root = createRoot(container);
+    root.unmount();
     container.remove();
     container = null;
   }

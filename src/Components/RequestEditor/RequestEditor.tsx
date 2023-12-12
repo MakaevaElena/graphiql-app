@@ -1,32 +1,39 @@
 import * as React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import EditorJS from '@editorjs/editorjs';
 import { wrappwerTextEditor } from './styles';
-// import Header from '@editorjs/header';
-// import List from '@editorjs/list';
 
 const RequestEditor: React.FC = () => {
   const editor = new EditorJS({
     holder: 'editor',
     minHeight: 0,
-    // tools: {
-    //   header: {
-    //     class: Header,
-    //     inlineToolbar: ['link'],
-    //   },
-    //   list: {
-    //     class: List,
-    //     inlineToolbar: true,
-    //   },
-    // },
+    autofocus: true,
+    onReady: () => {
+      console.log('Editor.js is ready to work!');
+    },
   });
 
   console.log(editor);
 
+  const onSave = () => {
+    editor
+      .save()
+      .then((outputData) => {
+        console.log('Article data: ', outputData);
+      })
+      .catch((error) => {
+        console.log('Saving failed: ', error);
+      });
+  };
+
   return (
     <Box>
       <Typography variant="h4">RequestEditor</Typography>
-      <Box sx={wrappwerTextEditor} id="editor"></Box>
+      <Box sx={wrappwerTextEditor} id="editor">
+        <Button variant="contained" onClick={onSave}>
+          OnSave
+        </Button>
+      </Box>
     </Box>
   );
 };
