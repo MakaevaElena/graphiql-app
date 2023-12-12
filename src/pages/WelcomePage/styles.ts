@@ -1,23 +1,5 @@
 import { SxProps, Theme } from '@mui/material';
 
-// export const textTitle: SxProps<Theme> = {
-//   color: '#eee',
-//   fontStyle: 'normal',
-//   textAlign: 'center',
-//   pb: 2,
-// };
-
-// export const StyledHeaderTitle = styled(Typography)<TypographyProps>(
-//   ({ theme, variant }) => ({
-//     color: theme.palette.text.primary,
-//     fontStyle: 'normal',
-//     textAlign: 'center',
-//     pb: 2,
-//     ':hover': {
-//       color: '#000',
-//     },
-//   })
-// );
 const flexColomnCenter = {
   display: 'flex',
   flexDirection: 'column',
