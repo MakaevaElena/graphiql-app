@@ -10,6 +10,8 @@ import {
 import GitHubIcon from '@mui/icons-material/GitHub';
 
 const Footer: React.FC = () => {
+  const actualYear = new Date().getFullYear();
+
   return (
     <>
       <AppBar position="static" sx={wrapperAppBar}>
@@ -28,7 +30,7 @@ const Footer: React.FC = () => {
               <GitHubIcon sx={githubIcon} />
             </Link>
             <Typography variant="h6" sx={yearTitle}>
-              {new Date().getFullYear()}&copy; Up&GoTeam
+              {actualYear}&copy; Up&GoTeam
             </Typography>
           </Box>
         </Container>
