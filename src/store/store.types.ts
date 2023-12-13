@@ -7,6 +7,16 @@ export type AuthDataState = {
   };
 };
 
+type Schema = {
+  directives: Array<object>;
+  mutationType?: Array<object>;
+  queryType: object;
+  subscriptionsType?: object;
+  types: Array<object>;
+  description?: string;
+};
+
 export type UIState = {
   docsIsOpen: boolean;
+  schema: Schema;
 };
