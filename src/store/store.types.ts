@@ -1,3 +1,5 @@
+import { Schema } from '../common-types/common-types';
+
 export type AuthDataState = {
   data: {
     name: string;
@@ -5,15 +7,6 @@ export type AuthDataState = {
     password: string;
     passwordRepeat: string;
   };
-};
-
-type Schema = {
-  directives: Array<object>;
-  mutationType?: Array<object>;
-  queryType: object;
-  subscriptionsType?: object;
-  types: Array<object>;
-  description?: string;
 };
 
 export type UIState = {

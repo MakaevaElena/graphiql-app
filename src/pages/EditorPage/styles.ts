@@ -69,7 +69,7 @@ export const wrapperDocumentation: SxProps<Theme> = {
   padding: '1rem',
   transform: 'translateZ(0)',
   transition: 'opacity 1s',
-  height: '70vh',
+  // height: '70vh',
   top: '250px',
   right: '0',
   background: '#bbb9b9',
