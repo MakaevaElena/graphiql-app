@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Box, Link, Typography } from '@mui/material';
 import { useAppSelector } from '../../store/slices/hooks';
 import { Schema } from '../../common-types/common-types';
-import { wrapperDocumentation } from './styles';
+import { schemaHeading, wrapperDocumentation } from './styles';
 
 const Documentation: React.FC = () => {
   const schema: Schema = useAppSelector((store) => store.UIData.schema);
@@ -16,9 +16,11 @@ const Documentation: React.FC = () => {
 
   return (
     <Box>
-      <Typography variant="h4">Documentation</Typography>
+      <Typography variant="h4" sx={schemaHeading}>
+        Documentation
+      </Typography>
       <Box sx={wrapperDocumentation}>
-        <Typography>
+        <Typography sx={schemaHeading}>
           {schema.description ||
             'A GraphQL schema provides a root type for each kind of operation.'}
         </Typography>
@@ -27,7 +29,9 @@ const Documentation: React.FC = () => {
             <div>
               <span className="graphiql-doc-explorer-root-type">query</span>
               {': '}
-              <Typography variant="h4">Query type:</Typography>
+              <Typography sx={schemaHeading} variant="h4">
+                Query type:
+              </Typography>
               <Link href="#">{queryType.name}</Link>
             </div>
           ) : null}
@@ -36,7 +40,9 @@ const Documentation: React.FC = () => {
               <span className="graphiql-doc-explorer-root-type">mutation</span>
               {': '}
               <Link href="#">
-                <Typography variant="h4">{mutationType.name}</Typography>
+                <Typography sx={schemaHeading} variant="h4">
+                  {mutationType.name}
+                </Typography>
               </Link>
             </div>
           )}
@@ -47,13 +53,17 @@ const Documentation: React.FC = () => {
               </span>
               {': '}
               <Link href="#">
-                <Typography variant="h4">{subscriptionType.name}</Typography>
+                <Typography sx={schemaHeading} variant="h4">
+                  {subscriptionType.name}
+                </Typography>
               </Link>
             </div>
           )}
         </Box>
         <Box title="All Schema Types">
-          <Typography variant="h4">All Schema Types: </Typography>
+          <Typography sx={schemaHeading} variant="h4">
+            All Schema Types:{' '}
+          </Typography>
           {typeMap && (
             <div>
               {Object.values(typeMap).map((type) => {
@@ -67,7 +77,9 @@ const Documentation: React.FC = () => {
           )}
         </Box>
         <Box>
-          <Typography variant="h4">Directives: </Typography>
+          <Typography sx={schemaHeading} variant="h4">
+            Directives:{' '}
+          </Typography>
           {directives && (
             <div>
               {Object.values(directives).map((directive) => {

@@ -13,7 +13,32 @@ import INTROSPECION_QUERY from './Introspection';
 
 const Endpoint: React.FC = () => {
   const dispatch = useDispatch();
+
   const makeRequest = async (url: string) => {
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: `query {
+            characters{
+              info{
+                count
+              }
+            }
+          }`,
+        }),
+      });
+      const data = await res.json();
+      return console.log(data.data);
+    } catch (error) {
+      return console.log(error);
+    }
+  };
+
+  const getSchema = async (url: string) => {
     try {
       const res = await fetch(url, {
         // mode: 'no-cors',
@@ -23,13 +48,11 @@ const Endpoint: React.FC = () => {
         },
         body: JSON.stringify({
           operationName: 'IntrospectionQuery',
-          // query: '{ posts { title } }',
           query: INTROSPECION_QUERY,
         }),
       });
       const data = await res.json();
       dispatch(setSchema(data.data.__schema));
-      // return console.log(data.data);
     } catch (error) {
       return console.log(error);
     }
@@ -40,6 +63,7 @@ const Endpoint: React.FC = () => {
     const data = new FormData(event.currentTarget);
     let baseUrl = data.get('baseUrl');
     baseUrl = baseUrl === null ? '' : baseUrl?.toString() ?? '';
+    getSchema(baseUrl);
     makeRequest(baseUrl);
   };
 

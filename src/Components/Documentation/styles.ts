@@ -10,3 +10,9 @@ export const flexRowCenter: SxProps<Theme> = {
 export const wrapperDocumentation: SxProps<Theme> = {
   color: 'black',
 };
+
+export const schemaHeading: SxProps<Theme> = {
+  fontSize: '2rem',
+  fontWeight: '600',
+  color: '#eee',
+};
