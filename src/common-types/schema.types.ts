@@ -1,13 +1,17 @@
 export interface RootSchema {
   queryType: QueryType;
-  mutationType: { name: string | null };
-  subscriptionType: { name: string | null };
+  mutationType: commonType;
+  subscriptionType: commonType;
   types: Type[];
   directives: Direc[];
   description?: string;
 }
 
 export interface QueryType {
+  name: string;
+}
+
+export interface commonType {
   name: string;
 }
 
