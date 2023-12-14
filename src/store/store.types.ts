@@ -1,4 +1,4 @@
-import { Schema } from '../common-types/common-types';
+import { RootSchema } from '../common-types/schema.types';
 
 export type AuthDataState = {
   data: {
@@ -11,5 +11,5 @@ export type AuthDataState = {
 
 export type UIState = {
   docsIsOpen: boolean;
-  schema: Schema;
+  schema: RootSchema;
 };

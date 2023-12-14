@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { Box, Link, Typography } from '@mui/material';
 import { useAppSelector } from '../../store/slices/hooks';
-import { Schema } from '../../common-types/common-types';
 import { schemaHeading, wrapperDocumentation } from './styles';
+import { RootSchema } from '../../common-types/schema.types';
 
 const Documentation: React.FC = () => {
-  const schema: Schema = useAppSelector((store) => store.UIData.schema);
+  const schema: RootSchema = useAppSelector((store) => store.UIData.schema);
   console.log('Documentation', schema);
   const queryType = schema.queryType;
   const mutationType = schema.mutationType;
-  const subscriptionType = schema.subscriptionsType;
+  const subscriptionType = schema.subscriptionType;
   const typeMap = schema.types;
   const directives = schema.directives;
   // {__schema{types{name,fields{name}}}}

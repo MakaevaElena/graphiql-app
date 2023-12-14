@@ -32,7 +32,7 @@ const Endpoint: React.FC = () => {
         }),
       });
       const data = await res.json();
-      return console.log(data.data);
+      return console.log(data);
     } catch (error) {
       return console.log(error);
     }
@@ -52,6 +52,7 @@ const Endpoint: React.FC = () => {
         }),
       });
       const data = await res.json();
+      // console.log('stringify schema', JSON.stringify(data.data.__schema));
       dispatch(setSchema(data.data.__schema));
     } catch (error) {
       return console.log(error);

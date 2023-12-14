@@ -5,11 +5,17 @@ const initialState: UIState = {
   docsIsOpen: false,
   schema: {
     directives: [],
-    mutationType: [],
-    queryType: {},
-    subscriptionsType: {},
+    mutationType: {
+      name: '',
+    },
+    queryType: {
+      name: '',
+    },
     types: [],
     description: '',
+    subscriptionType: {
+      name: '',
+    },
   },
 };
 
