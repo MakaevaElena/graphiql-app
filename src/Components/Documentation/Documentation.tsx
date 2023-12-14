@@ -1,5 +1,13 @@
 import * as React from 'react';
-import { Box, Link, Typography } from '@mui/material';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Link,
+  Typography,
+} from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useAppSelector } from '../../store/slices/hooks';
 import { schemaHeading, wrapperDocumentation } from './styles';
 import { RootSchema } from '../../common-types/schema.types';
@@ -24,74 +32,114 @@ const Documentation: React.FC = () => {
           {schema.description ||
             'A GraphQL schema provides a root type for each kind of operation.'}
         </Typography>
-        <Box title="Root Types">
-          {queryType ? (
-            <div>
-              <span className="graphiql-doc-explorer-root-type">query</span>
-              {': '}
+        {queryType ? (
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
               <Typography sx={schemaHeading} variant="h4">
                 Query type:
               </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
               <Link href="#">{queryType.name}</Link>
-            </div>
-          ) : null}
-          {mutationType && (
-            <div>
-              <span className="graphiql-doc-explorer-root-type">mutation</span>
-              {': '}
+            </AccordionDetails>
+          </Accordion>
+        ) : null}
+
+        {mutationType && (
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography sx={schemaHeading} variant="h4">
+                Mutation:
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
               <Link href="#">
                 <Typography sx={schemaHeading} variant="h4">
                   {mutationType.name}
                 </Typography>
               </Link>
-            </div>
-          )}
-          {subscriptionType && (
-            <div>
-              <span className="graphiql-doc-explorer-root-type">
-                subscription
-              </span>
-              {': '}
+            </AccordionDetails>
+          </Accordion>
+        )}
+
+        {subscriptionType && (
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography sx={schemaHeading} variant="h4">
+                Subscription:
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
               <Link href="#">
                 <Typography sx={schemaHeading} variant="h4">
                   {subscriptionType.name}
                 </Typography>
               </Link>
-            </div>
-          )}
-        </Box>
-        <Box title="All Schema Types">
-          <Typography sx={schemaHeading} variant="h4">
-            All Schema Types:{' '}
-          </Typography>
-          {typeMap && (
-            <div>
-              {Object.values(typeMap).map((type) => {
-                return (
-                  <div key={type.name}>
-                    <Link href="#">{type.name}</Link>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </Box>
-        <Box>
-          <Typography sx={schemaHeading} variant="h4">
-            Directives:{' '}
-          </Typography>
-          {directives && (
-            <div>
-              {Object.values(directives).map((directive) => {
-                return (
-                  <div key={directive.name}>
-                    <Link href="#">{directive.name}</Link>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </Box>
+            </AccordionDetails>
+          </Accordion>
+        )}
+
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography sx={schemaHeading} variant="h4">
+              All Schema Types:{' '}
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            {typeMap && (
+              <div>
+                {Object.values(typeMap).map((type) => {
+                  return (
+                    <div key={type.name}>
+                      <Link href="#">{type.name}</Link>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </AccordionDetails>
+        </Accordion>
+
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography sx={schemaHeading} variant="h4">
+              Directives:{' '}
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            {directives && (
+              <div>
+                {Object.values(directives).map((directive) => {
+                  return (
+                    <div key={directive.name}>
+                      <Link href="#">{directive.name}</Link>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </AccordionDetails>
+        </Accordion>
       </Box>
     </Box>
   );
