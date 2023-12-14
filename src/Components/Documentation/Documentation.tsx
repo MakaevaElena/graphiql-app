@@ -2,11 +2,15 @@ import * as React from 'react';
 import { Box, Typography } from '@mui/material';
 
 import { useAppSelector } from '../../store/slices/hooks';
-import { schemaHeading, wrapperDocumentation } from './styles';
+import { schemaHeading, schemaTitle, wrapperDocumentation } from './styles';
 import { RootSchema } from '../../common-types/schema.types';
 import DocsSection from './DocsSection';
+import { setDocsIsOpen } from '../../store/slices/UISlice';
+import { useDispatch } from 'react-redux';
 
 const Documentation: React.FC = () => {
+  const dispatch = useDispatch();
+  const docsIsOpen = useAppSelector((state) => state.UIData.docsIsOpen);
   const schema: RootSchema = useAppSelector((store) => store.UIData.schema);
   console.log('Documentation', schema);
   const queryType = schema.queryType;
@@ -16,9 +20,13 @@ const Documentation: React.FC = () => {
   const directives = schema.directives;
   // {__schema{types{name,fields{name}}}}
 
+  const handleDocsMenu = () => {
+    dispatch(setDocsIsOpen(!docsIsOpen));
+  };
+
   return (
     <Box>
-      <Typography variant="h4" sx={schemaHeading}>
+      <Typography variant="h4" sx={schemaTitle} onClick={handleDocsMenu}>
         Documentation
       </Typography>
       <Box sx={wrapperDocumentation}>
@@ -50,7 +58,7 @@ const Documentation: React.FC = () => {
 
         {directives ? (
           <DocsSection
-            heading={'All Schema Types:'}
+            heading={'Directives:'}
             names={Object.values(directives).map((directive) => {
               return directive.name;
             })}

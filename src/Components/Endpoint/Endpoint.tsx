@@ -6,10 +6,14 @@ import { setSchema } from '../../store/slices/UISlice';
 import { useDispatch } from 'react-redux';
 import INTROSPECION_QUERY from './Introspection';
 
-// const BASE_URL = `https://rickandmortyapi.com/`;
-// const BASE_URL = `https://rickandmortyapi.com/graphql/`;
-// const BASE_URL = `https://graphqlzero.almansi.me/api/`;
-// const BASE_URL = `https://graphql-pokemon2.vercel.app/`;
+// const endpoints = [
+//   'https://graphql-pokemon2.vercel.app/',
+//   'https://graphqlzero.almansi.me/api/',
+//   'https://rickandmortyapi.com/graphql/',
+//   'https://www.universe.com/graphiql',
+//   'https://api.catalysis-hub.org/graphql',
+//   'https://countries.trevorblades.com/',
+// ];
 
 const Endpoint: React.FC = () => {
   const dispatch = useDispatch();
@@ -30,6 +34,7 @@ const Endpoint: React.FC = () => {
             }
           }`,
         }),
+        credentials: 'omit',
       });
       const data = await res.json();
       return console.log(data);
@@ -50,9 +55,9 @@ const Endpoint: React.FC = () => {
           operationName: 'IntrospectionQuery',
           query: INTROSPECION_QUERY,
         }),
+        credentials: 'omit',
       });
       const data = await res.json();
-      // console.log('stringify schema', JSON.stringify(data.data.__schema));
       dispatch(setSchema(data.data.__schema));
     } catch (error) {
       return console.log(error);
@@ -84,6 +89,28 @@ const Endpoint: React.FC = () => {
         name="baseUrl"
         autoFocus
       />
+      {/* <Autocomplete
+        id="baseUrl"
+        fullWidth
+        sx={{ width: 300 }}
+        options={endpoints}
+        autoHighlight
+        getOptionLabel={(option) => option}
+        renderOption={(_, option) => <Box component="li">{option}</Box>}
+        renderInput={(params) => (
+          <TextField
+            margin="normal"
+            required
+            name="baseUrl"
+            label="Choose a endpoint"
+            inputProps={{
+              ...params.inputProps,
+              autoComplete: '', // disable autocomplete and autofill
+            }}
+          />
+        )}
+      /> */}
+
       <Button type="submit">Apply Endpoint</Button>
     </Box>
   );

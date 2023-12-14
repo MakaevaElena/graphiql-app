@@ -20,6 +20,11 @@ export const schemaHeading: SxProps<Theme> = {
   padding: '1rem',
 };
 
+export const schemaTitle: SxProps<Theme> = {
+  ...schemaHeading,
+  cursor: 'pointer',
+};
+
 export const schemaTypes: SxProps<Theme> = {
   fontSize: '1.5rem',
   fontWeight: '600',

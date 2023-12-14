@@ -1,10 +1,14 @@
 export interface RootSchema {
   queryType: QueryType;
-  mutationType: commonType;
+  mutationType: MutationType;
   subscriptionType: commonType;
   types: Type[];
   directives: Direc[];
   description?: string;
+}
+
+export interface MutationType {
+  name: string;
 }
 
 export interface QueryType {
@@ -23,7 +27,7 @@ export interface Type {
   inputFields?: InputField[];
   interfaces?: string[];
   enumValues?: EnumValue[];
-  possibleTypes: { name: string | null };
+  possibleTypes: commonType;
 }
 
 export interface Field {
@@ -32,7 +36,7 @@ export interface Field {
   args: Arg[];
   type: Type3;
   isDeprecated: boolean;
-  deprecationReason: { name: string | null };
+  deprecationReason: commonType;
 }
 
 export interface Arg {
@@ -56,14 +60,14 @@ export interface OfType {
 
 export interface OfType2 {
   kind: string;
-  name: string | null;
+  name: commonType;
   ofType: OfType3;
 }
 
 export interface OfType3 {
   kind: string;
   name: string;
-  ofType: string | null;
+  ofType: commonType;
 }
 
 export interface Type3 {
@@ -87,27 +91,27 @@ export interface OfType5 {
 export interface OfType6 {
   kind: string;
   name: string;
-  ofType: string | null;
+  ofType: commonType;
 }
 
 export interface InputField {
   name: string;
   description: string;
   type: Type4;
-  defaultValue: string | null;
+  defaultValue: commonType;
 }
 
 export interface Type4 {
   kind: string;
   name: string;
-  ofType: string | null;
+  ofType: commonType;
 }
 
 export interface EnumValue {
   name: string;
   description: string;
   isDeprecated: boolean;
-  deprecationReason: string | null;
+  deprecationReason: commonType;
 }
 
 export interface Direc {
@@ -133,5 +137,5 @@ export interface Type5 {
 export interface OfType7 {
   kind: string;
   name: string;
-  ofType: string | null;
+  ofType: commonType;
 }
