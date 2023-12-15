@@ -4,4 +4,5 @@ export const wrappwerTextEditor: SxProps<Theme> = {
   background: '#eee',
   color: 'black',
   textAlign: 'center',
+  width: '100%',
 };
