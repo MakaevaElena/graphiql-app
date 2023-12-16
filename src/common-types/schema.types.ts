@@ -12,6 +12,7 @@ export interface MutationType {
 }
 
 export interface QueryType {
+  fields: QueryType | QueryType[] | Type | Type[] | Field | Field[];
   name: string;
 }
 

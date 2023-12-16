@@ -18,7 +18,6 @@ const Documentation: React.FC = () => {
   const subscriptionType = schema.subscriptionType;
   const typeMap = schema.types;
   const directives = schema.directives;
-  // {__schema{types{name,fields{name}}}}
 
   const handleDocsMenu = () => {
     dispatch(setDocsIsOpen(!docsIsOpen));
@@ -36,33 +35,23 @@ const Documentation: React.FC = () => {
         </Typography>
 
         {queryType ? (
-          <DocsSection heading={'Query type:'} names={[queryType.name]} />
+          <DocsSection heading={'Query type:'} types={queryType} />
         ) : null}
 
         {mutationType ? (
-          <DocsSection heading={'Mutation:'} names={[mutationType.name]} />
+          <DocsSection heading={'Mutation type:'} types={mutationType} />
         ) : null}
 
         {subscriptionType ? (
-          <DocsSection heading={'Mutation:'} names={[subscriptionType.name]} />
+          <DocsSection heading={'Subscription:'} types={subscriptionType} />
         ) : null}
 
         {typeMap ? (
-          <DocsSection
-            heading={'All Schema Types:'}
-            names={Object.values(typeMap).map((type) => {
-              return type.name;
-            })}
-          />
+          <DocsSection heading={'All Schema Types:'} types={typeMap} />
         ) : null}
 
         {directives ? (
-          <DocsSection
-            heading={'Directives:'}
-            names={Object.values(directives).map((directive) => {
-              return directive.name;
-            })}
-          />
+          <DocsSection heading={'Directives:'} types={directives} />
         ) : null}
       </Box>
     </Box>

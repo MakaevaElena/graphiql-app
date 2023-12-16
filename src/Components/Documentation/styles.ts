@@ -13,11 +13,11 @@ export const wrapperDocumentation: SxProps<Theme> = {
 
 export const schemaHeading: SxProps<Theme> = {
   width: '100%',
-  borderBottom: '1px solid #eee',
-  fontSize: '2rem',
+  // borderBottom: '1px solid #eee',
+  fontSize: '1.8rem',
   fontWeight: '600',
   color: '#1a1a1a',
-  padding: '1rem',
+  padding: '0.5rem',
 };
 
 export const schemaTitle: SxProps<Theme> = {
@@ -26,8 +26,13 @@ export const schemaTitle: SxProps<Theme> = {
 };
 
 export const schemaTypes: SxProps<Theme> = {
-  fontSize: '1.5rem',
+  fontSize: '1.8rem',
   fontWeight: '600',
   color: '#1a1a1a',
-  padding: '0.5rem',
+  // background: '#1a1a1a',
+  padding: '0.2rem',
+};
+
+export const wrapperDocsSection: SxProps<Theme> = {
+  background: '#9e9d9d',
 };
