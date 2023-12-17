@@ -12,7 +12,6 @@ import { useFetchSchemaQuery } from '../../api/rtk-api';
 const Documentation: React.FC = () => {
   const dispatch = useDispatch();
   const docsIsOpen = useAppSelector((state) => state.UIData.docsIsOpen);
-  // const schema: RootSchema = useAppSelector((store) => store.ApiData.schema);
   const baseUrl = useAppSelector((store) => store.ApiData.baseUrl);
   const { data } = useFetchSchemaQuery(baseUrl);
   const schema = data?.data.__schema;
@@ -24,10 +23,6 @@ const Documentation: React.FC = () => {
   const subscriptionType = schema?.subscriptionType;
   const typeMap = schema?.types;
   const directives = schema?.directives;
-
-  // React.useEffect(() => {
-  //   schema = data?.data._schema;
-  // }, [data]);
 
   const handleDocsMenu = () => {
     dispatch(setDocsIsOpen(!docsIsOpen));

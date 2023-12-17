@@ -4,6 +4,8 @@ import { Button } from '@mui/material';
 import { wrapperBaseUrl } from './styles';
 import { setBaseUrl } from '../../store/slices/apiSlice';
 import { useDispatch } from 'react-redux';
+import { useFetchGrathQlQuery } from '../../api/rtk-api';
+import { useAppSelector } from '../../store/slices/hooks';
 // import INTROSPECION_QUERY from './Introspection';
 // import { useFetchSchemaQuery } from '../../api/rtk-api';
 // import { useAppSelector } from '../../store/slices/hooks';
@@ -20,55 +22,18 @@ import { useDispatch } from 'react-redux';
 const Endpoint: React.FC = () => {
   const dispatch = useDispatch();
 
-  const makeRequest = async (url: string) => {
-    try {
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: `query {
-            characters{
-              info{
-                count
-              }
-            }
-          }`,
-        }),
-        credentials: 'omit',
-      });
-      const data = await res.json();
-      return console.log('test query', data);
-    } catch (error) {
-      return console.log(error);
-    }
-  };
-
-  // const getSchema = async (url: string) => {
-  //   try {
-  //     const res = await fetch(url, {
-  //       // mode: 'no-cors',
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         operationName: 'IntrospectionQuery',
-  //         query: INTROSPECION_QUERY,
-  //       }),
-  //       credentials: 'omit',
-  //     });
-  //     const data = await res.json();
-  //     dispatch(setSchema(data.data.__schema));
-  //   } catch (error) {
-  //     return console.log(error);
-  //   }
-  // };
-
-  // React.useEffect(() => {
-  //   dispatch(setSchema(data));
-  // });
+  const queryString = JSON.stringify({
+    query: `query {
+      characters{
+        info{
+          count
+        }
+      }
+    }`,
+  });
+  const baseUrl = useAppSelector((store) => store.ApiData.baseUrl);
+  const { data } = useFetchGrathQlQuery({ baseUrl, queryString });
+  console.log('test request rick&morty', data);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -77,10 +42,7 @@ const Endpoint: React.FC = () => {
     baseUrl = baseUrl === null ? '' : baseUrl?.toString() ?? '';
 
     dispatch(setBaseUrl(baseUrl));
-
-    // getSchema(baseUrl);
-    // dispatch(setSchema(data));
-    makeRequest(baseUrl);
+    // makeRequest(baseUrl);
   };
 
   return (
@@ -99,28 +61,6 @@ const Endpoint: React.FC = () => {
         name="baseUrl"
         autoFocus
       />
-      {/* <Autocomplete
-        id="baseUrl"
-        fullWidth
-        sx={{ width: 300 }}
-        options={endpoints}
-        autoHighlight
-        getOptionLabel={(option) => option}
-        renderOption={(_, option) => <Box component="li">{option}</Box>}
-        renderInput={(params) => (
-          <TextField
-            margin="normal"
-            required
-            name="baseUrl"
-            label="Choose a endpoint"
-            inputProps={{
-              ...params.inputProps,
-              autoComplete: '', // disable autocomplete and autofill
-            }}
-          />
-        )}
-      /> */}
-
       <Button type="submit">Apply Endpoint</Button>
     </Box>
   );
