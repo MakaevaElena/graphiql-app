@@ -2,9 +2,11 @@ import * as React from 'react';
 import { Box, TextField, Typography } from '@mui/material';
 import { Button } from '@mui/material';
 import { wrapperBaseUrl } from './styles';
-import { setSchema } from '../../store/slices/UISlice';
+import { setBaseUrl } from '../../store/slices/apiSlice';
 import { useDispatch } from 'react-redux';
-import INTROSPECION_QUERY from './Introspection';
+// import INTROSPECION_QUERY from './Introspection';
+// import { useFetchSchemaQuery } from '../../api/rtk-api';
+// import { useAppSelector } from '../../store/slices/hooks';
 
 // const endpoints = [
 //   'https://graphql-pokemon2.vercel.app/',
@@ -37,39 +39,47 @@ const Endpoint: React.FC = () => {
         credentials: 'omit',
       });
       const data = await res.json();
-      return console.log(data);
+      return console.log('test query', data);
     } catch (error) {
       return console.log(error);
     }
   };
 
-  const getSchema = async (url: string) => {
-    try {
-      const res = await fetch(url, {
-        // mode: 'no-cors',
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          operationName: 'IntrospectionQuery',
-          query: INTROSPECION_QUERY,
-        }),
-        credentials: 'omit',
-      });
-      const data = await res.json();
-      dispatch(setSchema(data.data.__schema));
-    } catch (error) {
-      return console.log(error);
-    }
-  };
+  // const getSchema = async (url: string) => {
+  //   try {
+  //     const res = await fetch(url, {
+  //       // mode: 'no-cors',
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         operationName: 'IntrospectionQuery',
+  //         query: INTROSPECION_QUERY,
+  //       }),
+  //       credentials: 'omit',
+  //     });
+  //     const data = await res.json();
+  //     dispatch(setSchema(data.data.__schema));
+  //   } catch (error) {
+  //     return console.log(error);
+  //   }
+  // };
+
+  // React.useEffect(() => {
+  //   dispatch(setSchema(data));
+  // });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    let baseUrl = data.get('baseUrl');
+    const formData = new FormData(event.currentTarget);
+    let baseUrl = formData.get('baseUrl');
     baseUrl = baseUrl === null ? '' : baseUrl?.toString() ?? '';
-    getSchema(baseUrl);
+
+    dispatch(setBaseUrl(baseUrl));
+
+    // getSchema(baseUrl);
+    // dispatch(setSchema(data));
     makeRequest(baseUrl);
   };
 

@@ -3,20 +3,6 @@ import { UIState } from '../store.types';
 
 const initialState: UIState = {
   docsIsOpen: false,
-  schema: {
-    directives: [],
-    mutationType: {
-      name: '',
-    },
-    queryType: {
-      name: '',
-    },
-    types: [],
-    description: '',
-    subscriptionType: {
-      name: '',
-    },
-  },
 };
 
 const UISlice = createSlice({
@@ -26,11 +12,8 @@ const UISlice = createSlice({
     setDocsIsOpen: (state, action) => {
       state.docsIsOpen = action.payload;
     },
-    setSchema: (state, action) => {
-      state.schema = action.payload;
-    },
   },
 });
 
-export const { setDocsIsOpen, setSchema } = UISlice.actions;
+export const { setDocsIsOpen } = UISlice.actions;
 export default UISlice.reducer;

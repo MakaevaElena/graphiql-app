@@ -1,3 +1,9 @@
+export interface ApiRequest {
+  data: {
+    __schema: RootSchema;
+  };
+}
+
 export interface RootSchema {
   queryType: QueryType;
   mutationType: MutationType;

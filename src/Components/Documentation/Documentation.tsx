@@ -3,21 +3,31 @@ import { Box, Typography } from '@mui/material';
 
 import { useAppSelector } from '../../store/slices/hooks';
 import { schemaHeading, schemaTitle, wrapperDocumentation } from './styles';
-import { RootSchema } from '../../common-types/schema.types';
+// import { RootSchema } from '../../common-types/schema.types';
 import DocsSection from './DocsSection';
 import { setDocsIsOpen } from '../../store/slices/UISlice';
 import { useDispatch } from 'react-redux';
+import { useFetchSchemaQuery } from '../../api/rtk-api';
 
 const Documentation: React.FC = () => {
   const dispatch = useDispatch();
   const docsIsOpen = useAppSelector((state) => state.UIData.docsIsOpen);
-  const schema: RootSchema = useAppSelector((store) => store.UIData.schema);
-  console.log('Documentation', schema);
-  const queryType = schema.queryType;
-  const mutationType = schema.mutationType;
-  const subscriptionType = schema.subscriptionType;
-  const typeMap = schema.types;
-  const directives = schema.directives;
+  // const schema: RootSchema = useAppSelector((store) => store.ApiData.schema);
+  const baseUrl = useAppSelector((store) => store.ApiData.baseUrl);
+  const { data } = useFetchSchemaQuery(baseUrl);
+  const schema = data?.data.__schema;
+  console.log('data', data);
+  console.log('schema', schema);
+
+  const queryType = schema?.queryType;
+  const mutationType = schema?.mutationType;
+  const subscriptionType = schema?.subscriptionType;
+  const typeMap = schema?.types;
+  const directives = schema?.directives;
+
+  // React.useEffect(() => {
+  //   schema = data?.data._schema;
+  // }, [data]);
 
   const handleDocsMenu = () => {
     dispatch(setDocsIsOpen(!docsIsOpen));
@@ -30,7 +40,7 @@ const Documentation: React.FC = () => {
       </Typography>
       <Box sx={wrapperDocumentation}>
         <Typography sx={schemaHeading}>
-          {schema.description ||
+          {schema?.description ||
             'A GraphQL schema provides a root type for each kind of operation.'}
         </Typography>
 

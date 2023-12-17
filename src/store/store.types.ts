@@ -11,5 +11,9 @@ export type AuthDataState = {
 
 export type UIState = {
   docsIsOpen: boolean;
+};
+
+export type ApiState = {
+  baseUrl: string;
   schema: RootSchema;
 };
