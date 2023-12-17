@@ -1,13 +1,12 @@
-import * as React from 'react';
 import { Box } from '@mui/material';
-import CodeMirror from '@uiw/react-codemirror';
-import { nord } from '@uiw/codemirror-theme-nord';
-import { sectionContainer, wrappwerTextEditor } from '../RequestEditor/styles';
+import { sectionRespContainer } from './styles';
+import CodeEditor from '../CodeEditor/CodeEditor';
+import { useCallback, useState } from 'react';
 
 const ResponseSection: React.FC = () => {
-  const [value, setValue] = React.useState('');
+  const [value, setValue] = useState('');
 
-  const getData = React.useCallback(async () => {
+  const getData = useCallback(async () => {
     const res = await fetch(
       'https://api.potterdb.com/v1/characters/?filter[name_cont_any]=draco'
     );
@@ -18,16 +17,8 @@ const ResponseSection: React.FC = () => {
   }, []);
 
   return (
-    <Box sx={sectionContainer}>
-      <Box sx={wrappwerTextEditor} id="viewer">
-        <CodeMirror
-          width="100%"
-          minHeight="100%"
-          theme={nord}
-          value={value}
-          readOnly={true}
-        />
-      </Box>
+    <Box sx={sectionRespContainer}>
+      <CodeEditor readOnly={true} codeValue={value} />
       <button onClick={getData}>get data</button>
     </Box>
   );

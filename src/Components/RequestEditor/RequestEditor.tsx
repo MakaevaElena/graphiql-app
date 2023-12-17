@@ -1,18 +1,19 @@
 import { FC, useState } from 'react';
 import { Box, Fab } from '@mui/material';
+import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
 import AutoFixHighOutlinedIcon from '@mui/icons-material/AutoFixHighOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
-import CodeMirror from '@uiw/react-codemirror';
-import { nord } from '@uiw/codemirror-theme-nord';
 import {
+  btnsWrapper,
   cleanBtn,
   prettifyBtn,
+  runBtn,
   sectionContainer,
-  wrappwerTextEditor,
 } from './styles';
 import { useAppDispatch } from '../../store/slices/hooks';
 import { updateQuery } from '../../store/slices/querySlice';
 import formatGraphQLQuery from '../../utils/formatGraphQLQuery';
+import CodeEditor from '../CodeEditor/CodeEditor';
 
 const RequestEditor: FC = () => {
   const dispatch = useAppDispatch();
@@ -35,20 +36,17 @@ const RequestEditor: FC = () => {
 
   return (
     <Box sx={sectionContainer} width="100%">
-      <Fab sx={prettifyBtn} onClick={() => onSave(codeValue)}>
-        <AutoFixHighOutlinedIcon />
-      </Fab>
-      <Fab sx={cleanBtn} onClick={onClean}>
-        <DeleteForeverOutlinedIcon />
-      </Fab>
-      <Box sx={wrappwerTextEditor} id="editor">
-        <CodeMirror
-          width="100%"
-          minHeight="100%"
-          theme={nord}
-          value={codeValue}
-          onChange={onChange}
-        />
+      <CodeEditor readOnly={false} codeValue={codeValue} onChange={onChange} />
+      <Box sx={btnsWrapper}>
+        <Fab sx={runBtn} onClick={() => onSave(codeValue)}>
+          <PlayCircleOutlineOutlinedIcon />
+        </Fab>
+        <Fab sx={prettifyBtn} onClick={() => onSave(codeValue)}>
+          <AutoFixHighOutlinedIcon />
+        </Fab>
+        <Fab sx={cleanBtn} onClick={onClean}>
+          <DeleteForeverOutlinedIcon />
+        </Fab>
       </Box>
     </Box>
   );

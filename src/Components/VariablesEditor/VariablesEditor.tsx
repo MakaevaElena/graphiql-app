@@ -1,10 +1,23 @@
-import * as React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
+import CodeEditor from '../CodeEditor/CodeEditor';
+import { FC } from 'react';
+import { json, jsonParseLinter } from '@codemirror/lang-json';
+import { linter } from '@codemirror/lint';
+import { useAppDispatch, useAppSelector } from '../../store/slices/hooks';
+import { updateVariables } from '../../store/slices/querySlice';
 
-const VariablesEditor: React.FC = () => {
+const VariablesEditor: FC = () => {
+  const dispatch = useAppDispatch();
+  const { variables } = useAppSelector((state) => state.querySlice);
+
   return (
     <Box>
-      <Typography variant="h4">VariablesEditor</Typography>
+      <CodeEditor
+        extensions={[json(), linter(jsonParseLinter())]}
+        readOnly={false}
+        codeValue={variables}
+        onChange={(event) => dispatch(updateVariables(event))}
+      />
     </Box>
   );
 };
