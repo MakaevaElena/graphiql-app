@@ -47,11 +47,11 @@ const EditorPage: React.FC = () => {
         <Box sx={wrapperRequestEditor}>
           <RequestEditor />
         </Box>
-        <Box sx={wrapperResponseSection}>
-          <ResponseSection />
-        </Box>
         <Box sx={wrapperHelpersEditor}>
           <TabsPanel />
+        </Box>
+        <Box sx={wrapperResponseSection}>
+          <ResponseSection />
         </Box>
         <Box sx={wrapperDocumentation}>{docsIsOpen && <Documentation />}</Box>
       </Box>

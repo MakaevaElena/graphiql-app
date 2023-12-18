@@ -1,4 +1,3 @@
-import { Box } from '@mui/material';
 import CodeEditor from '../CodeEditor/CodeEditor';
 import { FC } from 'react';
 import { json, jsonParseLinter } from '@codemirror/lang-json';
@@ -11,14 +10,13 @@ const VariablesEditor: FC = () => {
   const { variables } = useAppSelector((state) => state.querySlice);
 
   return (
-    <Box>
-      <CodeEditor
-        extensions={[json(), linter(jsonParseLinter())]}
-        readOnly={false}
-        codeValue={variables}
-        onChange={(event) => dispatch(updateVariables(event))}
-      />
-    </Box>
+    <CodeEditor
+      extensions={[json(), linter(jsonParseLinter())]}
+      readOnly={false}
+      codeValue={variables}
+      height={'15vh'}
+      onChange={(event) => dispatch(updateVariables(event))}
+    />
   );
 };
 

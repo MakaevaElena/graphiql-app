@@ -1,4 +1,3 @@
-import { Box } from '@mui/material';
 import CodeEditor from '../CodeEditor/CodeEditor';
 import { FC } from 'react';
 import { json, jsonParseLinter } from '@codemirror/lang-json';
@@ -11,14 +10,13 @@ const HeadersEditor: FC = () => {
   const { headers } = useAppSelector((state) => state.querySlice);
 
   return (
-    <Box>
-      <CodeEditor
-        extensions={[json(), linter(jsonParseLinter())]}
-        readOnly={false}
-        codeValue={headers}
-        onChange={(event) => dispatch(updateHeaders(event))}
-      />
-    </Box>
+    <CodeEditor
+      extensions={[json(), linter(jsonParseLinter())]}
+      readOnly={false}
+      codeValue={headers}
+      height={'15vh'}
+      onChange={(event) => dispatch(updateHeaders(event))}
+    />
   );
 };
 

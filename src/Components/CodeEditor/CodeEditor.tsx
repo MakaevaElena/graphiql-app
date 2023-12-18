@@ -3,17 +3,21 @@ import CodeMirror, { Extension } from '@uiw/react-codemirror';
 import { nord } from '@uiw/codemirror-theme-nord';
 import { wrappwerTextEditor } from './styles';
 
+type CodeEditorProps = {
+  readOnly: boolean;
+  extensions?: Extension[];
+  onChange?: (value: string) => void;
+  codeValue: string;
+  height?: string;
+};
+
 const CodeEditor = ({
   readOnly,
   extensions,
   onChange,
   codeValue,
-}: {
-  readOnly: boolean;
-  extensions?: Extension[];
-  onChange?: (value: string) => void;
-  codeValue: string;
-}) => {
+  height,
+}: CodeEditorProps) => {
   return (
     <Box sx={wrappwerTextEditor} id="editor">
       <CodeMirror
@@ -25,6 +29,7 @@ const CodeEditor = ({
         theme={nord}
         value={codeValue}
         onChange={onChange}
+        maxHeight={height}
       />
     </Box>
   );
