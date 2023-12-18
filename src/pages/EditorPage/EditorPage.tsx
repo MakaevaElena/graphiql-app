@@ -19,12 +19,20 @@ import ResponseSection from '../../Components/ResponseSection/ResponseSection';
 import RequestEditor from '../../Components/RequestEditor/RequestEditor';
 import Endpoint from '../../Components/Endpoint/Endpoint';
 import TabsPanel from '../../Components/Tabs/TabsPanel';
-
-// const currentPath = location.pathname;
+import { useDataContext } from '../../DataContext/useDataContext';
+import { tabsLabels } from '../../utils/const';
+import VariablesEditor from '../../Components/VariablesEditor/VariablesEditor';
+import HeadersEditor from '../../Components/HeadersEditor/HeadersEditor';
 
 const EditorPage: React.FC = () => {
+  const { language } = useDataContext();
   const dispatch = useDispatch();
   const docsIsOpen = useAppSelector((state) => state.UIData.docsIsOpen);
+
+  const tabs = [
+    <VariablesEditor key="variablesEditor" />,
+    <HeadersEditor key="headersEditor" />,
+  ];
 
   const handleDocsMenu = () => {
     dispatch(setDocsIsOpen(!docsIsOpen));
@@ -48,7 +56,7 @@ const EditorPage: React.FC = () => {
           <RequestEditor />
         </Box>
         <Box sx={wrapperHelpersEditor}>
-          <TabsPanel />
+          <TabsPanel tabsLabels={tabsLabels[language]} tabsElements={tabs} />
         </Box>
         <Box sx={wrapperResponseSection}>
           <ResponseSection />

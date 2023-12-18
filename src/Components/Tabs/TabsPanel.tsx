@@ -1,13 +1,14 @@
 import { Box, Collapse, IconButton, Tab, Tabs } from '@mui/material';
 import { SyntheticEvent, useState } from 'react';
-import { useDataContext } from '../../DataContext/useDataContext';
-import UIStrings from '../../assets/UIStrings.json';
 import CustomTab from './CustomTab';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import VariablesEditor from '../VariablesEditor/VariablesEditor';
-import HeadersEditor from '../HeadersEditor/HeadersEditor';
 import { arrowBtn, headerWrapper } from './styles';
+
+type TabPanelProps = {
+  tabsLabels: string[];
+  tabsElements: JSX.Element[];
+};
 
 function tabProps(index: number) {
   return {
@@ -16,8 +17,7 @@ function tabProps(index: number) {
   };
 }
 
-function TabsPanel() {
-  const { language } = useDataContext();
+function TabsPanel({ tabsLabels, tabsElements }: TabPanelProps) {
   const [tab, setTab] = useState(0);
   const [open, setOpen] = useState(false);
 
@@ -34,8 +34,9 @@ function TabsPanel() {
           indicatorColor="secondary"
           textColor="inherit"
         >
-          <Tab label={UIStrings.Variables[language]} {...tabProps(0)} />
-          <Tab label={UIStrings.Headers[language]} {...tabProps(1)} />
+          {tabsLabels.map((label, index) => {
+            return <Tab key={label} label={label} {...tabProps(index)} />;
+          })}
         </Tabs>
         <IconButton
           onClick={() => setOpen(!open)}
@@ -47,12 +48,13 @@ function TabsPanel() {
         </IconButton>
       </Box>
       <Collapse in={open} timeout="auto" unmountOnExit>
-        <CustomTab value={tab} index={0}>
-          <VariablesEditor />
-        </CustomTab>
-        <CustomTab value={tab} index={1}>
-          <HeadersEditor />
-        </CustomTab>
+        {tabsElements.map((element, index) => {
+          return (
+            <CustomTab key={index} value={tab} index={index}>
+              {element}
+            </CustomTab>
+          );
+        })}
       </Collapse>
     </Box>
   );
