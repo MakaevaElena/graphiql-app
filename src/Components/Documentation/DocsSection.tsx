@@ -29,10 +29,6 @@ type DocsSectionProps = {
 };
 
 const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
-  // if (types.hasOwnProperty('name')) {
-  //   console.log('types = [types];');
-  // }
-
   return (
     <Accordion>
       <AccordionSummary

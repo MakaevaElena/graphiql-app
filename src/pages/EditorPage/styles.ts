@@ -28,7 +28,7 @@ export const wrapperGraphQL: SxProps<Theme> = {
 
 export const wrapperEndpoint: SxProps<Theme> = {
   ...wrapperComponent,
-  gridColumn: '1/8',
+  gridColumn: '1/9',
   gridRow: '1/2',
 };
 

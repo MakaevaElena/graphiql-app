@@ -1,14 +1,17 @@
 import * as React from 'react';
-import { Box, TextField, Typography } from '@mui/material';
-import { Button } from '@mui/material';
-import { wrapperBaseUrl } from './styles';
+import { Box, Fab, TextField } from '@mui/material';
+import {
+  endpointField,
+  openDocsButton,
+  submitButton,
+  wrapperBaseUrl,
+} from './styles';
 import { setBaseUrl } from '../../store/slices/apiSlice';
 import { useDispatch } from 'react-redux';
 import { useFetchGrathQlQuery } from '../../api/rtk-api';
 import { useAppSelector } from '../../store/slices/hooks';
-// import INTROSPECION_QUERY from './Introspection';
-// import { useFetchSchemaQuery } from '../../api/rtk-api';
-// import { useAppSelector } from '../../store/slices/hooks';
+import ReplayIcon from '@mui/icons-material/Replay';
+import { setDocsIsOpen } from '../../store/slices/UISlice';
 
 // const endpoints = [
 //   'https://graphql-pokemon2.vercel.app/',
@@ -34,6 +37,7 @@ const Endpoint: React.FC = () => {
   const baseUrl = useAppSelector((store) => store.ApiData.baseUrl);
   const { data } = useFetchGrathQlQuery({ baseUrl, queryString });
   console.log('test request rick&morty', data);
+  const docsIsOpen = useAppSelector((state) => state.UIData.docsIsOpen);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -45,6 +49,10 @@ const Endpoint: React.FC = () => {
     // makeRequest(baseUrl);
   };
 
+  const handleDocsMenu = () => {
+    dispatch(setDocsIsOpen(!docsIsOpen));
+  };
+
   return (
     <Box
       sx={wrapperBaseUrl}
@@ -52,8 +60,9 @@ const Endpoint: React.FC = () => {
       onSubmit={handleSubmit}
       noValidate
     >
-      <Typography variant="h4">Endpoint</Typography>
+      {/* <Typography variant="h4">Endpoint</Typography> */}
       <TextField
+        sx={endpointField}
         margin="normal"
         required
         fullWidth
@@ -61,7 +70,12 @@ const Endpoint: React.FC = () => {
         name="baseUrl"
         autoFocus
       />
-      <Button type="submit">Apply Endpoint</Button>
+      <Fab sx={submitButton} type="submit">
+        <ReplayIcon />
+      </Fab>
+      <Fab sx={openDocsButton} onClick={handleDocsMenu}>
+        Schema
+      </Fab>
     </Box>
   );
 };

@@ -3,7 +3,6 @@ import { Box, Typography } from '@mui/material';
 
 import { useAppSelector } from '../../store/slices/hooks';
 import { schemaHeading, schemaTitle, wrapperDocumentation } from './styles';
-// import { RootSchema } from '../../common-types/schema.types';
 import DocsSection from './DocsSection';
 import { setDocsIsOpen } from '../../store/slices/UISlice';
 import { useDispatch } from 'react-redux';
