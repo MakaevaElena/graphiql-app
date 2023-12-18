@@ -4,18 +4,18 @@ const querySlice = createSlice({
   name: 'query',
   initialState: {
     value: '',
-    variables: '',
     headers: '',
+    variables: '',
   },
   reducers: {
     updateQuery(state, action: PayloadAction<string>) {
       state.value = action.payload;
     },
     updateHeaders(state, action: PayloadAction<string>) {
-      state.value = action.payload;
+      state.headers = action.payload;
     },
     updateVariables(state, action: PayloadAction<string>) {
-      state.value = action.payload;
+      state.variables = action.payload;
     },
   },
 });
