@@ -11,7 +11,7 @@ interface TabPanelProps {
   tabsLabels: string[];
 }
 
-function CustomTabPanel({ tabsPanels, tabsLabels }: TabPanelProps) {
+const CustomTabPanel = ({ tabsPanels, tabsLabels }: TabPanelProps) => {
   const [tab, setTab] = useState('0');
   const [open, setOpen] = useState(false);
 
@@ -62,6 +62,6 @@ function CustomTabPanel({ tabsPanels, tabsLabels }: TabPanelProps) {
       </TabContext>
     </Box>
   );
-}
+};
 
 export default CustomTabPanel;

@@ -12,3 +12,5 @@ export const tabs = [
   <VariablesEditor key="variablesEditor" />,
   <HeadersEditor key="headersEditor" />,
 ];
+
+export const ignoreSimbols = /[\{\}\[\]\(\):]/g;

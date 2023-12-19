@@ -1,3 +1,5 @@
+import { ignoreSimbols } from './const';
+
 function formatGraphQLQuery(queryString: string) {
   const lines = queryString
     .trim()
@@ -6,16 +8,13 @@ function formatGraphQLQuery(queryString: string) {
     .filter((el) => el !== '')
     .join('\n')
     .split(/({|})/)
-    .map((line, i) => {
+    .map((line) => {
       line.trim();
-      if (
-        !line.includes('(') &&
-        !line.includes(')') &&
-        !line.includes('[') &&
-        !line.includes(']')
-      ) {
-        console.log('line', line, i);
-        return line.split(' ').join('\n');
+      if (!line.match(ignoreSimbols)) {
+        return line
+          .split(' ')
+          .filter((el) => el !== '')
+          .join('\n');
       } else return line;
     });
 
