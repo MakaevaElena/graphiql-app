@@ -10,7 +10,7 @@ import {
   runBtn,
   sectionContainer,
 } from './styles';
-import { useAppDispatch } from '../../store/slices/hooks';
+import { useAppDispatch } from '../../hooks/store';
 import { updateQuery } from '../../store/slices/querySlice';
 import formatGraphQLQuery from '../../utils/formatGraphQLQuery';
 import CodeEditor from '../CodeEditor/CodeEditor';
