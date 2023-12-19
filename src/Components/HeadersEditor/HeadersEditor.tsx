@@ -15,6 +15,7 @@ const HeadersEditor: FC = () => {
       readOnly={false}
       codeValue={headers}
       height={'15vh'}
+      minHeight={'15vh'}
       onChange={(event) => dispatch(updateHeaders(event))}
     />
   );

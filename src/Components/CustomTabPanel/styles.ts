@@ -1,6 +1,7 @@
+import { SxProps, Theme } from '@mui/material';
 import theme from '../../ThemeProvider/ThemeProvider';
 
-export const headerWrapper = {
+export const headerWrapper: SxProps<Theme> = {
   borderBottom: 1,
   borderColor: 'divider',
   display: 'flex',
@@ -8,7 +9,7 @@ export const headerWrapper = {
   alignItems: 'center',
 };
 
-export const arrowBtn = {
+export const arrowBtn: SxProps<Theme> = {
   background: theme.palette.primary.main,
   borderRadius: '50%',
   width: '2rem',
@@ -19,7 +20,7 @@ export const arrowBtn = {
   },
 };
 
-export const icon = {
+export const icon: SxProps<Theme> = {
   fontSize: '16px',
   color: '#fff',
 };

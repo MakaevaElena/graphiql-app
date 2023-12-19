@@ -15,6 +15,7 @@ const VariablesEditor: FC = () => {
       readOnly={false}
       codeValue={variables}
       height={'15vh'}
+      minHeight={'15vh'}
       onChange={(event) => dispatch(updateVariables(event))}
     />
   );

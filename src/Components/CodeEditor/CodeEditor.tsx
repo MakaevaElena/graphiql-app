@@ -9,6 +9,7 @@ type CodeEditorProps = {
   onChange?: (value: string) => void;
   codeValue: string;
   height?: string;
+  minHeight?: string;
 };
 
 const CodeEditor = ({
@@ -17,6 +18,7 @@ const CodeEditor = ({
   onChange,
   codeValue,
   height,
+  minHeight,
 }: CodeEditorProps) => {
   return (
     <Box sx={wrappwerTextEditor} id="editor">
@@ -25,7 +27,7 @@ const CodeEditor = ({
         extensions={extensions}
         basicSetup={{ highlightActiveLine: false }}
         width="100%"
-        minHeight="100%"
+        minHeight={minHeight ?? '100%'}
         theme={nord}
         value={codeValue}
         onChange={onChange}

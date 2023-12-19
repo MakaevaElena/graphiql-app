@@ -18,21 +18,13 @@ import Documentation from '../../Components/Documentation/Documentation';
 import ResponseSection from '../../Components/ResponseSection/ResponseSection';
 import RequestEditor from '../../Components/RequestEditor/RequestEditor';
 import Endpoint from '../../Components/Endpoint/Endpoint';
-import TabsPanel from '../../Components/Tabs/TabsPanel';
 import { useDataContext } from '../../DataContext/useDataContext';
-import { tabsLabels } from '../../utils/const';
-import VariablesEditor from '../../Components/VariablesEditor/VariablesEditor';
-import HeadersEditor from '../../Components/HeadersEditor/HeadersEditor';
-
+import { tabs, tabsLabels } from '../../utils/const';
+import CustomTabPanel from '../../Components/CustomTabPanel/CustomTabPanel';
 const EditorPage: React.FC = () => {
   const { language } = useDataContext();
   const dispatch = useDispatch();
   const docsIsOpen = useAppSelector((state) => state.UIData.docsIsOpen);
-
-  const tabs = [
-    <VariablesEditor key="variablesEditor" />,
-    <HeadersEditor key="headersEditor" />,
-  ];
 
   const handleDocsMenu = () => {
     dispatch(setDocsIsOpen(!docsIsOpen));
@@ -56,7 +48,7 @@ const EditorPage: React.FC = () => {
           <RequestEditor />
         </Box>
         <Box sx={wrapperHelpersEditor}>
-          <TabsPanel tabsLabels={tabsLabels[language]} tabsElements={tabs} />
+          <CustomTabPanel tabsLabels={tabsLabels[language]} tabsPanels={tabs} />
         </Box>
         <Box sx={wrapperResponseSection}>
           <ResponseSection />
