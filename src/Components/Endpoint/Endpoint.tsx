@@ -36,6 +36,7 @@ const Endpoint: React.FC = () => {
   });
   const baseUrl = useAppSelector((store) => store.ApiData.baseUrl);
   const { data } = useFetchGrathQlQuery({ baseUrl, queryString });
+  console.log('useFetchGrathQlQuery', data);
   console.log('test request rick&morty', data);
   const docsIsOpen = useAppSelector((state) => state.UIData.docsIsOpen);
 
@@ -60,7 +61,6 @@ const Endpoint: React.FC = () => {
       onSubmit={handleSubmit}
       noValidate
     >
-      {/* <Typography variant="h4">Endpoint</Typography> */}
       <TextField
         sx={endpointField}
         margin="normal"
@@ -73,7 +73,7 @@ const Endpoint: React.FC = () => {
       <Fab sx={submitButton} type="submit">
         <ReplayIcon />
       </Fab>
-      <Fab sx={openDocsButton} onClick={handleDocsMenu}>
+      <Fab sx={openDocsButton} onClick={handleDocsMenu} disabled={!!!data}>
         Schema
       </Fab>
     </Box>

@@ -16,7 +16,8 @@ export const wrapperBaseUrl: SxProps<Theme> = {
 };
 
 export const endpointField: SxProps<Theme> = {
-  borderColor: theme.palette.secondary.light,
+  border: `1px solid ${theme.palette.primary.light}`,
+  borderRadius: '0.5rem',
 };
 
 const baseBtn: SxProps<Theme> = {

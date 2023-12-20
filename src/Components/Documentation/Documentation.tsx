@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { Box, Typography } from '@mui/material';
-
 import { useAppSelector } from '../../store/slices/hooks';
-import { schemaHeading, schemaTitle, wrapperDocumentation } from './styles';
+import { schemaTitle, wrapperDocumentation } from './styles';
 import DocsSection from './DocsSection';
 import { setDocsIsOpen } from '../../store/slices/UISlice';
 import { useDispatch } from 'react-redux';
@@ -17,7 +16,7 @@ const Documentation: React.FC = () => {
   console.log('data', data);
   console.log('schema', schema);
 
-  const queryType = schema?.queryType;
+  // const queryType = schema?.queryType;
   const mutationType = schema?.mutationType;
   const subscriptionType = schema?.subscriptionType;
   const typeMap = schema?.types;
@@ -33,14 +32,14 @@ const Documentation: React.FC = () => {
         Documentation
       </Typography>
       <Box sx={wrapperDocumentation}>
-        <Typography sx={schemaHeading}>
+        {/* <Typography sx={schemaHeading}>
           {schema?.description ||
             'A GraphQL schema provides a root type for each kind of operation.'}
-        </Typography>
+        </Typography> */}
 
-        {queryType ? (
-          <DocsSection heading={'Query type:'} types={queryType} />
-        ) : null}
+        {/* {queryType ? (
+          < heading={'Query type:'} types={queryType} />
+        ) : null} */}
 
         {mutationType ? (
           <DocsSection heading={'Mutation type:'} types={mutationType} />
