@@ -24,22 +24,8 @@ import { setDocsIsOpen } from '../../store/slices/UISlice';
 
 const Endpoint: React.FC = () => {
   const dispatch = useDispatch();
-
-  // const queryString = JSON.stringify({
-  //   query: `query {
-  //     characters{
-  //       info{
-  //         count
-  //       }
-  //     }
-  //   }`,
-  // });
   const baseUrl = useAppSelector((store) => store.ApiData.baseUrl);
-  // const { data } = useFetchGrathQlQuery({ baseUrl, queryString });
-  // console.log('test request rick&morty', data);
   const schema = useFetchSchemaQuery(baseUrl);
-  // console.log('data?.data.__schema.types', data?.data.__schema?.types);
-
   const docsIsOpen = useAppSelector((state) => state.UIData.docsIsOpen);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {

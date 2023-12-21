@@ -45,8 +45,6 @@ export const schemaTypes: SxProps<Theme> = {
   fontSize: '1.8rem',
   fontWeight: '600',
   color: '#1a1a1a',
-  // background: '#1a1a1a',
-  // padding: '0.2rem',
 };
 
 export const wrapperDocsSection: SxProps<Theme> = {
@@ -54,7 +52,6 @@ export const wrapperDocsSection: SxProps<Theme> = {
   justifyContent: 'space-between',
   alignItems: 'top',
   background: '#9e9d9d',
-  // border: `1px solid #eee`,
   width: '100%',
 };
 
@@ -67,6 +64,5 @@ export const wrapperNextDocsSection: SxProps<Theme> = {
 };
 
 export const wrapperSubSection: SxProps<Theme> = {
-  // border: `1px solid #eee`,
   padding: '0 2rem',
 };
