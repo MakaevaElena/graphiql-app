@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Box, Typography } from '@mui/material';
-import { useAppSelector } from '../../store/slices/hooks';
 import { schemaTitle, wrapperDocumentation } from './styles';
 import DocsSection from './DocsSection';
 import { setDocsIsOpen } from '../../store/slices/UISlice';
 import { useDispatch } from 'react-redux';
 import { useFetchSchemaQuery } from '../../api/rtk-api';
+import { useAppSelector } from '../../hooks/store';
 
 const Documentation: React.FC = () => {
   const dispatch = useDispatch();

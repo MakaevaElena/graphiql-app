@@ -9,9 +9,9 @@ import {
 import { setBaseUrl } from '../../store/slices/apiSlice';
 import { useDispatch } from 'react-redux';
 import { useFetchSchemaQuery } from '../../api/rtk-api';
-import { useAppSelector } from '../../store/slices/hooks';
 import ReplayIcon from '@mui/icons-material/Replay';
 import { setDocsIsOpen } from '../../store/slices/UISlice';
+import { useAppSelector } from '../../hooks/store';
 
 // const endpoints = [
 //   'https://graphql-pokemon2.vercel.app/',
