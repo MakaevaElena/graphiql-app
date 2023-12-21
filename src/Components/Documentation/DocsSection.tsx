@@ -2,6 +2,7 @@ import { Box, IconButton, Typography } from '@mui/material';
 import {
   schemaHeading,
   schemaTypes,
+  sectionHeading,
   wrapperDocsSection,
   wrapperNextDocsSection,
 } from './styles';
@@ -29,10 +30,30 @@ type DocsSectionProps = {
 };
 
 const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
-  const [data, setData] = useState(false);
+  const [openField, setOpenField] = useState(false);
+  const [openArgs, setOpenArgs] = useState(false);
+  const [currentType, setCurrentType] = useState('');
+  const [currentFiled, setCurrentField] = useState<Field>({
+    name: '',
 
-  const openNextSection = () => {
-    setData(!data);
+    args: [],
+    type: {
+      kind: '',
+    },
+    isDeprecated: false,
+    deprecationReason: {
+      name: '',
+    },
+  });
+
+  const handlerOpenField = (currentType: string) => {
+    setOpenField(!openField);
+    setCurrentType(currentType);
+  };
+
+  const handlerOpenArgs = (currentField: Field) => {
+    setOpenArgs(!openArgs);
+    setCurrentField(currentField);
   };
 
   return (
@@ -40,67 +61,77 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
       <Typography sx={schemaHeading} variant="h4">
         {heading}
       </Typography>
-      <Box onClick={openNextSection}>
-        <IconButton>
-          <KeyboardArrowRightIcon />
-        </IconButton>
-      </Box>
 
-      {data && types && (
+      {types && (
         <Box sx={wrapperNextDocsSection}>
+          <Typography sx={sectionHeading} variant="h4">
+            {'Queries'}
+          </Typography>
           {Object.values(types).map((type, i) => {
-            if (type.name.startsWith('__')) {
+            if (type.name.startsWith('__') || type.kind !== 'OBJECT') {
               return null;
             }
 
-            if (type) {
+            return (
+              <Box key={i} sx={wrapperDocsSection}>
+                <Typography sx={schemaTypes} variant="h4">
+                  {type.name}
+                </Typography>
+                <Box onClick={() => handlerOpenField(type.name)}>
+                  <IconButton>
+                    <KeyboardArrowRightIcon />
+                  </IconButton>
+                </Box>
+              </Box>
+            );
+          })}
+        </Box>
+      )}
+
+      {openField && currentType && (
+        <Box sx={wrapperNextDocsSection}>
+          <Typography sx={sectionHeading} variant="h4">
+            {'Fields'}
+          </Typography>
+          {Object.values(types).map((type) => {
+            if (type.name === currentType) {
               if (type.hasOwnProperty('fields') && type.fields !== null) {
-                return (
-                  <>
-                    <Box key={i}>
-                      <DocsSection
-                        heading={`${type.name}: { fields }`}
-                        types={type.fields}
-                      />
+                return type.fields.map((field: Field, k: number) => {
+                  return (
+                    <Box key={k} sx={wrapperDocsSection}>
+                      <Typography sx={schemaHeading} variant="h4">
+                        {field.name}
+                      </Typography>
+                      <Box onClick={() => handlerOpenArgs(field)}>
+                        <IconButton>
+                          <KeyboardArrowRightIcon />
+                        </IconButton>
+                      </Box>
                     </Box>
-                  </>
-                );
-              } else
-                return (
-                  <div key={`${Math.random()}-${type.name}-${i}`}>
-                    <Typography sx={schemaTypes} variant="h4">
-                      {type.name}
-                    </Typography>
-                  </div>
-                );
+                  );
+                });
+              }
             }
           })}
+        </Box>
+      )}
 
-          {Object.values(types).map((type, i) => {
-            if (type.name.startsWith('__')) {
-              return null;
-            }
-
-            if (type) {
-              if (type.hasOwnProperty('args') && type.args.length > 0) {
+      {openArgs && currentFiled && (
+        <Box sx={wrapperNextDocsSection}>
+          <Typography sx={sectionHeading} variant="h4">
+            {'Arguments'}
+          </Typography>
+          {currentFiled.hasOwnProperty('args') && currentFiled.args.length > 0
+            ? currentFiled.args.map((arg, j) => {
                 return (
-                  <Box key={i}>
-                    <DocsSection
-                      heading={`${type.name} ( ...args )`}
-                      types={type.args}
-                    />
+                  <Box key={j} sx={wrapperDocsSection}>
+                    <Typography sx={schemaHeading} variant="h4">
+                      {arg.name}
+                    </Typography>
                   </Box>
                 );
-              } else
-                return (
-                  <div key={`${Math.random()}-${type.name}-${i}`}>
-                    <Typography sx={schemaTypes} variant="h4">
-                      {type.name}
-                    </Typography>
-                  </div>
-                );
-            }
-          })}
+              })
+            : null}
         </Box>
       )}
     </Box>

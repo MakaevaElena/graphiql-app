@@ -8,7 +8,7 @@ import {
 } from './styles';
 import { setBaseUrl } from '../../store/slices/apiSlice';
 import { useDispatch } from 'react-redux';
-import { useFetchGrathQlQuery } from '../../api/rtk-api';
+import { useFetchSchemaQuery } from '../../api/rtk-api';
 import { useAppSelector } from '../../store/slices/hooks';
 import ReplayIcon from '@mui/icons-material/Replay';
 import { setDocsIsOpen } from '../../store/slices/UISlice';
@@ -25,19 +25,21 @@ import { setDocsIsOpen } from '../../store/slices/UISlice';
 const Endpoint: React.FC = () => {
   const dispatch = useDispatch();
 
-  const queryString = JSON.stringify({
-    query: `query {
-      characters{
-        info{
-          count
-        }
-      }
-    }`,
-  });
+  // const queryString = JSON.stringify({
+  //   query: `query {
+  //     characters{
+  //       info{
+  //         count
+  //       }
+  //     }
+  //   }`,
+  // });
   const baseUrl = useAppSelector((store) => store.ApiData.baseUrl);
-  const { data } = useFetchGrathQlQuery({ baseUrl, queryString });
-  console.log('useFetchGrathQlQuery', data);
-  console.log('test request rick&morty', data);
+  // const { data } = useFetchGrathQlQuery({ baseUrl, queryString });
+  // console.log('test request rick&morty', data);
+  const schema = useFetchSchemaQuery(baseUrl);
+  // console.log('data?.data.__schema.types', data?.data.__schema?.types);
+
   const docsIsOpen = useAppSelector((state) => state.UIData.docsIsOpen);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -47,7 +49,6 @@ const Endpoint: React.FC = () => {
     baseUrl = baseUrl === null ? '' : baseUrl?.toString() ?? '';
 
     dispatch(setBaseUrl(baseUrl));
-    // makeRequest(baseUrl);
   };
 
   const handleDocsMenu = () => {
@@ -73,7 +74,11 @@ const Endpoint: React.FC = () => {
       <Fab sx={submitButton} type="submit">
         <ReplayIcon />
       </Fab>
-      <Fab sx={openDocsButton} onClick={handleDocsMenu} disabled={!!!data}>
+      <Fab
+        sx={openDocsButton}
+        onClick={handleDocsMenu}
+        disabled={!!!schema.data}
+      >
         Schema
       </Fab>
     </Box>

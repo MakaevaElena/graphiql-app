@@ -11,16 +11,29 @@ const Documentation: React.FC = () => {
   const dispatch = useDispatch();
   const docsIsOpen = useAppSelector((state) => state.UIData.docsIsOpen);
   const baseUrl = useAppSelector((store) => store.ApiData.baseUrl);
+  // const { data } = useFetchSchemaQuery(baseUrl);
+
+  // const queryString = JSON.stringify({
+  //   query: `data {
+  //     __schema{
+  //       types{
+  //         name
+  //       }
+  //     }
+  //   }`,
+  // });
+
+  // const { data } = useFetchGrathQlQuery({ baseUrl, queryString });
   const { data } = useFetchSchemaQuery(baseUrl);
   const schema = data?.data.__schema;
-  console.log('data', data);
-  console.log('schema', schema);
+  // console.log('data', data);
+  // console.log('schema', schema);
 
   // const queryType = schema?.queryType;
   const mutationType = schema?.mutationType;
   const subscriptionType = schema?.subscriptionType;
-  const typeMap = schema?.types;
-  const directives = schema?.directives;
+  const types = schema?.types;
+  // const directives = schema?.directives;
 
   const handleDocsMenu = () => {
     dispatch(setDocsIsOpen(!docsIsOpen));
@@ -42,20 +55,18 @@ const Documentation: React.FC = () => {
         ) : null} */}
 
         {mutationType ? (
-          <DocsSection heading={'Mutation type:'} types={mutationType} />
+          <DocsSection heading={'Mutation:'} types={mutationType} />
         ) : null}
 
         {subscriptionType ? (
           <DocsSection heading={'Subscription:'} types={subscriptionType} />
         ) : null}
 
-        {typeMap ? (
-          <DocsSection heading={'All Schema Types:'} types={typeMap} />
-        ) : null}
+        {types ? <DocsSection heading={'Queries:'} types={types} /> : null}
 
-        {directives ? (
+        {/* {directives ? (
           <DocsSection heading={'Directives:'} types={directives} />
-        ) : null}
+        ) : null} */}
       </Box>
     </Box>
   );
