@@ -26,6 +26,7 @@ const Endpoint: React.FC = () => {
   const dispatch = useDispatch();
   const baseUrl = useAppSelector((store) => store.ApiData.baseUrl);
   const schema = useFetchSchemaQuery(baseUrl);
+  const { isError } = useFetchSchemaQuery(baseUrl);
   const docsIsOpen = useAppSelector((state) => state.UIData.docsIsOpen);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -35,6 +36,7 @@ const Endpoint: React.FC = () => {
     baseUrl = baseUrl === null ? '' : baseUrl?.toString() ?? '';
 
     dispatch(setBaseUrl(baseUrl));
+    dispatch(setDocsIsOpen(false));
   };
 
   const handleDocsMenu = () => {
@@ -63,7 +65,7 @@ const Endpoint: React.FC = () => {
       <Fab
         sx={openDocsButton}
         onClick={handleDocsMenu}
-        disabled={!!!schema.data}
+        disabled={!!!schema.data && isError}
       >
         Schema
       </Fab>

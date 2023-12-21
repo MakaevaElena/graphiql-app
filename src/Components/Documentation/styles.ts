@@ -52,10 +52,10 @@ export const wrapperDocsSection: SxProps<Theme> = {
   justifyContent: 'space-between',
   alignItems: 'top',
   background: '#9e9d9d',
-  width: '100%',
 };
 
 export const wrapperNextDocsSection: SxProps<Theme> = {
+  width: '30rem',
   transform: 'translateZ(0)',
   transition: 'opacity 1s',
 

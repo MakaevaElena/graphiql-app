@@ -29,30 +29,31 @@ type DocsSectionProps = {
     | Field[];
 };
 
-const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
-  const [openField, setOpenField] = useState(false);
-  const [openArgs, setOpenArgs] = useState(false);
-  const [currentType, setCurrentType] = useState('');
-  const [currentFiled, setCurrentField] = useState<Field>({
-    name: '',
+const DEFAULT_CURRENT_FIELD = {
+  name: '',
 
-    args: [],
-    type: {
-      kind: '',
-    },
-    isDeprecated: false,
-    deprecationReason: {
-      name: '',
-    },
-  });
+  args: [],
+  type: {
+    kind: '',
+  },
+  isDeprecated: false,
+  deprecationReason: {
+    name: '',
+  },
+};
+
+const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
+  const [currentType, setCurrentType] = useState('');
+  const [currentFiled, setCurrentField] = useState<Field>(
+    DEFAULT_CURRENT_FIELD
+  );
 
   const handlerOpenField = (currentType: string) => {
-    setOpenField(!openField);
     setCurrentType(currentType);
+    setCurrentField(DEFAULT_CURRENT_FIELD);
   };
 
   const handlerOpenArgs = (currentField: Field) => {
-    setOpenArgs(!openArgs);
     setCurrentField(currentField);
   };
 
@@ -88,7 +89,7 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
         </Box>
       )}
 
-      {openField && currentType && (
+      {currentType && (
         <Box sx={wrapperNextDocsSection}>
           <Typography sx={sectionHeading} variant="h4">
             {'Fields'}
@@ -102,11 +103,13 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
                       <Typography sx={schemaHeading} variant="h4">
                         {field.name}
                       </Typography>
-                      <Box onClick={() => handlerOpenArgs(field)}>
-                        <IconButton>
-                          <KeyboardArrowRightIcon />
-                        </IconButton>
-                      </Box>
+                      {field.args.length > 0 && (
+                        <Box onClick={() => handlerOpenArgs(field)}>
+                          <IconButton>
+                            <KeyboardArrowRightIcon />
+                          </IconButton>
+                        </Box>
+                      )}
                     </Box>
                   );
                 });
@@ -116,7 +119,7 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
         </Box>
       )}
 
-      {openArgs && currentFiled && (
+      {currentFiled && (
         <Box sx={wrapperNextDocsSection}>
           <Typography sx={sectionHeading} variant="h4">
             {'Arguments'}
