@@ -37,6 +37,7 @@ const Endpoint: React.FC = () => {
 
     dispatch(setBaseUrl(baseUrl));
     dispatch(setDocsIsOpen(false));
+    //todo isError сообщение
   };
 
   const handleDocsMenu = () => {
@@ -65,7 +66,7 @@ const Endpoint: React.FC = () => {
       <Fab
         sx={openDocsButton}
         onClick={handleDocsMenu}
-        disabled={!!!schema.data && isError}
+        disabled={!!!schema.data || isError}
       >
         Schema
       </Fab>

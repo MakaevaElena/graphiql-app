@@ -36,7 +36,6 @@ export const sectionHeading: SxProps<Theme> = {
 
 export const sectionSubHeading: SxProps<Theme> = {
   width: '100%',
-  // borderBottom: '1px solid #eee',
   fontSize: '2rem',
   color: '#535bf2',
   padding: '1rem',
@@ -44,7 +43,6 @@ export const sectionSubHeading: SxProps<Theme> = {
 
 export const exampleText: SxProps<Theme> = {
   width: '100%',
-  // borderBottom: '1px solid #eee',
   fontSize: '2rem',
   color: '#bfeb61',
   padding: '1rem',
@@ -83,7 +81,7 @@ export const wrapperSubSection: SxProps<Theme> = {
   padding: '0 0.5rem',
 };
 
-export const activeLink: SxProps<Theme> = {
-  backgroundColor: 'white',
-  fontSize: '2rem',
+export const activePoint: SxProps<Theme> = {
+  backgroundColor: '#bbb9b9',
+  color: '#2e3440', // not applied
 };
