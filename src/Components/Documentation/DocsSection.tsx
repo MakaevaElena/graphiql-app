@@ -1,11 +1,9 @@
 import { Box, IconButton, Typography } from '@mui/material';
 import {
   activePoint,
-  exampleText,
   flexColumnCenter,
   schemaHeading,
   sectionHeading,
-  sectionSubHeading,
   wrapperDocsSection,
   wrapperNextDocsSection,
 } from './styles';
@@ -19,6 +17,7 @@ import {
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { useState } from 'react';
 import styles from './styles.module.scss';
+import FieldsList from './FieldsList';
 
 type DocsSectionProps = {
   heading: string;
@@ -64,10 +63,6 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
 
   return (
     <Box sx={wrapperDocsSection}>
-      {/* <Typography sx={schemaHeading} variant="h4">
-        {heading}
-      </Typography> */}
-
       {fields && (
         <Box sx={wrapperNextDocsSection}>
           <Typography sx={sectionHeading} variant="h4">
@@ -90,7 +85,6 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
                   activeDocsLink === field.name && activePoint
                 )}
                 className={`${styles.queryLine}`}
-                // onClick={() => handlerOpenArgs(field)}
                 onClick={() => {
                   if (fieldType) handlerOpenTypes(field, fieldType);
                 }}
@@ -99,7 +93,7 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
                   {`${field.name}(...): ${fieldType}`}
                 </Typography>
 
-                {field.args.length > 0 && (
+                {fieldType !== 'SCALAR' && (
                   <IconButton>
                     <KeyboardArrowRightIcon />
                   </IconButton>
@@ -112,60 +106,11 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
 
       {currentFiledType && (
         <Box sx={flexColumnCenter}>
-          <Box sx={wrapperNextDocsSection}>
-            <Typography sx={sectionHeading} variant="h4">
-              {'TYPE DETAILS'}
-            </Typography>
-
-            <Typography sx={sectionSubHeading}>
-              {currentFiled.description}
-            </Typography>
-
-            <Typography
-              variant="subtitle1"
-              sx={exampleText}
-            >{`type ${currentFiledType} {`}</Typography>
-
-            {Object.values(types).map((type) => {
-              if (type.name.startsWith('__') || type.kind !== 'OBJECT') {
-                return null;
-              }
-              if (type.name === currentFiledType) {
-                // console.log(type.name === currentFiledType);
-
-                return type.fields.map((field: Field, k: number) => {
-                  const fieldType =
-                    field.type.name ||
-                    field.type.ofType?.name ||
-                    field.type.ofType?.ofType?.name ||
-                    field.type.ofType?.ofType?.ofType?.name;
-
-                  return (
-                    <Box
-                      key={k}
-                      sx={wrapperDocsSection}
-                      // onClick={() => handlerOpenArgs(field)}
-                      // onClick={() => {
-
-                      //   if (fieldType) handlerOpenTypes(fieldType);
-                      // }}
-                    >
-                      <Typography sx={schemaHeading} variant="h4">
-                        {`${field.name}: ${fieldType}`}
-                      </Typography>
-
-                      {field.args.length > 0 && (
-                        <IconButton>
-                          <KeyboardArrowRightIcon />
-                        </IconButton>
-                      )}
-                    </Box>
-                  );
-                });
-              }
-            })}
-            <Typography variant="subtitle1" sx={exampleText}>{`}`}</Typography>
-          </Box>
+          <FieldsList
+            currentFiledType={currentFiledType}
+            currentFiled={currentFiled}
+            types={types}
+          />
 
           <Box>
             {currentFiled.args.length > 0 && (
