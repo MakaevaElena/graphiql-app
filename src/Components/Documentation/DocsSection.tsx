@@ -19,6 +19,7 @@ import { useState } from 'react';
 import styles from './styles.module.scss';
 import FieldsList from './FieldsList';
 import ArgsList from './ArgsList';
+import { DEFAULT_CURRENT_FIELD } from './constant';
 
 type DocsSectionProps = {
   heading: string;
@@ -31,19 +32,6 @@ type DocsSectionProps = {
     | Type[]
     | Field
     | Field[];
-};
-
-const DEFAULT_CURRENT_FIELD = {
-  name: '',
-
-  args: [],
-  type: {
-    kind: '',
-  },
-  isDeprecated: false,
-  deprecationReason: {
-    name: '',
-  },
 };
 
 const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
