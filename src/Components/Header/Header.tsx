@@ -29,8 +29,10 @@ import {
   logoIconMobile,
   logoTitle,
   logoTitleMobile,
+  menu,
   mobileMenuWrapper,
   navWrapper,
+  pageButton,
   rightMenuWrapper,
   switchLangWrapper,
 } from './styles.ts';
@@ -134,9 +136,7 @@ const Header: React.FC<HeaderProps> = () => {
                 }}
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: 'block', md: 'none' },
-                }}
+                sx={menu}
               >
                 {pages.map((page, i) => (
                   <MenuItem key={i} onClick={handleCloseNavMenu}>
@@ -173,11 +173,7 @@ const Header: React.FC<HeaderProps> = () => {
                 <Button
                   key={`button-${page.En}`}
                   onClick={handleCloseNavMenu}
-                  sx={{
-                    my: 2,
-                    color: 'black',
-                    display: 'block',
-                  }}
+                  sx={pageButton}
                 >
                   <Link key={i + 1} to={`/${page.En}`}>
                     <div id={`${page.En}`}>
@@ -200,13 +196,7 @@ const Header: React.FC<HeaderProps> = () => {
 
             <Box sx={rightMenuWrapper}>
               <Box sx={switchLangWrapper}>
-                <Typography
-                  textAlign="center"
-                  sx={{
-                    color: 'white',
-                    fontFamily: 'menlo',
-                  }}
-                >
+                <Typography textAlign="center">
                   {UIStrings.RuLanguage[language]}
                 </Typography>
 

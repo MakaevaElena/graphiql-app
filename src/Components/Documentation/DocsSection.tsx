@@ -1,7 +1,6 @@
 import { Box, IconButton, Typography } from '@mui/material';
 import {
   schemaHeading,
-  schemaTypes,
   sectionHeading,
   wrapperDocsSection,
   wrapperNextDocsSection,
@@ -15,6 +14,7 @@ import {
 } from '../../common-types/schema.types';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { useState } from 'react';
+// import styles from './styles.module.scss';
 
 type DocsSectionProps = {
   heading: string;
@@ -29,97 +29,151 @@ type DocsSectionProps = {
     | Field[];
 };
 
-const DEFAULT_CURRENT_FIELD = {
-  name: '',
+const DocsSection: React.FC<DocsSectionProps> = ({ types }) => {
+  // const [currentType, setCurrentType] = useState('');
+  // const [activeDocsLink, setActiveDocsLink] = useState(false);
+  // const [currentFiled, setCurrentField] = useState<Field>(
+  //   DEFAULT_CURRENT_FIELD
+  // );
+  const [currentFiled, setCurrentField] = useState('');
 
-  args: [],
-  type: {
-    kind: '',
-  },
-  isDeprecated: false,
-  deprecationReason: {
-    name: '',
-  },
-};
+  // const handlerOpenField = (currentType: string) => {
+  //   // queryRef.current?.classList.add('active');
 
-const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
-  const [currentType, setCurrentType] = useState('');
-  const [currentFiled, setCurrentField] = useState<Field>(
-    DEFAULT_CURRENT_FIELD
-  );
+  //   console.log('activeDocsLink', activeDocsLink);
+  //   setCurrentType(currentType);
+  //   // setCurrentField(DEFAULT_CURRENT_FIELD);
+  //   setCurrentField('');
+  //   setActiveDocsLink(true);
+  // };
 
-  const handlerOpenField = (currentType: string) => {
-    setCurrentType(currentType);
-    setCurrentField(DEFAULT_CURRENT_FIELD);
-  };
+  // const handlerOpenArgs = (currentField: Field) => {
+  //   setCurrentField(currentField);
+  // };
 
-  const handlerOpenArgs = (currentField: Field) => {
+  const handlerOpenTypes = (currentField: string) => {
     setCurrentField(currentField);
   };
 
+  const queries = Object.values(types)[0];
+  // console.log('queries', queries);
+
+  const fields = queries.fields;
+  // console.log('fields', fields);
+
   return (
     <Box sx={wrapperDocsSection}>
-      <Typography sx={schemaHeading} variant="h4">
+      {/* <Typography sx={schemaHeading} variant="h4">
         {heading}
-      </Typography>
+      </Typography> */}
 
-      {types && (
+      {/* {currentType && ( */}
+      {fields && (
         <Box sx={wrapperNextDocsSection}>
           <Typography sx={sectionHeading} variant="h4">
-            {'Queries'}
+            {/* {'TYPE DETAILS'} */}
+            {'QUERIES'}
           </Typography>
-          {Object.values(types).map((type, i) => {
-            if (type.name.startsWith('__') || type.kind !== 'OBJECT') {
-              return null;
-            }
+
+          {fields.map((field: Field, k: number) => {
+            const fieldType =
+              field.type.kind === 'OBJECT'
+                ? field.type.name
+                : field.type.ofType?.name;
 
             return (
-              <Box key={i} sx={wrapperDocsSection}>
-                <Typography sx={schemaTypes} variant="h4">
-                  {type.name}
+              <Box
+                key={k}
+                sx={wrapperDocsSection}
+                // onClick={() => handlerOpenArgs(field)}
+                onClick={() => {
+                  if (fieldType) handlerOpenTypes(fieldType);
+                }}
+              >
+                <Typography sx={schemaHeading} variant="h4">
+                  {/* {`${field.name}: ${field.type.kind.toLowerCase()}`} */}
+                  {`${field.name}(...): ${fieldType}`}
                 </Typography>
-                <Box onClick={() => handlerOpenField(type.name)}>
+
+                {field.args.length > 0 && (
                   <IconButton>
                     <KeyboardArrowRightIcon />
                   </IconButton>
-                </Box>
+                )}
               </Box>
             );
           })}
         </Box>
       )}
 
-      {currentType && (
+      {currentFiled && (
         <Box sx={wrapperNextDocsSection}>
           <Typography sx={sectionHeading} variant="h4">
-            {'Fields'}
+            {'TYPES'}
           </Typography>
+
+          <Typography variant="subtitle1">{`type ${currentFiled} {`}</Typography>
+
           {Object.values(types).map((type) => {
-            if (type.name === currentType) {
-              if (type.hasOwnProperty('fields') && type.fields !== null) {
-                return type.fields.map((field: Field, k: number) => {
-                  return (
-                    <Box key={k} sx={wrapperDocsSection}>
-                      <Typography sx={schemaHeading} variant="h4">
-                        {field.name}
-                      </Typography>
-                      {field.args.length > 0 && (
-                        <Box onClick={() => handlerOpenArgs(field)}>
-                          <IconButton>
-                            <KeyboardArrowRightIcon />
-                          </IconButton>
-                        </Box>
-                      )}
-                    </Box>
-                  );
-                });
-              }
+            if (type.name.startsWith('__') || type.kind !== 'OBJECT') {
+              return null;
+            }
+            if (type.name === currentFiled) {
+              console.log(type.name === currentFiled);
+
+              return type.fields.map((field: Field, k: number) => {
+                // const fieldType =
+                //   field.type.kind === 'OBJECT'
+                //     ? field.type.name
+                //     : field.type.ofType?.name;
+
+                return (
+                  <Box
+                    key={k}
+                    sx={wrapperDocsSection}
+                    // onClick={() => handlerOpenArgs(field)}
+                    // onClick={() => {
+
+                    //   if (fieldType) handlerOpenTypes(fieldType);
+                    // }}
+                  >
+                    <Typography sx={schemaHeading} variant="h4">
+                      {`${field.name}`}
+                    </Typography>
+
+                    {field.args.length > 0 && (
+                      <IconButton>
+                        <KeyboardArrowRightIcon />
+                      </IconButton>
+                    )}
+                  </Box>
+                );
+              });
+
+              // return (
+              //   <Box
+              //     key={i}
+              //     onClick={() => handlerOpenField(type.name)}
+              //     sx={activeDocsLink ? activeLink : null}
+              //   >
+              //     <Box sx={wrapperDocsSection}>
+              //       <Typography sx={schemaTypes} variant="h4">
+              //         {`${type.name}(...):`}
+              //       </Typography>
+
+              //       <IconButton>
+              //         <KeyboardArrowRightIcon />
+              //       </IconButton>
+              //     </Box>
+              //   </Box>
+              // );
             }
           })}
+          <Typography variant="subtitle1">{`}`}</Typography>
         </Box>
       )}
 
-      {currentFiled && (
+      {/* {currentFiled.args.length > 0 && (
         <Box sx={wrapperNextDocsSection}>
           <Typography sx={sectionHeading} variant="h4">
             {'Arguments'}
@@ -136,7 +190,7 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
               })
             : null}
         </Box>
-      )}
+      )} */}
     </Box>
   );
 };

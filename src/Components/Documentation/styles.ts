@@ -52,6 +52,7 @@ export const wrapperDocsSection: SxProps<Theme> = {
   justifyContent: 'space-between',
   alignItems: 'top',
   background: '#9e9d9d',
+  cursor: 'pointer',
 };
 
 export const wrapperNextDocsSection: SxProps<Theme> = {
@@ -60,9 +61,14 @@ export const wrapperNextDocsSection: SxProps<Theme> = {
   transition: 'opacity 1s',
 
   border: `1px solid #eee`,
-  padding: '0 2rem',
+  padding: '0 0.5rem',
 };
 
 export const wrapperSubSection: SxProps<Theme> = {
-  padding: '0 2rem',
+  padding: '0 0.5rem',
+};
+
+export const activeLink: SxProps<Theme> = {
+  backgroundColor: 'white',
+  fontSize: '2rem',
 };

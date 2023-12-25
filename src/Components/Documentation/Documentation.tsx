@@ -13,6 +13,7 @@ const Documentation: React.FC = () => {
   const baseUrl = useAppSelector((store) => store.ApiData.baseUrl);
   const { data } = useFetchSchemaQuery(baseUrl);
   const schema = data?.data.__schema;
+  console.log('schema', schema);
   const mutationType = schema?.mutationType;
   const subscriptionType = schema?.subscriptionType;
   const types = schema?.types;
