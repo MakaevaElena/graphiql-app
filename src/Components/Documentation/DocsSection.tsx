@@ -1,7 +1,9 @@
 import { Box, IconButton, Typography } from '@mui/material';
 import {
+  flexColumnCenter,
   schemaHeading,
   sectionHeading,
+  sectionSubHeading,
   wrapperDocsSection,
   wrapperNextDocsSection,
 } from './styles';
@@ -29,13 +31,26 @@ type DocsSectionProps = {
     | Field[];
 };
 
+const DEFAULT_CURRENT_FIELD = {
+  name: '',
+
+  args: [],
+  type: {
+    kind: '',
+  },
+  isDeprecated: false,
+  deprecationReason: {
+    name: '',
+  },
+};
+
 const DocsSection: React.FC<DocsSectionProps> = ({ types }) => {
   // const [currentType, setCurrentType] = useState('');
   // const [activeDocsLink, setActiveDocsLink] = useState(false);
-  // const [currentFiled, setCurrentField] = useState<Field>(
-  //   DEFAULT_CURRENT_FIELD
-  // );
-  const [currentFiled, setCurrentField] = useState('');
+  const [currentFiled, setCurrentField] = useState<Field>(
+    DEFAULT_CURRENT_FIELD
+  );
+  const [currentFiledType, setCurrentFieldType] = useState('');
 
   // const handlerOpenField = (currentType: string) => {
   //   // queryRef.current?.classList.add('active');
@@ -51,8 +66,9 @@ const DocsSection: React.FC<DocsSectionProps> = ({ types }) => {
   //   setCurrentField(currentField);
   // };
 
-  const handlerOpenTypes = (currentField: string) => {
-    setCurrentField(currentField);
+  const handlerOpenTypes = (field: Field, currentFieldType: string) => {
+    setCurrentFieldType(currentFieldType);
+    setCurrentField(field);
   };
 
   const queries = Object.values(types)[0];
@@ -71,7 +87,6 @@ const DocsSection: React.FC<DocsSectionProps> = ({ types }) => {
       {fields && (
         <Box sx={wrapperNextDocsSection}>
           <Typography sx={sectionHeading} variant="h4">
-            {/* {'TYPE DETAILS'} */}
             {'QUERIES'}
           </Typography>
 
@@ -87,7 +102,7 @@ const DocsSection: React.FC<DocsSectionProps> = ({ types }) => {
                 sx={wrapperDocsSection}
                 // onClick={() => handlerOpenArgs(field)}
                 onClick={() => {
-                  if (fieldType) handlerOpenTypes(fieldType);
+                  if (fieldType) handlerOpenTypes(field, fieldType);
                 }}
               >
                 <Typography sx={schemaHeading} variant="h4">
@@ -106,91 +121,87 @@ const DocsSection: React.FC<DocsSectionProps> = ({ types }) => {
         </Box>
       )}
 
-      {currentFiled && (
-        <Box sx={wrapperNextDocsSection}>
-          <Typography sx={sectionHeading} variant="h4">
-            {'TYPES'}
-          </Typography>
+      {currentFiledType && (
+        <Box sx={flexColumnCenter}>
+          <Box sx={wrapperNextDocsSection}>
+            <Typography sx={sectionHeading} variant="h4">
+              {'TYPE DETAILS'}
+            </Typography>
 
-          <Typography variant="subtitle1">{`type ${currentFiled} {`}</Typography>
+            <Typography sx={sectionSubHeading}>
+              {currentFiled.description}
+            </Typography>
 
-          {Object.values(types).map((type) => {
-            if (type.name.startsWith('__') || type.kind !== 'OBJECT') {
-              return null;
-            }
-            if (type.name === currentFiled) {
-              console.log(type.name === currentFiled);
+            <Typography variant="subtitle1">{`type ${currentFiledType} {`}</Typography>
 
-              return type.fields.map((field: Field, k: number) => {
-                // const fieldType =
-                //   field.type.kind === 'OBJECT'
-                //     ? field.type.name
-                //     : field.type.ofType?.name;
+            {Object.values(types).map((type) => {
+              if (type.name.startsWith('__') || type.kind !== 'OBJECT') {
+                return null;
+              }
+              if (type.name === currentFiledType) {
+                // console.log(type.name === currentFiledType);
 
-                return (
-                  <Box
-                    key={k}
-                    sx={wrapperDocsSection}
-                    // onClick={() => handlerOpenArgs(field)}
-                    // onClick={() => {
+                return type.fields.map((field: Field, k: number) => {
+                  const fieldType =
+                    field.type.kind !== 'NON_NULL'
+                      ? field.type.name
+                      : field.type.ofType?.ofType?.name;
 
-                    //   if (fieldType) handlerOpenTypes(fieldType);
-                    // }}
-                  >
-                    <Typography sx={schemaHeading} variant="h4">
-                      {`${field.name}`}
-                    </Typography>
+                  return (
+                    <Box
+                      key={k}
+                      sx={wrapperDocsSection}
+                      // onClick={() => handlerOpenArgs(field)}
+                      // onClick={() => {
 
-                    {field.args.length > 0 && (
-                      <IconButton>
-                        <KeyboardArrowRightIcon />
-                      </IconButton>
-                    )}
-                  </Box>
-                );
-              });
+                      //   if (fieldType) handlerOpenTypes(fieldType);
+                      // }}
+                    >
+                      <Typography sx={schemaHeading} variant="h4">
+                        {`${field.name}: ${fieldType}`}
+                      </Typography>
 
-              // return (
-              //   <Box
-              //     key={i}
-              //     onClick={() => handlerOpenField(type.name)}
-              //     sx={activeDocsLink ? activeLink : null}
-              //   >
-              //     <Box sx={wrapperDocsSection}>
-              //       <Typography sx={schemaTypes} variant="h4">
-              //         {`${type.name}(...):`}
-              //       </Typography>
+                      {field.args.length > 0 && (
+                        <IconButton>
+                          <KeyboardArrowRightIcon />
+                        </IconButton>
+                      )}
+                    </Box>
+                  );
+                });
+              }
+            })}
+            <Typography variant="subtitle1">{`}`}</Typography>
+          </Box>
 
-              //       <IconButton>
-              //         <KeyboardArrowRightIcon />
-              //       </IconButton>
-              //     </Box>
-              //   </Box>
-              // );
-            }
-          })}
-          <Typography variant="subtitle1">{`}`}</Typography>
+          <Box>
+            {currentFiled.args.length > 0 && (
+              <Box sx={wrapperNextDocsSection}>
+                <Typography sx={sectionHeading} variant="h4">
+                  {'ARGUMENTS'}
+                </Typography>
+                {currentFiled.hasOwnProperty('args') &&
+                currentFiled.args.length > 0
+                  ? currentFiled.args.map((arg, j) => {
+                      const argType =
+                        arg.type.kind !== 'NON_NULL'
+                          ? arg.type.name
+                          : arg.type.ofType?.name;
+
+                      return (
+                        <Box key={j} sx={wrapperDocsSection}>
+                          <Typography sx={schemaHeading} variant="h4">
+                            {`${arg.name}: ${argType}`}
+                          </Typography>
+                        </Box>
+                      );
+                    })
+                  : null}
+              </Box>
+            )}
+          </Box>
         </Box>
       )}
-
-      {/* {currentFiled.args.length > 0 && (
-        <Box sx={wrapperNextDocsSection}>
-          <Typography sx={sectionHeading} variant="h4">
-            {'Arguments'}
-          </Typography>
-          {currentFiled.hasOwnProperty('args') && currentFiled.args.length > 0
-            ? currentFiled.args.map((arg, j) => {
-                return (
-                  <Box key={j} sx={wrapperDocsSection}>
-                    <Typography sx={schemaHeading} variant="h4">
-                      {arg.name}
-                    </Typography>
-                  </Box>
-                );
-              })
-            : null}
-        </Box>
-      )} */}
     </Box>
   );
 };

@@ -10,7 +10,7 @@ export const flexRowCenter: SxProps<Theme> = {
 export const flexColumnCenter: SxProps<Theme> = {
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'center',
+  justifyContent: 'top',
   alignItems: 'left',
   gap: '2rem',
 };
@@ -22,8 +22,7 @@ export const wrapperDocumentation: SxProps<Theme> = {
 export const schemaHeading: SxProps<Theme> = {
   width: '100%',
   fontSize: '1.8rem',
-  fontWeight: '600',
-  color: '#1a1a1a',
+  color: '#F1DAC4',
   padding: '1rem',
 };
 
@@ -31,27 +30,35 @@ export const sectionHeading: SxProps<Theme> = {
   width: '100%',
   borderBottom: '1px solid #eee',
   fontSize: '2rem',
-  fontWeight: '800',
-  color: '#1a1a1a',
+  color: '#F1DAC4',
+  padding: '1rem',
+};
+
+export const sectionSubHeading: SxProps<Theme> = {
+  width: '100%',
+  // borderBottom: '1px solid #eee',
+  fontSize: '2rem',
+  color: '#F1DAC4',
   padding: '1rem',
 };
 
 export const schemaTitle: SxProps<Theme> = {
   ...schemaHeading,
+  color: '#2e3440',
   cursor: 'pointer',
 };
 
 export const schemaTypes: SxProps<Theme> = {
   fontSize: '1.8rem',
   fontWeight: '600',
-  color: '#1a1a1a',
+  color: '#F1DAC4',
 };
 
 export const wrapperDocsSection: SxProps<Theme> = {
   ...flexRowCenter,
   justifyContent: 'space-between',
   alignItems: 'top',
-  background: '#9e9d9d',
+  background: '#2e3440',
   cursor: 'pointer',
 };
 
