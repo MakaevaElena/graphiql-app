@@ -38,7 +38,15 @@ export const sectionSubHeading: SxProps<Theme> = {
   width: '100%',
   // borderBottom: '1px solid #eee',
   fontSize: '2rem',
-  color: '#F1DAC4',
+  color: '#535bf2',
+  padding: '1rem',
+};
+
+export const exampleText: SxProps<Theme> = {
+  width: '100%',
+  // borderBottom: '1px solid #eee',
+  fontSize: '2rem',
+  color: '#bfeb61',
   padding: '1rem',
 };
 

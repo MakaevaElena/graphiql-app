@@ -1,5 +1,6 @@
 import { Box, IconButton, Typography } from '@mui/material';
 import {
+  exampleText,
   flexColumnCenter,
   schemaHeading,
   sectionHeading,
@@ -132,7 +133,10 @@ const DocsSection: React.FC<DocsSectionProps> = ({ types }) => {
               {currentFiled.description}
             </Typography>
 
-            <Typography variant="subtitle1">{`type ${currentFiledType} {`}</Typography>
+            <Typography
+              variant="subtitle1"
+              sx={exampleText}
+            >{`type ${currentFiledType} {`}</Typography>
 
             {Object.values(types).map((type) => {
               if (type.name.startsWith('__') || type.kind !== 'OBJECT') {
@@ -171,7 +175,7 @@ const DocsSection: React.FC<DocsSectionProps> = ({ types }) => {
                 });
               }
             })}
-            <Typography variant="subtitle1">{`}`}</Typography>
+            <Typography variant="subtitle1" sx={exampleText}>{`}`}</Typography>
           </Box>
 
           <Box>
