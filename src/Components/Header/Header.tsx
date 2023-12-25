@@ -39,6 +39,8 @@ import {
 import { useAuth } from '../../hooks/auth';
 import { pageName } from '../../common-types/common-types';
 import { logOut } from '../Authority/firebase.ts';
+import { useAppDispatch } from '../../hooks/store.ts';
+import { setDocsIsOpen } from '../../store/slices/UISlice.ts';
 
 const ScrollHandler = (props: ChangeOnScrollProps) => {
   const trigger = useScrollTrigger({
@@ -65,6 +67,7 @@ const Header: React.FC<HeaderProps> = () => {
   const { language, setLanguage } = useDataContext();
   const { isLogin } = useAuth();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const [langChecked, setLangChecked] = React.useState(
     language === Language.En
@@ -80,6 +83,7 @@ const Header: React.FC<HeaderProps> = () => {
 
   const handleClickAuth = () =>
     isLogin ? logOut() : navigate(`/${pageName.login.En}`);
+  dispatch(setDocsIsOpen(false));
 
   const handleClickSignUp = () => navigate(`/${pageName.signup.En}`);
 
