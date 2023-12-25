@@ -18,6 +18,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { useState } from 'react';
 import styles from './styles.module.scss';
 import FieldsList from './FieldsList';
+import ArgsList from './ArgsList';
 
 type DocsSectionProps = {
   heading: string;
@@ -112,33 +113,7 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
             types={types}
           />
 
-          <Box>
-            {currentFiled.args.length > 0 && (
-              <Box sx={wrapperNextDocsSection}>
-                <Typography sx={sectionHeading} variant="h4">
-                  {'ARGUMENTS'}
-                </Typography>
-                {currentFiled.hasOwnProperty('args') &&
-                currentFiled.args.length > 0
-                  ? currentFiled.args.map((arg, j) => {
-                      const argType =
-                        arg.type.name ||
-                        arg.type.ofType?.name ||
-                        arg.type.ofType?.ofType?.name ||
-                        arg.type.ofType?.ofType?.ofType?.name;
-
-                      return (
-                        <Box key={j} sx={wrapperDocsSection}>
-                          <Typography sx={schemaHeading} variant="h4">
-                            {`${arg.name}: ${argType}`}
-                          </Typography>
-                        </Box>
-                      );
-                    })
-                  : null}
-              </Box>
-            )}
-          </Box>
+          <ArgsList currentFiled={currentFiled} />
         </Box>
       )}
     </Box>

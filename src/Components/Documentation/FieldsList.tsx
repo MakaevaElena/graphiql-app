@@ -17,7 +17,7 @@ import {
 } from '../../common-types/schema.types';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
-type DocsSectionProps = {
+type FieldsListProps = {
   currentFiledType: string;
   currentFiled: Field;
   types:
@@ -31,7 +31,7 @@ type DocsSectionProps = {
     | Field[];
 };
 
-const FieldsList: React.FC<DocsSectionProps> = ({
+const FieldsList: React.FC<FieldsListProps> = ({
   currentFiledType,
   currentFiled,
   types,
