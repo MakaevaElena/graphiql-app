@@ -15,6 +15,7 @@ import FieldsList from './FieldsList';
 import ArgsList from './ArgsList';
 import { DEFAULT_CURRENT_FIELD, DocsFiedsTypes } from './constants';
 import { DocsSectionProps } from './Documentation.types';
+import { getFieldTypeName } from '../../utils/getFieldTypeName';
 
 const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
   const [activeDocsLink, setActiveDocsLink] = useState('');
@@ -29,7 +30,7 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
     setActiveDocsLink(field.name);
   };
 
-  const queries = Object.values(types)[0];
+  const queries = Object.values(types).find((el) => el.name === 'Query');
   const fields = queries.fields;
 
   return (
@@ -38,14 +39,11 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
         <Box sx={wrapperNextDocsSection}>
           <Typography sx={sectionHeading} variant="h4">
             {heading.toUpperCase()}
+            {/* {UIContent[heading][language]} */}
           </Typography>
 
           {fields.map((field: Field, k: number) => {
-            const fieldType =
-              field.type.name ||
-              field.type.ofType?.name ||
-              field.type.ofType?.ofType?.name ||
-              field.type.ofType?.ofType?.ofType?.name;
+            const fieldType = getFieldTypeName(field);
 
             return (
               <Box
@@ -57,7 +55,8 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
                 )}
                 className={`${styles.queryLine}`}
                 onClick={() => {
-                  if (fieldType) handlerOpenTypes(field, fieldType);
+                  if (typeof fieldType === 'string')
+                    handlerOpenTypes(field, fieldType);
                 }}
               >
                 <Typography sx={schemaHeading} variant="h4">

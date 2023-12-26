@@ -19,12 +19,16 @@ import {
 } from './constants';
 import ArgsList from './ArgsList';
 import { FieldsListProps } from './Documentation.types';
+import { useDataContext } from '../../DataContext/useDataContext';
+import UIContent from '../../assets/UIStrings.json';
+import { getFieldTypeName } from '../../utils/getFieldTypeName';
 
 const FieldsList: React.FC<FieldsListProps> = ({
   currentFiledType,
   currentFiled,
   types,
 }) => {
+  const { language } = useDataContext();
   const [activeDocsLink, setActiveDocsLink] = useState('');
   const [currentNextFiled, setCurrentField] = useState<Field>(
     DEFAULT_CURRENT_FIELD
@@ -43,7 +47,7 @@ const FieldsList: React.FC<FieldsListProps> = ({
         <Box sx={flexColumnCenter}>
           <Box sx={wrapperNextDocsSection}>
             <Typography sx={sectionHeading} variant="h4">
-              {DocsHeaders.Type_details}
+              {UIContent[DocsHeaders.Type_details][language]}
             </Typography>
 
             <Typography sx={sectionSubHeading}>
@@ -64,11 +68,7 @@ const FieldsList: React.FC<FieldsListProps> = ({
               }
               if (type.name === currentFiledType) {
                 return type.fields.map((field: Field, k: number) => {
-                  const fieldType =
-                    field.type.name ||
-                    field.type.ofType?.name ||
-                    field.type.ofType?.ofType?.name ||
-                    field.type.ofType?.ofType?.ofType?.name;
+                  const fieldType = getFieldTypeName(field);
 
                   return (
                     <Box
@@ -79,7 +79,8 @@ const FieldsList: React.FC<FieldsListProps> = ({
                         activeDocsLink === field.name && activePoint
                       )}
                       onClick={() => {
-                        if (fieldType) handlerOpenTypes(field, fieldType);
+                        if (typeof fieldType === 'string')
+                          handlerOpenTypes(field, fieldType);
                       }}
                     >
                       <Typography sx={schemaHeading} variant="h4">

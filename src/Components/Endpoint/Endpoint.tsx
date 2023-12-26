@@ -12,6 +12,9 @@ import { useFetchSchemaQuery } from '../../api/rtk-api';
 import ReplayIcon from '@mui/icons-material/Replay';
 import { setDocsIsOpen } from '../../store/slices/UISlice';
 import { useAppSelector } from '../../hooks/store';
+import Loader from '../Loader/Loader';
+import { useDataContext } from '../../DataContext/useDataContext';
+import UIContent from '../../assets/UIStrings.json';
 
 // const endpoints = [
 //   'https://graphql-pokemon2.vercel.app/',
@@ -23,10 +26,11 @@ import { useAppSelector } from '../../hooks/store';
 // ];
 
 const Endpoint: React.FC = () => {
+  const { language } = useDataContext();
   const dispatch = useDispatch();
   const baseUrl = useAppSelector((store) => store.ApiData.baseUrl);
   const schema = useFetchSchemaQuery(baseUrl);
-  const { isError } = useFetchSchemaQuery(baseUrl);
+  const { isLoading, isError } = useFetchSchemaQuery(baseUrl);
   const docsIsOpen = useAppSelector((state) => state.UIData.docsIsOpen);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -63,13 +67,17 @@ const Endpoint: React.FC = () => {
       <Fab sx={submitButton} type="submit">
         <ReplayIcon />
       </Fab>
-      <Fab
-        sx={openDocsButton}
-        onClick={handleDocsMenu}
-        disabled={!!!schema.data || isError}
-      >
-        Schema
-      </Fab>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <Fab
+          sx={openDocsButton}
+          onClick={handleDocsMenu}
+          disabled={!!!schema.data || isError}
+        >
+          {UIContent.Schema[language]}
+        </Fab>
+      )}
     </Box>
   );
 };

@@ -15,7 +15,7 @@ export const flexColumnCenter: SxProps<Theme> = {
   gap: '2rem',
 };
 
-export const wrapperDocumentation: SxProps<Theme> = {
+export const wrapperDocsContent: SxProps<Theme> = {
   color: 'black',
 };
 
@@ -70,9 +70,9 @@ export const wrapperDocsSection: SxProps<Theme> = {
 
 export const wrapperNextDocsSection: SxProps<Theme> = {
   width: '30rem',
-  transform: 'translateZ(0)',
-  transition: 'opacity 1s',
-
+  transform: 'translateZ(0)', // not applied
+  transition: 'opacity 1s', // not applied
+  background: '#2e3440',
   border: `1px solid #eee`,
   padding: '0 0.5rem',
 };

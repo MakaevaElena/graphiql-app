@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Box, Typography } from '@mui/material';
-import { schemaTitle, wrapperDocumentation } from './styles';
+import { schemaTitle, wrapperDocsContent } from './styles';
 import DocsSection from './DocsSection';
 import { setDocsIsOpen } from '../../store/slices/UISlice';
 import { useDispatch } from 'react-redux';
@@ -28,7 +28,7 @@ const Documentation: React.FC = () => {
         <Typography variant="h4" sx={schemaTitle} onClick={handleDocsMenu}>
           {DocsHeaders.Documentation}
         </Typography>
-        <Box sx={wrapperDocumentation}>
+        <Box sx={wrapperDocsContent}>
           {mutationType ? (
             <DocsSection
               heading={DocsHeaders.Mutation.toString()}

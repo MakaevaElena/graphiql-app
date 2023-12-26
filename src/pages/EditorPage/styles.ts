@@ -77,5 +77,7 @@ export const wrapperDocumentation: SxProps<Theme> = {
   transition: 'opacity 1s',
   top: '260px',
   right: '0',
+  maxWidth: '90%',
   background: '#bbb9b9',
+  overflowX: 'auto',
 };
