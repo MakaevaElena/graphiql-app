@@ -10,16 +10,22 @@ import {
   wrapperRequestEditor,
   wrapperResponseSection,
 } from './styles';
-import Documentation from '../../Components/Documentation/Documentation';
+// import Documentation from '../../Components/Documentation/Documentation';
 import ResponseSection from '../../Components/ResponseSection/ResponseSection';
 import RequestEditor from '../../Components/RequestEditor/RequestEditor';
 import Endpoint from '../../Components/Endpoint/Endpoint';
 import { useDataContext } from '../../DataContext/useDataContext';
 import { tabs, tabsLabels } from '../../utils/const';
 import CustomTabPanel from '../../Components/CustomTabPanel/CustomTabPanel';
+import Loader from '../../Components/Loader/Loader';
+import { Suspense, lazy } from 'react';
+
 const EditorPage: React.FC = () => {
   const { language } = useDataContext();
   const docsIsOpen = useAppSelector((state) => state.UIData.docsIsOpen);
+  const Documentation = lazy(
+    () => import('../../Components/Documentation/Documentation')
+  );
 
   return (
     <Container maxWidth="xl">
@@ -39,7 +45,13 @@ const EditorPage: React.FC = () => {
         <Box sx={wrapperResponseSection}>
           <ResponseSection />
         </Box>
-        <Box sx={wrapperDocumentation}>{docsIsOpen && <Documentation />}</Box>
+        <Box sx={wrapperDocumentation}>
+          {docsIsOpen && (
+            <Suspense fallback={<Loader />}>
+              <Documentation />
+            </Suspense>
+          )}
+        </Box>
       </Box>
     </Container>
   );
