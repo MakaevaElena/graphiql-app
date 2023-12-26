@@ -41,7 +41,7 @@ export interface Field {
   name: string;
   description?: string;
   args: Arg[];
-  type: Type3;
+  type: OfType;
   isDeprecated: boolean;
   deprecationReason: commonType;
 }
@@ -49,69 +49,21 @@ export interface Field {
 export interface Arg {
   name: string;
   description?: string;
-  type: Type2;
+  type: OfType;
   defaultValue?: string;
-}
-
-export interface Type2 {
-  kind: string;
-  name?: string;
-  ofType?: OfType;
 }
 
 export interface OfType {
   kind: string;
-  name?: string;
-  ofType?: OfType2;
-}
-
-export interface OfType2 {
-  kind: string;
-  name: commonType;
-  ofType: OfType3;
-}
-
-export interface OfType3 {
-  kind: string;
-  name: string;
-  ofType: commonType;
-}
-
-export interface Type3 {
-  kind: string;
-  name?: string;
-  ofType?: OfType4;
-}
-
-export interface OfType4 {
-  kind: string;
-  name?: string;
-  ofType?: OfType5;
-}
-
-export interface OfType5 {
-  kind: string;
-  name?: string;
-  ofType?: OfType6;
-}
-
-export interface OfType6 {
-  kind: string;
-  name: string;
-  ofType: commonType;
+  name?: string | commonType;
+  ofType?: OfType | commonType;
 }
 
 export interface InputField {
   name: string;
   description: string;
-  type: Type4;
+  type: OfType;
   defaultValue: commonType;
-}
-
-export interface Type4 {
-  kind: string;
-  name: string;
-  ofType: commonType;
 }
 
 export interface EnumValue {
@@ -125,24 +77,5 @@ export interface Direc {
   name: string;
   description: string;
   locations: string[];
-  args: Arg2[];
-}
-
-export interface Arg2 {
-  name: string;
-  description: string;
-  type: Type5;
-  defaultValue?: string;
-}
-
-export interface Type5 {
-  kind: string;
-  name?: string;
-  ofType?: OfType7;
-}
-
-export interface OfType7 {
-  kind: string;
-  name: string;
-  ofType: commonType;
+  args: Arg[];
 }
