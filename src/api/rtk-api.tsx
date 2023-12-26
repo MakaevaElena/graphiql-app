@@ -3,7 +3,7 @@ import { ApiRequest } from '../common-types/schema.types';
 import INTROSPECION_QUERY from '../Components/Endpoint/Introspection';
 
 export const rtkqApi = createApi({
-  reducerPath: 'grathiQl',
+  reducerPath: 'graphiQl',
   baseQuery: fetchBaseQuery({ baseUrl: '' }),
   endpoints: (builder) => ({
     fetchSchema: builder.query<ApiRequest, string>({
