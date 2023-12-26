@@ -9,31 +9,16 @@ import {
   wrapperDocsSection,
   wrapperNextDocsSection,
 } from './styles';
-import {
-  Direc,
-  Field,
-  MutationType,
-  QueryType,
-  Type,
-} from '../../common-types/schema.types';
+import { Field } from '../../common-types/schema.types';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { useState } from 'react';
-import { DEFAULT_CURRENT_FIELD } from './constant';
+import {
+  DEFAULT_CURRENT_FIELD,
+  DocsFiedsTypes,
+  DocsHeaders,
+} from './constants';
 import ArgsList from './ArgsList';
-
-type FieldsListProps = {
-  currentFiledType: string;
-  currentFiled: Field;
-  types:
-    | Direc[]
-    | MutationType
-    | QueryType
-    | QueryType[]
-    | Type
-    | Type[]
-    | Field
-    | Field[];
-};
+import { FieldsListProps } from './Documentation.types';
 
 const FieldsList: React.FC<FieldsListProps> = ({
   currentFiledType,
@@ -58,7 +43,7 @@ const FieldsList: React.FC<FieldsListProps> = ({
         <Box sx={flexColumnCenter}>
           <Box sx={wrapperNextDocsSection}>
             <Typography sx={sectionHeading} variant="h4">
-              {'TYPE DETAILS'}
+              {DocsHeaders.Type_details}
             </Typography>
 
             <Typography sx={sectionSubHeading}>
@@ -71,7 +56,10 @@ const FieldsList: React.FC<FieldsListProps> = ({
             >{`type ${currentFiledType} {`}</Typography>
 
             {Object.values(types).map((type) => {
-              if (type.name.startsWith('__') || type.kind !== 'OBJECT') {
+              if (
+                type.name.startsWith('__') ||
+                type.kind !== DocsFiedsTypes.OBJECT
+              ) {
                 return null;
               }
               if (type.name === currentFiledType) {

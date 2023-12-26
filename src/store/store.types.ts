@@ -1,5 +1,3 @@
-import { RootSchema } from '../common-types/schema.types';
-
 export interface IUserState {
   user: {
     email: string;
@@ -13,5 +11,4 @@ export type UIState = {
 
 export type ApiState = {
   baseUrl: string;
-  schema: RootSchema;
 };

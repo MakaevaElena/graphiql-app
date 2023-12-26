@@ -6,6 +6,7 @@ import { setDocsIsOpen } from '../../store/slices/UISlice';
 import { useDispatch } from 'react-redux';
 import { useFetchSchemaQuery } from '../../api/rtk-api';
 import { useAppSelector } from '../../hooks/store';
+import { DocsHeaders } from './constants';
 
 const Documentation: React.FC = () => {
   const dispatch = useDispatch();
@@ -13,7 +14,6 @@ const Documentation: React.FC = () => {
   const baseUrl = useAppSelector((store) => store.ApiData.baseUrl);
   const { data, isError } = useFetchSchemaQuery(baseUrl);
   const schema = data?.data.__schema;
-  // console.log('schema', schema);
   const mutationType = schema?.mutationType;
   const subscriptionType = schema?.subscriptionType;
   const types = schema?.types;
@@ -26,18 +26,29 @@ const Documentation: React.FC = () => {
     isError || (
       <Box>
         <Typography variant="h4" sx={schemaTitle} onClick={handleDocsMenu}>
-          Documentation
+          {DocsHeaders.Documentation}
         </Typography>
         <Box sx={wrapperDocumentation}>
           {mutationType ? (
-            <DocsSection heading={'Mutation:'} types={mutationType} />
+            <DocsSection
+              heading={DocsHeaders.Mutation.toString()}
+              types={mutationType}
+            />
           ) : null}
 
           {subscriptionType ? (
-            <DocsSection heading={'Subscription:'} types={subscriptionType} />
+            <DocsSection
+              heading={DocsHeaders.Subscription.toString()}
+              types={subscriptionType}
+            />
           ) : null}
 
-          {types ? <DocsSection heading={'Queries:'} types={types} /> : null}
+          {types ? (
+            <DocsSection
+              heading={DocsHeaders.Queries.toString()}
+              types={types}
+            />
+          ) : null}
         </Box>
       </Box>
     )

@@ -20,12 +20,13 @@ import CustomTabPanel from '../../Components/CustomTabPanel/CustomTabPanel';
 import Loader from '../../Components/Loader/Loader';
 import { Suspense, lazy } from 'react';
 
+const Documentation = lazy(
+  () => import('../../Components/Documentation/Documentation')
+);
+
 const EditorPage: React.FC = () => {
   const { language } = useDataContext();
   const docsIsOpen = useAppSelector((state) => state.UIData.docsIsOpen);
-  const Documentation = lazy(
-    () => import('../../Components/Documentation/Documentation')
-  );
 
   return (
     <Container maxWidth="xl">

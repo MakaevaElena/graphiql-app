@@ -7,32 +7,14 @@ import {
   wrapperDocsSection,
   wrapperNextDocsSection,
 } from './styles';
-import {
-  Direc,
-  Field,
-  MutationType,
-  QueryType,
-  Type,
-} from '../../common-types/schema.types';
+import { Field } from '../../common-types/schema.types';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { useState } from 'react';
 import styles from './styles.module.scss';
 import FieldsList from './FieldsList';
 import ArgsList from './ArgsList';
-import { DEFAULT_CURRENT_FIELD } from './constant';
-
-type DocsSectionProps = {
-  heading: string;
-  types:
-    | Direc[]
-    | MutationType
-    | QueryType
-    | QueryType[]
-    | Type
-    | Type[]
-    | Field
-    | Field[];
-};
+import { DEFAULT_CURRENT_FIELD, DocsFiedsTypes } from './constants';
+import { DocsSectionProps } from './Documentation.types';
 
 const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
   const [activeDocsLink, setActiveDocsLink] = useState('');
@@ -82,7 +64,7 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
                   {`${field.name}(...): ${fieldType}`}
                 </Typography>
 
-                {fieldType !== 'SCALAR' && (
+                {fieldType !== DocsFiedsTypes.SCALAR.toString() && (
                   <IconButton>
                     <KeyboardArrowRightIcon />
                   </IconButton>

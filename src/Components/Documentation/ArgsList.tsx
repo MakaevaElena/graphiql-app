@@ -5,11 +5,8 @@ import {
   wrapperDocsSection,
   wrapperNextDocsSection,
 } from './styles';
-import { Field } from '../../common-types/schema.types';
-
-type ArgsListProps = {
-  currentFiled: Field;
-};
+import { ArgsListProps } from './Documentation.types';
+import { DocsHeaders } from './constants';
 
 const ArgsList: React.FC<ArgsListProps> = ({ currentFiled }) => {
   return (
@@ -17,7 +14,7 @@ const ArgsList: React.FC<ArgsListProps> = ({ currentFiled }) => {
       {currentFiled.args.length > 0 && (
         <Box sx={wrapperNextDocsSection}>
           <Typography sx={sectionHeading} variant="h4">
-            {'ARGUMENTS'}
+            {DocsHeaders.Arguments}
           </Typography>
           {currentFiled.hasOwnProperty('args') && currentFiled.args.length > 0
             ? currentFiled.args.map((arg, j) => {
