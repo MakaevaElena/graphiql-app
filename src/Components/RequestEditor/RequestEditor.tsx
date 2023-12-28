@@ -1,15 +1,8 @@
 import { FC, useState } from 'react';
 import { Box, Fab } from '@mui/material';
-import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
 import AutoFixHighOutlinedIcon from '@mui/icons-material/AutoFixHighOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
-import {
-  btnsWrapper,
-  cleanBtn,
-  prettifyBtn,
-  runBtn,
-  sectionContainer,
-} from './styles';
+import { btnsWrapper, cleanBtn, prettifyBtn, sectionContainer } from './styles';
 import { useAppDispatch } from '../../hooks/store';
 import { updateQuery } from '../../store/slices/querySlice';
 import formatGraphQLQuery from '../../utils/formatGraphQLQuery';
@@ -31,6 +24,7 @@ const RequestEditor: FC = () => {
   }
 
   function onChange(value: string) {
+    dispatch(updateQuery(value));
     setCodeValue(value);
   }
 
@@ -38,9 +32,6 @@ const RequestEditor: FC = () => {
     <Box sx={sectionContainer} width="100%">
       <CodeEditor readOnly={false} codeValue={codeValue} onChange={onChange} />
       <Box sx={btnsWrapper}>
-        <Fab sx={runBtn} onClick={() => onSave(codeValue)}>
-          <PlayCircleOutlineOutlinedIcon />
-        </Fab>
         <Fab sx={prettifyBtn} onClick={() => onSave(codeValue)}>
           <AutoFixHighOutlinedIcon />
         </Fab>
