@@ -33,6 +33,7 @@ const CustomTabPanel = ({ tabsPanels, tabsLabels }: TabPanelProps) => {
               return (
                 <Tab
                   key={label}
+                  onClick={() => setOpen(true)}
                   label={label}
                   value={index + ''}
                   id={`tab-${index}`}
