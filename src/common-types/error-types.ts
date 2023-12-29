@@ -1,4 +1,4 @@
-type ErrorResponse = {
+export type ErrorResponse = {
   status: number;
   data: {
     errors: [
@@ -9,4 +9,7 @@ type ErrorResponse = {
   };
 };
 
-export default ErrorResponse;
+export type ErrorFetch = {
+  status: string;
+  error: string;
+};

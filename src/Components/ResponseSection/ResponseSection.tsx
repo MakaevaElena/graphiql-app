@@ -1,7 +1,6 @@
-import { Box, Fab } from '@mui/material';
+import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useSnackbar } from 'notistack';
-import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
 import { sectionRespContainer, runBtn } from './styles';
 import CodeEditor from '../CodeEditor/CodeEditor';
 import { useLazyFetchGrathQlQuery } from '../../api/rtk-api';
@@ -10,7 +9,8 @@ import { useDataContext } from '../../DataContext/useDataContext';
 import FetchingStatus from '../../common-types/fetching-status';
 import ErrorMessages from '../../assets/errorMessages.json';
 import UIStrings from '../../assets/UIStrings.json';
-import ErrorResponse from '../../common-types/error-types';
+import { ErrorResponse } from '../../common-types/error-types';
+import CustomButton from '../CustomButton/CustomButton';
 
 const ResponseSection: React.FC = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -37,14 +37,14 @@ const ResponseSection: React.FC = () => {
         variant: 'error',
       });
       setResponseValue(`${errorMessage}`);
-    } else if (status === FetchingStatus.FULFILLED) {
+    } else if (status.toString() === FetchingStatus.FULFILLED) {
       setResponseValue(JSON.stringify(data, null, 2));
     }
   }, [result, language, enqueueSnackbar]);
 
-  const getData = () => {
+  const getData = async () => {
     if (isHeadersValid(headers)) {
-      trigger({
+      await trigger({
         baseUrl: baseUrl.baseUrl,
         query,
         variables,
@@ -60,21 +60,18 @@ const ResponseSection: React.FC = () => {
       JSON.parse(headersString || '{}');
       return true;
     } catch (error) {
-      enqueueSnackbar(
-        `${UIStrings.Headers[language]}: ${(error as Error).message}`,
-        {
+      if (error instanceof Error) {
+        enqueueSnackbar(`${UIStrings.Headers[language]}: ${error.message}`, {
           variant: 'error',
-        }
-      );
+        });
+      }
       return false;
     }
   };
 
   return (
     <>
-      <Fab sx={runBtn} onClick={getData}>
-        <PlayCircleOutlineOutlinedIcon />
-      </Fab>
+      <CustomButton sx={runBtn} onClick={getData} title="►" />
       <Box sx={sectionRespContainer}>
         <CodeEditor readOnly={true} codeValue={responseValue} />
       </Box>

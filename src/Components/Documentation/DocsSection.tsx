@@ -7,7 +7,7 @@ import {
   wrapperDocsSection,
   wrapperNextDocsSection,
 } from './styles';
-import { Field } from '../../common-types/schema.types';
+import { Field, Type } from '../../common-types/schema.types';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { useState } from 'react';
 import styles from './styles.module.scss';
@@ -30,16 +30,17 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
     setActiveDocsLink(field.name);
   };
 
-  const queries = Object.values(types).find((el) => el.name === 'Query');
-  const fields = queries.fields;
+  const queries = Object.values(types as Type[]).find(
+    (el) => el.name === 'Query'
+  );
+  const fields = queries?.fields;
 
   return (
     <Box sx={wrapperDocsSection}>
       {fields && (
         <Box sx={wrapperNextDocsSection}>
           <Typography sx={sectionHeading} variant="h4">
-            {heading.toUpperCase()}
-            {/* {UIContent[heading][language]} */}
+            {heading}
           </Typography>
 
           {fields.map((field: Field, k: number) => {
@@ -60,7 +61,9 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
                 }}
               >
                 <Typography sx={schemaHeading} variant="h4">
-                  {`${field.name}(...): ${fieldType}`}
+                  {`${field.name}(...): ${
+                    typeof fieldType === 'string' ? fieldType : 'unknown'
+                  }`}
                 </Typography>
 
                 {fieldType !== DocsFiedsTypes.SCALAR.toString() && (

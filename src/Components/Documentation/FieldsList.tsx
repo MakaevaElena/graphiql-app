@@ -9,13 +9,13 @@ import {
   wrapperDocsSection,
   wrapperNextDocsSection,
 } from './styles';
-import { Field } from '../../common-types/schema.types';
+import { Field, Type } from '../../common-types/schema.types';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { useState } from 'react';
 import {
   DEFAULT_CURRENT_FIELD,
+  DOCS_HEADERS,
   DocsFiedsTypes,
-  DocsHeaders,
 } from './constants';
 import ArgsList from './ArgsList';
 import { FieldsListProps } from './Documentation.types';
@@ -47,7 +47,7 @@ const FieldsList: React.FC<FieldsListProps> = ({
         <Box sx={flexColumnCenter}>
           <Box sx={wrapperNextDocsSection}>
             <Typography sx={sectionHeading} variant="h4">
-              {UIContent[DocsHeaders.Type_details][language]}
+              {UIContent[DOCS_HEADERS.Type_details][language]}
             </Typography>
 
             <Typography sx={sectionSubHeading}>
@@ -59,15 +59,15 @@ const FieldsList: React.FC<FieldsListProps> = ({
               sx={exampleText}
             >{`type ${currentFiledType} {`}</Typography>
 
-            {Object.values(types).map((type) => {
+            {Object.values(types as Type[]).map((type) => {
               if (
                 type.name.startsWith('__') ||
-                type.kind !== DocsFiedsTypes.OBJECT
+                type.kind !== DocsFiedsTypes.OBJECT.toString()
               ) {
                 return null;
               }
               if (type.name === currentFiledType) {
-                return type.fields.map((field: Field, k: number) => {
+                return type.fields?.map((field: Field, k: number) => {
                   const fieldType = getFieldTypeName(field);
 
                   return (
@@ -84,7 +84,9 @@ const FieldsList: React.FC<FieldsListProps> = ({
                       }}
                     >
                       <Typography sx={schemaHeading} variant="h4">
-                        {`${field.name}: ${fieldType}`}
+                        {`${field.name}: ${
+                          typeof fieldType === 'string' ? fieldType : 'unknown'
+                        }`}
                       </Typography>
 
                       {(field.args.length > 0 || fieldType) && (
