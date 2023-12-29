@@ -84,7 +84,9 @@ const FieldsList: React.FC<FieldsListProps> = ({
                       }}
                     >
                       <Typography sx={schemaHeading} variant="h4">
-                        {`${field.name}: ${fieldType as string}`}
+                        {`${field.name}: ${
+                          typeof fieldType === 'string' ? fieldType : 'unknown'
+                        }`}
                       </Typography>
 
                       {(field.args.length > 0 || fieldType) && (

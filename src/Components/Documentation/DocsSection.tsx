@@ -61,7 +61,9 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
                 }}
               >
                 <Typography sx={schemaHeading} variant="h4">
-                  {`${field.name}(...): ${fieldType as string}`}
+                  {`${field.name}(...): ${
+                    typeof fieldType === 'string' ? fieldType : 'unknown'
+                  }`}
                 </Typography>
 
                 {fieldType !== DocsFiedsTypes.SCALAR.toString() && (
