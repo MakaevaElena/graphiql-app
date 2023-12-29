@@ -10,7 +10,8 @@ import { useDataContext } from '../../DataContext/useDataContext';
 import FetchingStatus from '../../common-types/fetching-status';
 import ErrorMessages from '../../assets/errorMessages.json';
 import UIStrings from '../../assets/UIStrings.json';
-import ErrorResponse from '../../common-types/error-types';
+import { ErrorResponse } from '../../common-types/error-types';
+import CustomButton from '../CustomButton/CustomButton';
 
 // const baseUrl = 'https://graphql-pokemon2.vercel.app';
 // const query = `query fn($varId: Int!) {pokemons(first: $varId) {name id}}`;
@@ -45,14 +46,14 @@ const ResponseSection: React.FC = () => {
         variant: 'error',
       });
       setResponseValue(`${errorMessage}`);
-    } else if (status === FetchingStatus.FULFILLED) {
+    } else if (status.toString() === FetchingStatus.FULFILLED) {
       setResponseValue(JSON.stringify(data, null, 2));
     }
   }, [result, language, enqueueSnackbar]);
 
-  const getData = () => {
+  const getData = async () => {
     if (isHeadersValid(headers)) {
-      trigger({
+      await trigger({
         baseUrl: baseUrl.baseUrl,
         query,
         variables,
@@ -67,10 +68,12 @@ const ResponseSection: React.FC = () => {
     try {
       JSON.parse(headersString || '{}');
       return true;
-    } catch (error: Error) {
-      enqueueSnackbar(`${UIStrings.Headers[language]}: ${error.message}`, {
-        variant: 'error',
-      });
+    } catch (error) {
+      if (error instanceof Error) {
+        enqueueSnackbar(`${UIStrings.Headers[language]}: ${error.message}`, {
+          variant: 'error',
+        });
+      }
       return false;
     }
   };
@@ -78,7 +81,7 @@ const ResponseSection: React.FC = () => {
   return (
     <Box sx={sectionRespContainer}>
       <CodeEditor readOnly={true} codeValue={responseValue} />
-      <button onClick={getData}>get data</button>
+      <CustomButton onClick={getData} title="get data" />
     </Box>
   );
 };
