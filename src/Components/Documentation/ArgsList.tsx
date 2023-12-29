@@ -27,7 +27,7 @@ const ArgsList: React.FC<ArgsListProps> = ({ currentFiled }) => {
                 return (
                   <Box key={j} sx={wrapperDocsSection}>
                     <Typography sx={schemaHeading} variant="h4">
-                      {`${arg.name}: ${argType}`}
+                      {`${arg.name}: ${argType as string}`}
                     </Typography>
                   </Box>
                 );

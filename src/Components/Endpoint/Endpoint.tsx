@@ -80,8 +80,9 @@ const Endpoint: React.FC = () => {
   useEffect(() => {
     const { data, isError, error, isLoading, isFetching } = result;
 
-    if (error) {
+    if (isError) {
       if (Object.hasOwn(error, 'status')) {
+        console.log(error);
         if (error.error.status === 404) {
           enqueueSnackbar(ErrorMessages.ERROR_404[language], {
             variant: 'error',

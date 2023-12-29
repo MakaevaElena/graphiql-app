@@ -10,6 +10,7 @@ import { useDataContext } from '../../DataContext/useDataContext';
 import FetchingStatus from '../../common-types/fetching-status';
 import ErrorMessages from '../../assets/errorMessages.json';
 import UIStrings from '../../assets/UIStrings.json';
+import ErrorResponse from '../../common-types/error-types';
 
 // const baseUrl = 'https://graphql-pokemon2.vercel.app';
 // const query = `query fn($varId: Int!) {pokemons(first: $varId) {name id}}`;
@@ -36,8 +37,10 @@ const ResponseSection: React.FC = () => {
     const { data, status, isError, error } = result;
     if (isError) {
       const errorMessage =
-        error?.data?.errors[0]?.message ||
-        `${ErrorMessages.ERROR_FETCH_DATA[language]}: ${error.status}`;
+        (error as ErrorResponse)?.data?.errors[0]?.message ||
+        `${ErrorMessages.ERROR_FETCH_DATA[language]}: ${
+          (error as ErrorResponse).status
+        }`;
       enqueueSnackbar(`${errorMessage}`, {
         variant: 'error',
       });
