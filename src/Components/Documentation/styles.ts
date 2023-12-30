@@ -85,3 +85,11 @@ export const activePoint: SxProps<Theme> = {
   backgroundColor: '#bbb9b9',
   color: '#2e3440', // not applied
 };
+
+export const hideBlock: SxProps<Theme> = {
+  display: 'none',
+};
+
+export const showBlock: SxProps<Theme> = {
+  display: 'block',
+};

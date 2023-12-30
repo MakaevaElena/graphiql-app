@@ -2,8 +2,10 @@ import { Box, IconButton, Typography } from '@mui/material';
 import {
   activePoint,
   flexColumnCenter,
+  hideBlock,
   schemaHeading,
   sectionHeading,
+  showBlock,
   wrapperDocsSection,
   wrapperNextDocsSection,
 } from './styles';
@@ -19,6 +21,7 @@ import { getFieldTypeName } from '../../utils/getFieldTypeName';
 
 const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
   const [activeDocsLink, setActiveDocsLink] = useState('');
+  const [sectionIsOpen, setSectionIsOpen] = useState(true);
   const [currentFiled, setCurrentField] = useState<Field>(
     DEFAULT_CURRENT_FIELD
   );
@@ -28,6 +31,7 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
     setCurrentFieldType(currentFieldType);
     setCurrentField(field);
     setActiveDocsLink(field.name);
+    setSectionIsOpen(false);
   };
 
   const queries = Object.values(types as Type[]).find(
@@ -38,7 +42,13 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
   return (
     <Box sx={wrapperDocsSection}>
       {fields && (
-        <Box sx={wrapperNextDocsSection}>
+        <Box
+          sx={Object.assign(
+            {},
+            wrapperNextDocsSection,
+            sectionIsOpen ? showBlock : hideBlock
+          )}
+        >
           <Typography sx={sectionHeading} variant="h4">
             {heading}
           </Typography>
@@ -78,7 +88,13 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
       )}
 
       {currentFiledType && (
-        <Box sx={flexColumnCenter}>
+        <Box
+          sx={Object.assign(
+            {},
+            flexColumnCenter,
+            sectionIsOpen ? hideBlock : showBlock
+          )}
+        >
           <FieldsList
             currentFiledType={currentFiledType}
             currentFiled={currentFiled}

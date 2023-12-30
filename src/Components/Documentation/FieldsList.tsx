@@ -3,9 +3,11 @@ import {
   activePoint,
   exampleText,
   flexColumnCenter,
+  hideBlock,
   schemaHeading,
   sectionHeading,
   sectionSubHeading,
+  showBlock,
   wrapperDocsSection,
   wrapperNextDocsSection,
 } from './styles';
@@ -29,6 +31,7 @@ const FieldsList: React.FC<FieldsListProps> = ({
   types,
 }) => {
   const { language } = useDataContext();
+  const [sectionIsOpen, setSectionIsOpen] = useState(true);
   const [activeDocsLink, setActiveDocsLink] = useState('');
   const [currentNextFiled, setCurrentField] = useState<Field>(
     DEFAULT_CURRENT_FIELD
@@ -39,12 +42,19 @@ const FieldsList: React.FC<FieldsListProps> = ({
     setCurrentNextFieldType(currentNextFieldType);
     setCurrentField(field);
     setActiveDocsLink(field.name);
+    setSectionIsOpen(false);
   };
 
   return (
     <Box sx={wrapperDocsSection}>
       {currentFiledType && (
-        <Box sx={flexColumnCenter}>
+        <Box
+          sx={Object.assign(
+            {},
+            flexColumnCenter,
+            sectionIsOpen ? showBlock : hideBlock
+          )}
+        >
           <Box sx={wrapperNextDocsSection}>
             <Typography sx={sectionHeading} variant="h4">
               {UIContent[DOCS_HEADERS.Type_details][language]}
@@ -105,14 +115,22 @@ const FieldsList: React.FC<FieldsListProps> = ({
       )}
 
       {currentNextFiledType && (
-        <Box sx={flexColumnCenter}>
-          <FieldsList
-            currentFiledType={currentNextFiledType}
-            currentFiled={currentNextFiled}
-            types={types}
-          />
+        <Box
+          sx={Object.assign(
+            {},
+            wrapperDocsSection,
+            sectionIsOpen ? hideBlock : showBlock
+          )}
+        >
+          <Box sx={flexColumnCenter}>
+            <FieldsList
+              currentFiledType={currentNextFiledType}
+              currentFiled={currentNextFiled}
+              types={types}
+            />
 
-          <ArgsList currentFiled={currentNextFiled} />
+            <ArgsList currentFiled={currentNextFiled} />
+          </Box>
         </Box>
       )}
     </Box>
