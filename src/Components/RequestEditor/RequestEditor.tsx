@@ -8,26 +8,31 @@ import { updateQuery } from '../../store/slices/querySlice';
 import formatGraphQLQuery from '../../utils/formatGraphQLQuery';
 import CodeEditor from '../CodeEditor/CodeEditor';
 import CustomIconButton from '../CustomIconButton/CustomIconButton';
+import Storage from '../../utils/Storage/Storage';
 
 const RequestEditor: FC = () => {
   const dispatch = useAppDispatch();
   const { isSchema } = useAppSelector((state) => state.ApiData);
-  const [codeValue, setCodeValue] = useState('');
+  const { value } = useAppSelector((state) => state.querySlice);
+  const [codeValue, setCodeValue] = useState(value);
 
-  function onSave(value: string) {
-    dispatch(updateQuery(value));
-    const formatedValue = formatGraphQLQuery(value);
+  function onSave(query: string) {
+    dispatch(updateQuery(query));
+    const formatedValue = formatGraphQLQuery(query);
     setCodeValue(formatedValue);
+    Storage.saveRequest(formatedValue);
   }
 
   function onClean() {
     dispatch(updateQuery(''));
     setCodeValue('');
+    Storage.saveRequest('');
   }
 
-  function onChange(value: string) {
-    dispatch(updateQuery(value));
-    setCodeValue(value);
+  function onChange(queryValue: string) {
+    dispatch(updateQuery(queryValue));
+    Storage.saveRequest(queryValue);
+    setCodeValue(queryValue);
   }
 
   return (

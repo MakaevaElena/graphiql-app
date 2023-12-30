@@ -20,6 +20,7 @@ import { endpointSchema } from '../../yup/endpointSchema';
 import { useEffect, useState } from 'react';
 import ErrorMessages from '../../assets/errorMessages.json';
 import { ErrorResponse, ErrorFetch } from '../../common-types/error-types';
+import Storage from '../../utils/Storage/Storage';
 
 // const endpoints = [
 //   'https://graphql-pokemon2.vercel.app/',
@@ -31,13 +32,14 @@ import { ErrorResponse, ErrorFetch } from '../../common-types/error-types';
 // ];
 
 const Endpoint: React.FC = () => {
-  const [urlInputValue, setUrlInputValue] = useState('');
+  const { baseUrl } = useAppSelector((store) => store.ApiData);
+  const [urlInputValue, setUrlInputValue] = useState(baseUrl);
   const [docsButtonDisabled, setDocsButtonDisabled] = useState(true);
   const [trigger, result] = useLazyFetchSchemaQuery();
+
   const { language } = useDataContext();
   const dispatch = useDispatch();
 
-  const { baseUrl } = useAppSelector((store) => store.ApiData);
   const { docsIsOpen, isLoadingSchema } = useAppSelector(
     (state) => state.UIData
   );
@@ -47,7 +49,7 @@ const Endpoint: React.FC = () => {
 
   const formik = useFormik({
     initialValues: {
-      baseUrl: '',
+      baseUrl: baseUrl || '',
     },
     validationSchema: baseUrlSchemaValidation,
     onSubmit: async ({ baseUrl }) => {
@@ -69,9 +71,9 @@ const Endpoint: React.FC = () => {
   const handleChangeUrl = (
     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
+    Storage.saveEndpoint(event.target.value);
     formik.handleChange(event);
     dispatch(setDocsIsOpen(false));
-
     setUrlInputValue(event.target.value);
     dispatch(setBaseUrl(''));
 
