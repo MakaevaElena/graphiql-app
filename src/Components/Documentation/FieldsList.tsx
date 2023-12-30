@@ -1,9 +1,17 @@
-import { Box, IconButton, Typography } from '@mui/material';
+import {
+  Box,
+  IconButton,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import {
   activePoint,
   exampleText,
   flexColumnCenter,
+  flexRowCenter,
   hideBlock,
+  returnTitle,
   schemaHeading,
   sectionHeading,
   sectionSubHeading,
@@ -13,6 +21,7 @@ import {
 } from './styles';
 import { Field, Type } from '../../common-types/schema.types';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useState } from 'react';
 import {
   DEFAULT_CURRENT_FIELD,
@@ -26,6 +35,8 @@ import UIContent from '../../assets/UIStrings.json';
 import { getFieldTypeName } from '../../utils/getFieldTypeName';
 
 const FieldsList: React.FC<FieldsListProps> = ({
+  // prevFiled,
+  // prevFiledType,
   currentFiledType,
   currentFiled,
   types,
@@ -45,20 +56,44 @@ const FieldsList: React.FC<FieldsListProps> = ({
     setSectionIsOpen(false);
   };
 
+  const handleBackToQueries = () => {
+    console.log('ok');
+    // setSectionIsOpen(false);
+    // dispatch(setDocsIsOpen(false));
+    // dispatch(setDocsIsOpen(true));
+  };
+
+  const theme = useTheme();
+  const isMobileView = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <Box sx={wrapperDocsSection}>
       {currentFiledType && (
         <Box
-          sx={Object.assign(
-            {},
-            flexColumnCenter,
-            sectionIsOpen ? showBlock : hideBlock
-          )}
+          sx={
+            isMobileView
+              ? Object.assign(
+                  {},
+                  flexColumnCenter,
+                  sectionIsOpen ? showBlock : hideBlock
+                )
+              : flexColumnCenter
+          }
         >
           <Box sx={wrapperNextDocsSection}>
             <Typography sx={sectionHeading} variant="h4">
               {UIContent[DOCS_HEADERS.Type_details][language]}
             </Typography>
+
+            <Box sx={flexRowCenter} onClick={() => handleBackToQueries()}>
+              <IconButton>
+                <ArrowBackIosIcon />
+              </IconButton>
+              <Typography sx={returnTitle} variant="h4">
+                {/* {`Back to ${prevFiledType}`} */}
+                {`Back to QUERIES`}
+              </Typography>
+            </Box>
 
             <Typography sx={sectionSubHeading}>
               {currentFiled.description}
@@ -116,17 +151,23 @@ const FieldsList: React.FC<FieldsListProps> = ({
 
       {currentNextFiledType && (
         <Box
-          sx={Object.assign(
-            {},
-            wrapperDocsSection,
-            sectionIsOpen ? hideBlock : showBlock
-          )}
+          sx={
+            isMobileView
+              ? Object.assign(
+                  {},
+                  wrapperDocsSection,
+                  sectionIsOpen ? hideBlock : showBlock
+                )
+              : wrapperDocsSection
+          }
         >
           <Box sx={flexColumnCenter}>
             <FieldsList
               currentFiledType={currentNextFiledType}
               currentFiled={currentNextFiled}
               types={types}
+              prevFiled={currentFiled}
+              prevFiledType={currentFiledType}
             />
 
             <ArgsList currentFiled={currentNextFiled} />

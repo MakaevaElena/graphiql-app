@@ -1,4 +1,10 @@
-import { Box, IconButton, Typography } from '@mui/material';
+import {
+  Box,
+  IconButton,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import {
   activePoint,
   flexColumnCenter,
@@ -39,15 +45,22 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
   );
   const fields = queries?.fields;
 
+  const theme = useTheme();
+  const isMobileView = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <Box sx={wrapperDocsSection}>
       {fields && (
         <Box
-          sx={Object.assign(
-            {},
-            wrapperNextDocsSection,
-            sectionIsOpen ? showBlock : hideBlock
-          )}
+          sx={
+            isMobileView
+              ? Object.assign(
+                  {},
+                  wrapperNextDocsSection,
+                  sectionIsOpen ? showBlock : hideBlock
+                )
+              : wrapperNextDocsSection
+          }
         >
           <Typography sx={sectionHeading} variant="h4">
             {heading}
@@ -59,11 +72,15 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
             return (
               <Box
                 key={k}
-                sx={Object.assign(
-                  {},
-                  wrapperDocsSection,
-                  activeDocsLink === field.name && activePoint
-                )}
+                sx={
+                  isMobileView
+                    ? Object.assign(
+                        {},
+                        wrapperDocsSection,
+                        activeDocsLink === field.name && activePoint
+                      )
+                    : wrapperDocsSection
+                }
                 className={`${styles.queryLine}`}
                 onClick={() => {
                   if (typeof fieldType === 'string')
@@ -89,16 +106,22 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
 
       {currentFiledType && (
         <Box
-          sx={Object.assign(
-            {},
-            flexColumnCenter,
-            sectionIsOpen ? hideBlock : showBlock
-          )}
+          sx={
+            isMobileView
+              ? Object.assign(
+                  {},
+                  flexColumnCenter,
+                  sectionIsOpen ? hideBlock : showBlock
+                )
+              : flexColumnCenter
+          }
         >
           <FieldsList
             currentFiledType={currentFiledType}
             currentFiled={currentFiled}
             types={types}
+            prevFiled={currentFiled}
+            prevFiledType={currentFiledType}
           />
 
           <ArgsList currentFiled={currentFiled} />

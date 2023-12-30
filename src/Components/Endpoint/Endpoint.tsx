@@ -147,7 +147,7 @@ const Endpoint: React.FC = () => {
           onClick={handleDocsMenu}
           disabled={!formik.isValid || docsButtonDisabled}
         >
-          {UIContent.Schema[language]}
+          {UIContent.DOCS[language]}
         </Fab>
       )}
     </Box>

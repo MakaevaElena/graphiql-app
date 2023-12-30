@@ -34,6 +34,12 @@ export const sectionHeading: SxProps<Theme> = {
   padding: '1rem',
 };
 
+export const returnTitle: SxProps<Theme> = {
+  ...sectionHeading,
+  borderBottom: 'none',
+  fontSize: '1.5rem',
+};
+
 export const sectionSubHeading: SxProps<Theme> = {
   width: '100%',
   fontSize: '2rem',
