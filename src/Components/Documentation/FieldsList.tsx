@@ -17,6 +17,7 @@ import {
   wrapperDocsSection,
   wrapperNextDocsSection,
 } from './styles';
+import styles from './styles.module.scss';
 import { Field, Type } from '../../common-types/schema.types';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { useState } from 'react';
@@ -55,102 +56,105 @@ const FieldsList: React.FC<FieldsListProps> = ({
   const isMobileView = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <>
-      <Box sx={wrapperDocsSection}>
-        {currentFiledType && (
-          <Box
-            sx={
-              isMobileView
-                ? Object.assign(
-                    {},
-                    wrapperNextDocsSection,
-                    sectionIsOpen ? showBlock : hideBlock
-                  )
-                : wrapperNextDocsSection
+    <Box sx={wrapperDocsSection}>
+      {currentFiledType && (
+        <Box
+          sx={
+            isMobileView
+              ? Object.assign(
+                  {},
+                  wrapperNextDocsSection,
+                  sectionIsOpen ? showBlock : hideBlock
+                )
+              : wrapperNextDocsSection
+          }
+        >
+          <Typography sx={sectionHeading} variant="h4">
+            {UIContent[DOCS_HEADERS.Type_details][language]}
+          </Typography>
+
+          <Typography sx={sectionSubHeading}>
+            {currentFiled.description}
+          </Typography>
+
+          <Typography
+            variant="subtitle1"
+            sx={exampleText}
+          >{`type ${currentFiledType} {`}</Typography>
+
+          {Object.values(types as Type[]).map((type) => {
+            if (
+              type.name.startsWith('__') ||
+              type.kind !== DocsFiedsTypes.OBJECT.toString()
+            ) {
+              return null;
             }
-          >
-            <Typography sx={sectionHeading} variant="h4">
-              {UIContent[DOCS_HEADERS.Type_details][language]}
-            </Typography>
+            if (type.name === currentFiledType) {
+              return type.fields?.map((field: Field, k: number) => {
+                const fieldType = getFieldTypeName(field);
 
-            <Typography sx={sectionSubHeading}>
-              {currentFiled.description}
-            </Typography>
+                return (
+                  <Box
+                    key={k}
+                    sx={
+                      isMobileView
+                        ? Object.assign(
+                            {},
+                            wrapperDocsSection,
+                            activeDocsLink === field.name && activePoint
+                          )
+                        : wrapperDocsSection
+                    }
+                    className={`${styles.queryLine}`}
+                    onClick={() => {
+                      if (typeof fieldType === 'string')
+                        handlerOpenTypes(field, fieldType);
+                    }}
+                  >
+                    <Typography sx={schemaHeading} variant="h4">
+                      {`${field.name}: ${
+                        typeof fieldType === 'string' ? fieldType : 'unknown'
+                      }`}
+                    </Typography>
 
-            <Typography
-              variant="subtitle1"
-              sx={exampleText}
-            >{`type ${currentFiledType} {`}</Typography>
-
-            {Object.values(types as Type[]).map((type) => {
-              if (
-                type.name.startsWith('__') ||
-                type.kind !== DocsFiedsTypes.OBJECT.toString()
-              ) {
-                return null;
-              }
-              if (type.name === currentFiledType) {
-                return type.fields?.map((field: Field, k: number) => {
-                  const fieldType = getFieldTypeName(field);
-
-                  return (
-                    <Box
-                      key={k}
-                      sx={Object.assign(
-                        {},
-                        wrapperDocsSection,
-                        activeDocsLink === field.name && activePoint
-                      )}
-                      onClick={() => {
-                        if (typeof fieldType === 'string')
-                          handlerOpenTypes(field, fieldType);
-                      }}
-                    >
-                      <Typography sx={schemaHeading} variant="h4">
-                        {`${field.name}: ${
-                          typeof fieldType === 'string' ? fieldType : 'unknown'
-                        }`}
-                      </Typography>
-
-                      {(field.args.length > 0 || fieldType) && (
-                        <IconButton>
-                          <KeyboardArrowRightIcon />
-                        </IconButton>
-                      )}
-                    </Box>
-                  );
-                });
-              }
-            })}
-            <Typography variant="subtitle1" sx={exampleText}>{`}`}</Typography>
-          </Box>
-        )}
-
-        {currentNextFiledType && (
-          <Box
-            sx={
-              isMobileView
-                ? Object.assign(
-                    {},
-                    wrapperDocsSection,
-                    sectionIsOpen ? hideBlock : showBlock
-                  )
-                : wrapperDocsSection
+                    {(field.args.length > 0 || fieldType) && (
+                      <IconButton>
+                        <KeyboardArrowRightIcon />
+                      </IconButton>
+                    )}
+                  </Box>
+                );
+              });
             }
-          >
-            <Box sx={flexColumnCenter}>
-              <FieldsList
-                currentFiledType={currentNextFiledType}
-                currentFiled={currentNextFiled}
-                types={types}
-              />
+          })}
+          <Typography variant="subtitle1" sx={exampleText}>{`}`}</Typography>
+        </Box>
+      )}
 
-              <ArgsList currentFiled={currentNextFiled} />
-            </Box>
-          </Box>
-        )}
-      </Box>
-    </>
+      {currentNextFiledType && (
+        <Box
+          sx={
+            isMobileView
+              ? Object.assign(
+                  {},
+                  flexColumnCenter,
+                  sectionIsOpen ? hideBlock : showBlock
+                )
+              : flexColumnCenter
+          }
+        >
+          {/* <Box sx={flexColumnCenter}> */}
+          <FieldsList
+            currentFiledType={currentNextFiledType}
+            currentFiled={currentNextFiled}
+            types={types}
+          />
+
+          <ArgsList currentFiled={currentNextFiled} />
+          {/* </Box> */}
+        </Box>
+      )}
+    </Box>
   );
 };
 
