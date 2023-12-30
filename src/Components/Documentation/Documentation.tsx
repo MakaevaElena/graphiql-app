@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { Box, IconButton, Typography } from '@mui/material';
+import {
+  Box,
+  IconButton,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import {
   flexRowCenter,
   returnTitle,
@@ -28,6 +34,8 @@ const Documentation: React.FC = () => {
   const mutationType = schema?.mutationType;
   const subscriptionType = schema?.subscriptionType;
   const types = schema?.types;
+  const theme = useTheme();
+  const isMobileView = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleDocsMenu = () => {
     dispatch(setDocsIsOpen(!docsIsOpen));
@@ -44,14 +52,16 @@ const Documentation: React.FC = () => {
           {UIContent[DOCS_HEADERS.Documentation][language]}
         </Typography>
 
-        <Box sx={flexRowCenter} onClick={() => handleBackToQueries()}>
-          <IconButton>
-            <ArrowBackIosIcon />
-          </IconButton>
-          <Typography sx={returnTitle} variant="h4">
-            {`Back to QUERIES`}
-          </Typography>
-        </Box>
+        {isMobileView && (
+          <Box sx={flexRowCenter} onClick={() => handleBackToQueries()}>
+            <IconButton>
+              <ArrowBackIosIcon />
+            </IconButton>
+            <Typography sx={returnTitle} variant="h4">
+              {UIContent[DOCS_HEADERS.Back_to_queries][language]}
+            </Typography>
+          </Box>
+        )}
 
         <Box sx={wrapperDocsContent}>
           {mutationType ? (

@@ -17,6 +17,7 @@ export enum DocsFiedsTypes {
 }
 
 export const DOCS_HEADERS = {
+  Back_to_queries: 'Back_to_queries',
   Documentation: 'Documentation',
   Type_details: 'TYPE DETAILS',
   Arguments: 'ARGUMENTS',

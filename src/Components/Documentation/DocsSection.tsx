@@ -72,15 +72,11 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
             return (
               <Box
                 key={k}
-                sx={
-                  isMobileView
-                    ? Object.assign(
-                        {},
-                        wrapperDocsSection,
-                        activeDocsLink === field.name && activePoint
-                      )
-                    : wrapperDocsSection
-                }
+                sx={Object.assign(
+                  {},
+                  wrapperDocsSection,
+                  activeDocsLink === field.name && activePoint
+                )}
                 className={`${styles.queryLine}`}
                 onClick={() => {
                   if (typeof fieldType === 'string')

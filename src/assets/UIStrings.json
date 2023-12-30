@@ -151,5 +151,10 @@
   "Documentation": {
     "Ru": "ДОКУМЕНТАЦИЯ:",
     "En": "DOCUMENTATION:"
+  },
+
+  "Back_to_queries": {
+    "Ru": "В НАЧАЛО:",
+    "En": "BACK TO QUERIES:"
   }
 }
