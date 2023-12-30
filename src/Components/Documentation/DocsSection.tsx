@@ -120,8 +120,6 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
             currentFiledType={currentFiledType}
             currentFiled={currentFiled}
             types={types}
-            prevFiled={currentFiled}
-            prevFiledType={currentFiledType}
           />
 
           <ArgsList currentFiled={currentFiled} />

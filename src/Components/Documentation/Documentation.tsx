@@ -1,6 +1,11 @@
 import * as React from 'react';
-import { Box, Typography } from '@mui/material';
-import { schemaTitle, wrapperDocsContent } from './styles';
+import { Box, IconButton, Typography } from '@mui/material';
+import {
+  flexRowCenter,
+  returnTitle,
+  schemaTitle,
+  wrapperDocsContent,
+} from './styles';
 import DocsSection from './DocsSection';
 import { setDocsIsOpen } from '../../store/slices/UISlice';
 import { useDispatch } from 'react-redux';
@@ -8,11 +13,14 @@ import { useFetchSchemaQuery } from '../../api/rtk-api';
 import { useAppSelector } from '../../hooks/store';
 import { DOCS_HEADERS } from './constants';
 import { useDataContext } from '../../DataContext/useDataContext';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import UIContent from '../../assets/UIStrings.json';
+import { useState } from 'react';
 
 const Documentation: React.FC = () => {
   const dispatch = useDispatch();
   const { language } = useDataContext();
+  const [key, setKey] = useState(0);
   const docsIsOpen = useAppSelector((state) => state.UIData.docsIsOpen);
   const baseUrl = useAppSelector((store) => store.ApiData.baseUrl);
   const { data, isError } = useFetchSchemaQuery(baseUrl);
@@ -25,12 +33,26 @@ const Documentation: React.FC = () => {
     dispatch(setDocsIsOpen(!docsIsOpen));
   };
 
+  const handleBackToQueries = () => {
+    setKey(key + 1);
+  };
+
   return (
     isError || (
       <Box>
         <Typography variant="h4" sx={schemaTitle} onClick={handleDocsMenu}>
           {UIContent[DOCS_HEADERS.Documentation][language]}
         </Typography>
+
+        <Box sx={flexRowCenter} onClick={() => handleBackToQueries()}>
+          <IconButton>
+            <ArrowBackIosIcon />
+          </IconButton>
+          <Typography sx={returnTitle} variant="h4">
+            {`Back to QUERIES`}
+          </Typography>
+        </Box>
+
         <Box sx={wrapperDocsContent}>
           {mutationType ? (
             <DocsSection
@@ -48,6 +70,7 @@ const Documentation: React.FC = () => {
 
           {types ? (
             <DocsSection
+              key={key}
               heading={UIContent[DOCS_HEADERS.Queries][language]}
               types={types}
             />

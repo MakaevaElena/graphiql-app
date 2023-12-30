@@ -36,8 +36,9 @@ export const sectionHeading: SxProps<Theme> = {
 
 export const returnTitle: SxProps<Theme> = {
   ...sectionHeading,
+  color: '#535bf2',
   borderBottom: 'none',
-  fontSize: '1.5rem',
+  cursor: 'pointer',
 };
 
 export const sectionSubHeading: SxProps<Theme> = {

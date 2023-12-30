@@ -11,8 +11,8 @@ export type ArgsListProps = {
 };
 
 export type FieldsListProps = {
-  prevFiled: Field;
-  prevFiledType: string;
+  // prevFiled: Field;
+  // prevFiledType: string;
   currentFiledType: string;
   currentFiled: Field;
   types:
