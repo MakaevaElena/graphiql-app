@@ -8,11 +8,12 @@ import { updateHeaders } from '../../store/slices/querySlice';
 const HeadersEditor: FC = () => {
   const dispatch = useAppDispatch();
   const { headers } = useAppSelector((state) => state.querySlice);
+  const { isSchema } = useAppSelector((state) => state.ApiData);
 
   return (
     <CodeEditor
       extensions={[json(), linter(jsonParseLinter())]}
-      readOnly={false}
+      readOnly={!isSchema}
       codeValue={headers}
       height={'15vh'}
       minHeight={'15vh'}

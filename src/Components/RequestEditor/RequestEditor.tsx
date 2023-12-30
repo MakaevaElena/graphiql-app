@@ -1,15 +1,17 @@
 import { FC, useState } from 'react';
-import { Box, Fab } from '@mui/material';
+import { Box } from '@mui/material';
 import AutoFixHighOutlinedIcon from '@mui/icons-material/AutoFixHighOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import { btnsWrapper, cleanBtn, prettifyBtn, sectionContainer } from './styles';
-import { useAppDispatch } from '../../hooks/store';
+import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { updateQuery } from '../../store/slices/querySlice';
 import formatGraphQLQuery from '../../utils/formatGraphQLQuery';
 import CodeEditor from '../CodeEditor/CodeEditor';
+import CustomIconButton from '../CustomIconButton/CustomIconButton';
 
 const RequestEditor: FC = () => {
   const dispatch = useAppDispatch();
+  const { isSchema } = useAppSelector((state) => state.ApiData);
   const [codeValue, setCodeValue] = useState('');
 
   function onSave(value: string) {
@@ -30,14 +32,22 @@ const RequestEditor: FC = () => {
 
   return (
     <Box sx={sectionContainer} width="100%">
-      <CodeEditor readOnly={false} codeValue={codeValue} onChange={onChange} />
+      <CodeEditor
+        readOnly={!isSchema}
+        codeValue={codeValue}
+        onChange={onChange}
+      />
       <Box sx={btnsWrapper}>
-        <Fab sx={prettifyBtn} onClick={() => onSave(codeValue)}>
-          <AutoFixHighOutlinedIcon />
-        </Fab>
-        <Fab sx={cleanBtn} onClick={onClean}>
-          <DeleteForeverOutlinedIcon />
-        </Fab>
+        <CustomIconButton
+          sx={prettifyBtn}
+          onClick={() => onSave(codeValue)}
+          icon={<AutoFixHighOutlinedIcon />}
+        />
+        <CustomIconButton
+          sx={cleanBtn}
+          onClick={onClean}
+          icon={<DeleteForeverOutlinedIcon />}
+        />
       </Box>
     </Box>
   );

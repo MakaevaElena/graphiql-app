@@ -8,11 +8,12 @@ import { updateVariables } from '../../store/slices/querySlice';
 const VariablesEditor: FC = () => {
   const dispatch = useAppDispatch();
   const { variables } = useAppSelector((state) => state.querySlice);
+  const { isSchema } = useAppSelector((state) => state.ApiData);
 
   return (
     <CodeEditor
       extensions={[json(), linter(jsonParseLinter())]}
-      readOnly={false}
+      readOnly={!isSchema}
       codeValue={variables}
       height={'15vh'}
       minHeight={'15vh'}

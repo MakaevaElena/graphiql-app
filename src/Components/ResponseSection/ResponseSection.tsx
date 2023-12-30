@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useSnackbar } from 'notistack';
+import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
 import { sectionRespContainer, runBtn } from './styles';
 import CodeEditor from '../CodeEditor/CodeEditor';
 import { useLazyFetchGrathQlQuery } from '../../api/rtk-api';
@@ -10,7 +11,7 @@ import FetchingStatus from '../../common-types/fetching-status';
 import ErrorMessages from '../../assets/errorMessages.json';
 import UIStrings from '../../assets/UIStrings.json';
 import { ErrorResponse } from '../../common-types/error-types';
-import CustomButton from '../CustomButton/CustomButton';
+import CustomIconButton from '../CustomIconButton/CustomIconButton';
 
 const ResponseSection: React.FC = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -71,7 +72,11 @@ const ResponseSection: React.FC = () => {
 
   return (
     <>
-      <CustomButton sx={runBtn} onClick={getData} title="►" />
+      <CustomIconButton
+        sx={runBtn}
+        onClick={getData}
+        icon={<PlayCircleOutlineOutlinedIcon />}
+      />
       <Box sx={sectionRespContainer}>
         <CodeEditor readOnly={true} codeValue={responseValue} />
       </Box>

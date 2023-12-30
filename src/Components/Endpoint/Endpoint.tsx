@@ -6,7 +6,7 @@ import {
   submitButton,
   wrapperBaseUrl,
 } from './styles';
-import { setBaseUrl } from '../../store/slices/apiSlice';
+import { hasSchema, setBaseUrl } from '../../store/slices/apiSlice';
 import { useDispatch } from 'react-redux';
 import { useLazyFetchSchemaQuery } from '../../api/rtk-api';
 import ReplayIcon from '@mui/icons-material/Replay';
@@ -32,7 +32,7 @@ import { ErrorResponse, ErrorFetch } from '../../common-types/error-types';
 
 const Endpoint: React.FC = () => {
   const [urlInputValue, setUrlInputValue] = useState('');
-  const [docsButtonDisabled, setDocsButtonDisabled] = useState(false);
+  const [docsButtonDisabled, setDocsButtonDisabled] = useState(true);
   const [trigger, result] = useLazyFetchSchemaQuery();
   const { language } = useDataContext();
   const dispatch = useDispatch();
@@ -108,7 +108,7 @@ const Endpoint: React.FC = () => {
     const isButtonDisabled =
       !!!data || isError || !!error || !baseUrl || isFetching || isLoading;
     setDocsButtonDisabled(isButtonDisabled);
-
+    dispatch(hasSchema(!docsButtonDisabled));
     dispatch(setIsLoadingSchema(isLoading || isFetching));
   }, [
     dispatch,
@@ -118,6 +118,7 @@ const Endpoint: React.FC = () => {
     result,
     baseUrl,
     result.isLoading,
+    docsButtonDisabled,
   ]);
 
   return (
