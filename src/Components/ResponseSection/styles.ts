@@ -8,6 +8,22 @@ export const sectionRespContainer: SxProps<Theme> = {
   background: '#2e3440',
 };
 
+export const buttonWrapperBasic: SxProps<Theme> = {
+  position: 'absolute',
+  marginTop: '1rem',
+  top: 0,
+};
+
+export const buttonWrapper: SxProps<Theme> = {
+  ...buttonWrapperBasic,
+  left: 0,
+};
+
+export const buttonWrapperMobile: SxProps<Theme> = {
+  ...buttonWrapperBasic,
+  right: '2.3rem',
+};
+
 export const runBtn: SxProps<Theme> = {
   borderRadius: '0.5rem',
   width: '4rem',
