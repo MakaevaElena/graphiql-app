@@ -21,7 +21,7 @@ export const buttonWrapper: SxProps<Theme> = {
 
 export const buttonWrapperMobile: SxProps<Theme> = {
   ...buttonWrapperBasic,
-  right: '2.3rem',
+  right: '3.3rem',
 };
 
 export const runBtn: SxProps<Theme> = {
@@ -32,7 +32,6 @@ export const runBtn: SxProps<Theme> = {
   background: theme.palette.text.primary,
   position: 'absolute',
   zIndex: 30,
-  right: 10,
 
   '&:hover': {
     bgcolor: '#f1ebe5',
