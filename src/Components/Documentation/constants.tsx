@@ -25,3 +25,5 @@ export const DOCS_HEADERS = {
   Subscription: 'Subscription:',
   Queries: 'Queries:',
 } as const;
+
+export const ROOT_QUERY_TYPE = 'Query';

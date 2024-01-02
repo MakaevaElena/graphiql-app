@@ -21,7 +21,11 @@ import { useState } from 'react';
 import styles from './styles.module.scss';
 import FieldsList from './FieldsList';
 import ArgsList from './ArgsList';
-import { DEFAULT_CURRENT_FIELD, DocsFiedsTypes } from './constants';
+import {
+  DEFAULT_CURRENT_FIELD,
+  DocsFiedsTypes,
+  ROOT_QUERY_TYPE,
+} from './constants';
 import { DocsSectionProps } from './Documentation.types';
 import { getFieldTypeName } from '../../utils/getFieldTypeName';
 
@@ -41,7 +45,7 @@ const DocsSection: React.FC<DocsSectionProps> = ({ heading, types }) => {
   };
 
   const queries = Object.values(types as Type[]).find(
-    (el) => el.name === 'Query'
+    (el) => el.name === ROOT_QUERY_TYPE
   );
   const fields = queries?.fields;
 
