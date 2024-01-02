@@ -62,6 +62,21 @@ theme = createTheme(theme, {
         },
       },
     },
+    MuiSwitch: {
+      styleOverrides: {
+        root: {
+          '&.Mui-checked': {
+            color: '#bfeb61',
+          },
+          '&.Mui-checked + .MuiSwitch-track': {
+            backgroundColor: '#bfeb61',
+          },
+        },
+        track: {
+          backgroundColor: '#535bf2',
+        },
+      },
+    },
   },
 });
 
