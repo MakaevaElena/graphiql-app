@@ -139,7 +139,12 @@ const Endpoint: React.FC = () => {
         helperText={formik.touched.baseUrl && formik.errors.baseUrl}
         autoFocus
       />
-      <Fab sx={submitButton} type="submit" disabled={!formik.isValid}>
+      <Fab
+        sx={submitButton}
+        type="submit"
+        disabled={!formik.isValid}
+        role="submitButton"
+      >
         <ReplayIcon />
       </Fab>
       {isLoadingSchema ? (
