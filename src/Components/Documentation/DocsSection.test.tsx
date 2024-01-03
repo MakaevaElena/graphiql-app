@@ -45,22 +45,33 @@ describe('Documentation', () => {
     expect(point).toBeInTheDocument();
   });
 
-  test('open SubSection', () => {
+  test('open SubSection', async () => {
     render(<TestComponent />);
     const point = screen.getByText('character(...): Character');
     expect(point).toBeInTheDocument();
 
+    let subSectionDescription = screen.queryByText(
+      'Get a specific character by ID'
+    );
+    expect(subSectionDescription).not.toBeInTheDocument();
+
+    let subSectionArguments = screen.queryByText('ARGUMENTS');
+    expect(subSectionArguments).not.toBeInTheDocument();
+
+    let subSectionDetails = screen.queryByText('name: String');
+    expect(subSectionDetails).not.toBeInTheDocument();
+
     fireEvent.click(point);
 
-    const subSectionDescription = screen.getByText(
+    subSectionDescription = await screen.findByText(
       'Get a specific character by ID'
     );
     expect(subSectionDescription).toBeInTheDocument();
 
-    const subSectionArguments = screen.getByText('ARGUMENTS');
+    subSectionArguments = await screen.findByText('ARGUMENTS');
     expect(subSectionArguments).toBeInTheDocument();
 
-    const subSectionDetails = screen.getByText('name: String');
+    subSectionDetails = await screen.findByText('name: String');
     expect(subSectionDetails).toBeInTheDocument();
   });
 });

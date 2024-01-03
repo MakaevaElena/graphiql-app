@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import Language from '../../enum/language';
 import { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
@@ -40,9 +40,7 @@ describe('Loading Schema', () => {
 
     fireEvent.click(submitButton);
 
-    await waitFor(() => {
-      const docsButton = screen.getByText('DOCS');
-      expect(docsButton).toBeInTheDocument();
-    });
+    const docsButton = await screen.findByText('DOCS');
+    expect(docsButton).toBeInTheDocument();
   });
 });
