@@ -5,8 +5,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { DataContextProvider } from '../../DataContext/DataContextProvider';
 import { vi } from 'vitest';
 import Endpoint from './Endpoint';
-import { Provider } from 'react-redux';
 import { store } from '../../store/store';
+import { Provider } from 'react-redux';
 
 const switchLanguage = vi.fn(() => 'En');
 
