@@ -58,6 +58,9 @@ describe('Loading Schema', () => {
     const submitButton = screen.getByRole('submitButton');
     expect(submitButton).toBeInTheDocument();
 
+    // const docsButton = screen.queryByText('DOCS');
+    // expect(docsButton).not.toBeInTheDocument();
+
     fireEvent.click(submitButton);
 
     await waitFor(() => {
