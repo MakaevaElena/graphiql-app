@@ -11,5 +11,3 @@ describe('UISlice test', () => {
     expect(state.isLoadingSchema).toEqual(false);
   });
 });
-
-// https://bionicjulia.com/blog/writing-jest-tests-redux-toolkit-slice

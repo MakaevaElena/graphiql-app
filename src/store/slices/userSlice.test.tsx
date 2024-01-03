@@ -9,5 +9,3 @@ describe('userSlice test', () => {
     });
   });
 });
-
-// https://bionicjulia.com/blog/writing-jest-tests-redux-toolkit-slice

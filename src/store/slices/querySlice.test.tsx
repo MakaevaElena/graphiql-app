@@ -17,5 +17,3 @@ describe('querySlice test', () => {
     expect(state.variables).toEqual(Storage.recallEndpoint() || '');
   });
 });
-
-// https://bionicjulia.com/blog/writing-jest-tests-redux-toolkit-slice

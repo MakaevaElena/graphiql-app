@@ -37,15 +37,4 @@ describe('Documentation', () => {
     const title = screen.getByText('DOCUMENTATION:');
     expect(title).toBeInTheDocument();
   });
-
-  // test('render mobile back button', () => {
-  //   vi.stubGlobal('maxWidth', 320);
-
-  //   act(() => {
-  //     render(<TestComponent />);
-  //   });
-
-  //   expect(window.innerWidth).toEqual(320);
-  //   expect(screen.getByText('BACK TO QUERIES:')).toBeVisible();
-  // });
 });
