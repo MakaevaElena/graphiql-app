@@ -17,3 +17,5 @@ describe('apiSlice test', () => {
     expect(state.isSchema).toEqual(false);
   });
 });
+
+// https://bionicjulia.com/blog/writing-jest-tests-redux-toolkit-slice
