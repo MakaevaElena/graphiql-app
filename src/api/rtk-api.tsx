@@ -40,8 +40,6 @@ export const rtkqApi = createApi({
 
     fetchGrathQl: builder.query<ApiRequest, IRequestData>({
       query: ({ baseUrl, query, variables, requestHeaders }) => {
-        console.log('baseUrl: ', baseUrl);
-
         const parsedHeaders = JSON.parse(
           requestHeaders || '{}'
         ) as IRequestHeaders;

@@ -15,8 +15,9 @@ import { useDataContext } from '../../DataContext/useDataContext';
 import FetchingStatus from '../../common-types/fetching-status';
 import ErrorMessages from '../../assets/errorMessages.json';
 import UIStrings from '../../assets/UIStrings.json';
-import { ErrorResponse } from '../../common-types/error-types';
 import CustomIconButton from '../CustomIconButton/CustomIconButton';
+import { SerializedError } from '@reduxjs/toolkit';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 const ResponseSection: React.FC = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -35,16 +36,28 @@ const ResponseSection: React.FC = () => {
 
   useEffect(() => {
     const { data, status, isError, error } = result;
+
     if (isError) {
-      const errorMessage =
-        (error as ErrorResponse)?.data?.errors[0]?.message ||
-        `${ErrorMessages.ERROR_FETCH_DATA[language]}: ${
-          (error as ErrorResponse).status
-        }`;
-      enqueueSnackbar(`${errorMessage}`, {
-        variant: 'error',
-      });
-      setResponseValue(`${errorMessage}`);
+      if (Object.hasOwn(error, 'status')) {
+        const status = (error as FetchBaseQueryError).status;
+        const errorMessage =
+          typeof status === 'number'
+            ? `${ErrorMessages.HTTP_STATUS_CODE[language]}: ${status}`
+            : `${ErrorMessages.ERROR_FETCH_DATA[language]}: ${status}`;
+
+        enqueueSnackbar(errorMessage, {
+          variant: 'error',
+        });
+        setResponseValue(`${errorMessage}`);
+      } else {
+        const serializedError = error as SerializedError;
+        const status = `${serializedError?.code}: ${serializedError?.message}`;
+        const errorMessage = `${ErrorMessages.ERROR_FETCH_DATA[language]}: ${status}`;
+        enqueueSnackbar(errorMessage, {
+          variant: 'error',
+        });
+        setResponseValue(`${errorMessage}`);
+      }
     } else if (status.toString() === FetchingStatus.FULFILLED) {
       setResponseValue(JSON.stringify(data, null, 2));
     }

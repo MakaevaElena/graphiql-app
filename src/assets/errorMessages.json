@@ -100,5 +100,10 @@
   "CHECK_VARIABLES_FORMAT": {
     "Ru": "Неверный формат переменных",
     "En": "Wrong format of variables"
+  },
+
+  "HTTP_STATUS_CODE": {
+    "Ru": "Код состояния HTTP",
+    "En": "HTTP status code"
   }
 }
