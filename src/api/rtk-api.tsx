@@ -49,9 +49,7 @@ export const rtkqApi = createApi({
           ...parsedHeaders,
         };
 
-        const parsedVariables: IRequestHeaders = variables
-          ? (JSON.parse(variables) as IRequestHeaders)
-          : (JSON.parse('{}') as IRequestHeaders);
+        const parsedVariables = JSON.parse(variables ?? {}) as IRequestHeaders;
 
         return {
           url: `${baseUrl}`,
