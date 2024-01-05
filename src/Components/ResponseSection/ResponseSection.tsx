@@ -36,13 +36,12 @@ const ResponseSection: React.FC = () => {
   useEffect(() => {
     const { data, status, isError, error } = result;
     if (isError) {
-      console.log('Error happend!');
       const errorMessage =
         (error as ErrorResponse)?.data?.errors[0]?.message ||
         `${ErrorMessages.ERROR_FETCH_DATA[language]}: ${
           (error as ErrorResponse).status
         }`;
-      enqueueSnackbar(`${errorMessage}-here we are`, {
+      enqueueSnackbar(`${errorMessage}`, {
         variant: 'error',
       });
       setResponseValue(`${errorMessage}`);
