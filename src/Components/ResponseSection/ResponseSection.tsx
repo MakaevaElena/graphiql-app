@@ -36,12 +36,13 @@ const ResponseSection: React.FC = () => {
   useEffect(() => {
     const { data, status, isError, error } = result;
     if (isError) {
+      console.log('Error happend!');
       const errorMessage =
         (error as ErrorResponse)?.data?.errors[0]?.message ||
         `${ErrorMessages.ERROR_FETCH_DATA[language]}: ${
           (error as ErrorResponse).status
         }`;
-      enqueueSnackbar(`${errorMessage}`, {
+      enqueueSnackbar(`${errorMessage}-here we are`, {
         variant: 'error',
       });
       setResponseValue(`${errorMessage}`);
@@ -51,25 +52,37 @@ const ResponseSection: React.FC = () => {
   }, [result, language, enqueueSnackbar]);
 
   const getData = async () => {
-    if (isHeadersValid(headers)) {
-      await trigger({
-        baseUrl: baseUrl.baseUrl,
-        query,
-        variables,
-        requestHeaders: headers,
-      });
-    } else {
-      setResponseValue(ErrorMessages.ERROR_FETCH_DATA[language]);
+    if (!baseUrl.baseUrl) {
+      setResponseValue(ErrorMessages.CHECK_BASE_URL_REQUIRED[language]);
+      return;
     }
+    if (!isStringValidJSON(headers, UIStrings.Headers[language])) {
+      setResponseValue(ErrorMessages.CHECK_HEADERS_FORMAT[language]);
+      return;
+    }
+    if (!isStringValidJSON(variables, UIStrings.Variables[language])) {
+      setResponseValue(ErrorMessages.CHECK_VARIABLES_FORMAT[language]);
+      return;
+    }
+
+    await trigger({
+      baseUrl: baseUrl.baseUrl,
+      query,
+      variables,
+      requestHeaders: headers,
+    });
   };
 
-  const isHeadersValid = (headersString: string) => {
+  const isStringValidJSON = (
+    checkedString: string,
+    errorMessage: string
+  ): boolean => {
     try {
-      JSON.parse(headersString || '{}');
+      JSON.parse(checkedString || '{}');
       return true;
     } catch (error) {
       if (error instanceof Error) {
-        enqueueSnackbar(`${UIStrings.Headers[language]}: ${error.message}`, {
+        enqueueSnackbar(`${errorMessage}: ${error.message}`, {
           variant: 'error',
         });
       }
