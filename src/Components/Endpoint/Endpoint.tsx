@@ -83,6 +83,7 @@ const Endpoint: React.FC = () => {
 
     const isButtonDisabled =
       !!!data?.data || isError || isFetching || isLoading;
+
     setDocsButtonDisabled(isButtonDisabled);
     dispatch(hasSchema(!isButtonDisabled));
     dispatch(setIsLoadingSchema(isLoading || isFetching));
