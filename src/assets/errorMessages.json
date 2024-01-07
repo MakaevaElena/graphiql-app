@@ -1,0 +1,109 @@
+{
+  "BUTTON_CLOSE": {
+    "Ru": "Закрыть",
+    "En": "Close"
+  },
+  "ERROR_MESSAGE": {
+    "Ru": "Что-то пошло не так :(",
+    "En": "Something went wrong :("
+  },
+  "ERROR_AUTH_INVALID_USER": {
+    "Ru": "Пользователь с указанными учетными данными не найден!",
+    "En": "There's no user with such login & password"
+  },
+  "ERROR_AUTH_CURRENT_USER": {
+    "Ru": "Ошибка при получении данных текущего пользователя",
+    "En": "Error while getting current user's data"
+  },
+  "ERROR_LOGOUT_USER": {
+    "Ru": "Ошибка при выходе из системы. Пожалуйста, попробуйте еще раз.",
+    "En": "Logout failed. Please try again later."
+  },
+  "ERROR_404": {
+    "Ru": "Нет такой страницы!",
+    "En": "Page not found!"
+  },
+  "CHECK_NAME_FIRST_LETTER": {
+    "Ru": "Имя должно начинаться с заглавной буквы",
+    "En": "validate for first uppercased letter"
+  },
+  "CHECK_NAME_LENGTH": {
+    "Ru": "Имя слишком короткое",
+    "En": "name is too short"
+  },
+  "CHECK_NAME": {
+    "Ru": "Имя слишком короткое",
+    "En": "name is too short"
+  },
+  "CHECK_EMAIL_FORMAT": {
+    "Ru": "почтовый адрес должен быть в формате xxx@xx.xx",
+    "En": "email format need to be xxx@xx.xx"
+  },
+  "CHECK_BASE_URL_FORMAT": {
+    "Ru": "Адрес API должен быть в формате http://host:port/endpoint/",
+    "En": "BASE URL format need to be http://host:port/endpoint/"
+  },
+  "CHECK_PASSWORD_STRONG": {
+    "Ru": "пароль слишком слабый",
+    "En": "password is too weak"
+  },
+  "CHECK_PASSWORD_LENGHT": {
+    "Ru": "длина пароля не менее 8 символов",
+    "En": "password must have at least 8 symbols"
+  },
+  "CHECK_PASSWORD_FORMAT": {
+    "Ru": "пароль должен содержать 1 цифру, 1 букву, 1 спецсимвол",
+    "En": "password must contains at least 1 number, 1 letter, 1 special character"
+  },
+  "CHECK_PASSWORD_MATCH": {
+    "Ru": "пароли не совпадают",
+    "En": "passwords not match"
+  },
+  "CHECK_PASSWORD_REQUIRED": {
+    "Ru": "введите пароль",
+    "En": "password is required"
+  },
+  "CHECK_EMAIL_REQUIRED": {
+    "Ru": "введите почтовый адрес",
+    "En": "email is required"
+  },
+
+  "CHECK_BASE_URL_REQUIRED": {
+    "Ru": "Укажите адрес API",
+    "En": "API URL is required"
+  },
+
+  "CORS_ERROR": {
+    "Ru": "API не поддерживает CORS",
+    "En": "CORS ERROR"
+  },
+  "ACCSESS_DENIED": {
+    "Ru": "Доступ запрещен",
+    "En": "AccessDenied"
+  },
+
+  "ERROR_FETCH_DATA": {
+    "Ru": "Ошибка при выполнении запроса",
+    "En": "Error while fetching data"
+  },
+
+  "NO_ERROR_MESSAGE": {
+    "Ru": "",
+    "En": ""
+  },
+
+  "CHECK_HEADERS_FORMAT": {
+    "Ru": "Неверный формат заголовков",
+    "En": "Wrong format of headers"
+  },
+
+  "CHECK_VARIABLES_FORMAT": {
+    "Ru": "Неверный формат переменных",
+    "En": "Wrong format of variables"
+  },
+
+  "HTTP_STATUS_CODE": {
+    "Ru": "Код состояния HTTP",
+    "En": "HTTP status code"
+  }
+}
