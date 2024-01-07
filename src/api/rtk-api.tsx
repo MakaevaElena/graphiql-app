@@ -19,6 +19,9 @@ export const rtkqApi = createApi({
             body: {
               operationName: 'IntrospectionQuery',
               query: INTROSPECION_QUERY,
+              headers: {
+                'Content-type': 'application/json',
+              },
             },
           };
         }
